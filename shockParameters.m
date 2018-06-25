@@ -233,14 +233,14 @@ hcb.LineWidth = 1.2;
 fig = figure;
 hca = axes(fig);
 
-scatter(hca,MaV,thV,200,'.')
+scatter(hca,thV,MaV,200,'.')
 
-hca.YLim = [0,90];
+hca.XLim = [0,90];
 
 hca.Box = 'on';
 
-xlabel(hca,'$M_A$','fontsize',15,'interpreter','latex')
-ylabel(hca,'$\theta_{Bn}$ [$^{\circ}$]','fontsize',15,'interpreter','latex')
+ylabel(hca,'$M_A$','fontsize',15,'interpreter','latex')
+xlabel(hca,'$\theta_{Bn}$ [$^{\circ}$]','fontsize',15,'interpreter','latex')
 
 hca.LineWidth = 1.2;
 hca.FontSize = 14;
@@ -251,15 +251,17 @@ hcb.LineWidth = 1.2;
 fig = figure;
 hca = axes(fig);
 
-scatter(hca,thV,accEffV,200,MaV,'.')
+scatter(hca,thV,accEffV*100,200,MaV,'.')
 hca.XLim = [0,90];
+
+grid(hca,'on')
 
 hcb = colorbar(hca);
 hca.CLim(1) = 0;
 
 hca.Box = 'on';
 
-ylabel(hca,'Efficiency [$\%$]','Fontsize',15,'interpreter','latex')
+ylabel(hca,'Acceleration efficiency [$\%$]','Fontsize',15,'interpreter','latex')
 xlabel(hca,'$\theta_{Bn}$ [$^{\circ}$]','Fontsize',15,'interpreter','latex')
 
 hca.LineWidth = 1.2;
