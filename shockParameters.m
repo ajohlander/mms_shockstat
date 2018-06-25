@@ -263,6 +263,7 @@ hca.Box = 'on';
 
 ylabel(hca,'Acceleration efficiency [$\%$]','Fontsize',15,'interpreter','latex')
 xlabel(hca,'$\theta_{Bn}$ [$^{\circ}$]','Fontsize',15,'interpreter','latex')
+ylabel(hcb,'$M_A$','Fontsize',15,'interpreter','latex')
 
 hca.LineWidth = 1.2;
 hca.FontSize = 14;
