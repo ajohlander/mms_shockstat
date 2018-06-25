@@ -23,7 +23,7 @@ vg = linspace(-vlim,vlim,100);
 % plot position parameters
 axl = 0.125; % axis left
 axu = 0.06;
-axw = .73;
+axw = .71;
 axh = .87;
 cbl = axl+axw+.01;
 cbw = .03;
@@ -218,13 +218,15 @@ while tline ~= -1
 
     % fi
 	hca = irf_panel(h,'fi');
-    irf_spectrogram(hca,iPDist.omni.specrec,'donotshowcolorbar')
+    iPDistSI = iPDist;
+    iPDistSI.data = iPDist.data*1e12;
+    irf_spectrogram(hca,iPDistSI.omni.specrec,'donotshowcolorbar')
     hca.YScale = 'log';
     sh_cmap(hca,'irf')
     ylabel(hca,'Energy [eV]','fontsize',15,'interpreter','latex')
     hca.YTick = 10.^[1,2,3,4];
     hcb1 = colorbar(hca);
-    ylabel(hcb1,{'$\log{f_i}$ ';'[s$^3$\,cm$^{-6}$]'},'fontsize',15,'interpreter','latex')
+    ylabel(hcb1,{'$\log{f_i}$ ';'[s$^3$\,m$^{-6}$]'},'fontsize',14,'interpreter','latex')
 
     
     % reduced fi
@@ -249,6 +251,7 @@ while tline ~= -1
         h(jj).Layer = 'top';
         h(jj).FontSize = 15;
         h(jj).LineWidth = 1.3;
+        h(jj).YLabel.Position(1) = -0.12;
     end
     
     hcb1.LineWidth = 1.3; hcb2.LineWidth = 1.3;
