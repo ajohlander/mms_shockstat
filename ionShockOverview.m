@@ -5,7 +5,8 @@ rePlotAll = 0; % 1 to redo all
 filePath = irf_ask('Choose path for plots [%]>','filePath','../mms_shock_plots/');
 
 % wich line in shock_list.txt to start at
-startLine = 1;
+startLine = irf_ask('Start line: [%]>','startLine',1);
+stopLine = irf_ask('Stop after line: [%]>','stopLine',20000);
 
 u = irf_units;
 
@@ -32,16 +33,20 @@ cbw = .03;
 
 %% Make plot
 tline = 1;
+lineNum = 0;
 
 fid = fopen('shock_list.txt');
 
 % loop through skipped lines
 for ii = 1:startLine-1
+    lineNum = lineNum+1;
     tline = fgets(fid);
 end
 
 % super trooper looper
 while tline ~= -1
+    lineNum = lineNum+1;
+    disp(['Current line number: ',num2str(lineNum)])
     %% read line from file
     tline = fgets(fid);
     
@@ -201,14 +206,15 @@ while tline ~= -1
     irf_legend(hca,{'$B_x$';'$B_y$';'$B_z$'},[1.02,0.9],'Fontsize',15,'interpreter','latex')
     hleg = irf_legend(hca,['MMS',num2str(ic)],[0.02,0.95],'Fontsize',15,'interpreter','latex');
     hleg.BackgroundColor = 'w';
+    
     % n
     hca = irf_panel(h,'n');
     irf_plot(hca,ni)
     hold(hca,'on')
     irf_plot(hca,ne)
-    ylabel(hca,'$n$ [cm$^{-3}$]','fontsize',15,'interpreter','latex')
+    ylabel(hca,'$N$ [cm$^{-3}$]','fontsize',15,'interpreter','latex')
     hca.YLim(1) = 0;
-    irf_legend(hca,{'$n_i$';'$n_e$'},[1.02,0.9],'Fontsize',15,'interpreter','latex')
+    irf_legend(hca,{'$N_i$';'$N_e$'},[1.02,0.9],'Fontsize',15,'interpreter','latex')
     
     % Vi
 	hca = irf_panel(h,'Vi');
@@ -287,6 +293,9 @@ while tline ~= -1
     
     %% close figure
     close(h(1).Parent)
+    
+    %% end loop if requested
+    if lineNum >= stopLine; disp('Reached stop line, exiting...'); break; end
     
 end
 
