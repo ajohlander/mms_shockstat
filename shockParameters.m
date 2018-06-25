@@ -199,17 +199,15 @@ TV = TV(TV~=0);
 
 
 %% Plot simple position
-fig = figure;
-hca = axes(fig);
+figure;
+hca = subplot(1,3,1:2);
 
 scatter(hca,RV(:,1),RV(:,2),200,thV,'.')
-
 axis(hca,'equal')
 hold(hca,'on')
 
-hcb = colorbar(hca);
+hcb = colorbar(hca,'location','northoutside');
 hca.CLim = [0,90];
-
 
 % Plot Earth
 theta=0:pi/20:pi;
@@ -218,16 +216,65 @@ patch(-xEarth,yEarth,'k','edgecolor','k','Parent',hca)
 patch(xEarth,yEarth,'w','edgecolor','k','Parent',hca)
 plot(hca,[-xEarth,xEarth],[yEarth,yEarth],'k','linewidth',1.5)
 
+hca.XDir = 'reverse';
+
 xlabel(hca,'$X_{GSE}$ [$R_E$]','fontsize',15,'interpreter','latex')
 ylabel(hca,'$Y_{GSE}$ [$R_E$]','fontsize',15,'interpreter','latex')
 ylabel(hcb,'$\theta_{Bn}$ [$^{\circ}$]','fontsize',15,'interpreter','latex')
 
 hca.Box = 'on';
+hca.LineWidth = 1.2;
+hca.FontSize = 14;
+hcb.LineWidth = 1.2;
+%
+% next panel
+hca = subplot(2,3,3);
+scatter(hca,RV(:,1),RV(:,3),200,thV,'.')
+axis(hca,'equal')
+hold(hca,'on')
 
+hca.CLim = [0,90];
+
+% Plot Earth
+theta=0:pi/20:pi;
+xEarth=sin(theta);yEarth=cos(theta);
+patch(-xEarth,yEarth,'k','edgecolor','k','Parent',hca)
+patch(xEarth,yEarth,'w','edgecolor','k','Parent',hca)
+plot(hca,[-xEarth,xEarth],[yEarth,yEarth],'k','linewidth',1.5)
+
+hca.XDir = 'reverse';
+
+xlabel(hca,'$X_{GSE}$ [$R_E$]','fontsize',15,'interpreter','latex')
+ylabel(hca,'$Z_{GSE}$ [$R_E$]','fontsize',15,'interpreter','latex')
+ylabel(hcb,'$\theta_{Bn}$ [$^{\circ}$]','fontsize',15,'interpreter','latex')
+
+hca.Box = 'on';
 hca.LineWidth = 1.2;
 hca.FontSize = 14;
 hcb.LineWidth = 1.2;
 
+%
+% next panel
+hca = subplot(2,3,6);
+scatter(hca,RV(:,2),RV(:,3),200,thV,'.')
+axis(hca,'equal')
+hold(hca,'on')
+
+hca.CLim = [0,90];
+
+% Plot Earth
+theta=0:pi/20:pi;
+xEarth=sin(theta);yEarth=cos(theta);
+plot(hca,[-xEarth,xEarth],[yEarth,fliplr(yEarth)],'k','linewidth',1.5)
+
+xlabel(hca,'$Y_{GSE}$ [$R_E$]','fontsize',15,'interpreter','latex')
+ylabel(hca,'$Z_{GSE}$ [$R_E$]','fontsize',15,'interpreter','latex')
+ylabel(hcb,'$\theta_{Bn}$ [$^{\circ}$]','fontsize',15,'interpreter','latex')
+
+hca.Box = 'on';
+hca.LineWidth = 1.2;
+hca.FontSize = 14;
+hcb.LineWidth = 1.2;
 
 %% plot parameter space
 fig = figure;
