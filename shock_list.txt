@@ -92,7 +92,6 @@
 2017-12-12/19:16:13 - 2017-12-12/19:23:03, 125.0, aretino(EVA), Turbulent quasi-par shock, turbulent current sheets
 2017-12-12/19:23:03 - 2017-12-12/19:32:23, 125.0, aretino(EVA), Turbulent quasi-par shock, turbulent current sheets
 2017-12-12/19:32:23 - 2017-12-12/19:43:53, 125.0, aretino(EVA), Turbulent quasi-par shock, turbulent current sheets
-2017-12-12/20:28:23 - 2017-12-12/20:29:13, 100.0, aretino(EVA),  CS between two  SW stream having different turbulence
 2017-12-12/20:35:43 - 2017-12-12/20:40:43, 100.0, aretino(EVA),  Train of large-amplitude upstream waves/shocklets with large J
 2017-12-12/21:02:53 - 2017-12-12/21:03:33, 100.0, aretino(EVA),  Upstream steepened waves with large J 
 2017-12-12/21:45:33 - 2017-12-12/21:53:53, 125.0, aretino(EVA),  SW large-amplitude fast waves/shocklets with large J and energetic protons

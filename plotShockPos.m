@@ -22,6 +22,7 @@ patch(xEarth,yEarth,'w','edgecolor','k','Parent',hca)
 plot(hca,[-xEarth,xEarth],[yEarth,yEarth],'k','linewidth',1.5)
 
 hca.XDir = 'reverse';
+hca.YDir = 'reverse';
 
 xlabel(hca,'$X_{GSE}$ [$R_E$]','fontsize',15,'interpreter','latex')
 ylabel(hca,'$Y_{GSE}$ [$R_E$]','fontsize',15,'interpreter','latex')
