@@ -3,33 +3,20 @@
 2017-11-02/08:28:43 - 2017-11-02/08:31:03,  90.0, lavanov(EVA), Interesting Qpar bow shock with strong turbulence prior to the shock and high frequency oscilations in the MSH adjacent to BS. 
 2017-11-05/01:05:53 - 2017-11-05/01:10:03,  80.0, lavanov(EVA), Qpar Bow shock
 2017-11-08/01:26:23 - 2017-11-08/01:30:23, 110.0, seriksson(EVA),  Bow shock
-2017-11-09/22:24:13 - 2017-11-09/22:32:33, 120.0, seriksson(EVA),  Foreshock turbulence and high-energy He++
-2017-11-09/22:32:33 - 2017-11-09/22:34:53, 105.0, seriksson(EVA), Foreshock turbulence with high-energy EIS populations
-2017-11-09/22:46:13 - 2017-11-09/22:54:43, 110.0, seriksson(EVA),  Foreshock boundary with density enhancement
-2017-11-10/08:25:03 - 2017-11-10/08:26:53, 110.0, seriksson(EVA), Bow shock
 2017-11-10/08:38:23 - 2017-11-10/08:40:03, 110.0, seriksson(EVA),  Foreshock related Btot peak
 2017-11-10/20:51:23 - 2017-11-10/20:53:03,  75.0, seriksson(EVA),  Bow shock
 2017-11-10/20:55:13 - 2017-11-10/20:57:03,  75.0, seriksson(EVA),  Bow shock
 2017-11-10/21:25:43 - 2017-11-10/21:27:13,  75.0, seriksson(EVA),  Bow shock
 2017-11-10/21:32:13 - 2017-11-10/21:33:43,  75.0, seriksson(EVA),  Bow shock
-2017-11-13/11:50:53 - 2017-11-13/12:00:33, 100.0, hhiroshi(EVA), foreshock turbulence with energetic ions
-2017-11-13/17:00:33 - 2017-11-13/17:02:43, 120.0, hhiroshi(EVA), quasi-parallel shock upstream
 2017-11-13/17:02:43 - 2017-11-13/17:05:03, 130.0, hhiroshi(EVA), quasi-parallel shock with wave activity
-2017-11-13/17:05:03 - 2017-11-13/17:09:23, 120.0, hhiroshi(EVA), quasi-parallel shock downstream
 2017-11-13/17:14:33 - 2017-11-13/17:17:03,  95.0, hhiroshi(EVA), partial shock with wave activity
 2017-11-14/19:53:03 - 2017-11-14/19:54:53,  73.9, rtorbert(EVA),  Single, Qsi_Perp Bow Shock
 2017-11-14/19:54:53 - 2017-11-14/19:57:53, 168.3, rtorbert(EVA),  Single, Qsi_Perp Bow Shock
-2017-11-14/19:57:53 - 2017-11-14/19:58:43,  94.3, rtorbert(EVA),  Single, Qsi_Perp Bow Shock
-2017-11-16/12:12:23 - 2017-11-16/12:14:53,  89.0, rtorbert(EVA),  Possible HFA
 2017-11-16/12:26:53 - 2017-11-16/12:29:23, 119.0, rtorbert(EVA),  BS Xing; 
-2017-11-16/12:29:23 - 2017-11-16/12:31:53, 112.2, rtorbert(EVA),  BS Xing MS side; 
-2017-11-16/12:31:53 - 2017-11-16/12:34:23,  94.3, rtorbert(EVA),  BS Xing; MS side
 2017-11-16/12:34:23 - 2017-11-16/12:36:53, 119.0, rtorbert(EVA),  BS Xing; 
 2017-11-16/12:39:03 - 2017-11-16/12:41:03, 132.0, rtorbert(EVA),  BS Xing.
-2017-11-16/12:41:03 - 2017-11-16/12:43:23,  94.3, rtorbert(EVA),  BS Xing.
 2017-11-16/13:51:03 - 2017-11-16/13:52:33, 102.0, rtorbert(EVA),  BS Xing
 2017-11-16/13:55:53 - 2017-11-16/13:58:03, 107.1, rtorbert(EVA),  Bs Xing
-2017-11-16/13:58:03 - 2017-11-16/14:00:13, 107.1, rtorbert(EVA),  Bs Xing
 2017-11-16/14:00:13 - 2017-11-16/14:02:23, 107.1, rtorbert(EVA),  Bs Xing
 2017-11-16/14:06:03 - 2017-11-16/14:09:43, 102.0, rtorbert(EVA),  out and IN BS crossing.
 2017-11-16/14:12:13 - 2017-11-16/14:19:53,  99.0, rtorbert(EVA),  Mult. BS Xings.
@@ -95,7 +82,7 @@
 2017-12-12/20:35:43 - 2017-12-12/20:40:43, 100.0, aretino(EVA),  Train of large-amplitude upstream waves/shocklets with large J
 2017-12-12/21:02:53 - 2017-12-12/21:03:33, 100.0, aretino(EVA),  Upstream steepened waves with large J 
 2017-12-12/21:45:33 - 2017-12-12/21:53:53, 125.0, aretino(EVA),  SW large-amplitude fast waves/shocklets with large J and energetic protons
-2017-12-12/21:57:43 - 2017-12-12/22:03:53, 125.0, aretino(EVA),  SW large-amplitude fast waves/shocklets with large J an
+
 2017-12-14/21:19:13 - 2017-12-14/21:20:03, 125.0, aretino(EVA),  SW fast waves/shocklet with ion heating
 2017-12-14/21:28:23 - 2017-12-14/21:31:13, 145.0, aretino(EVA),  SW shocklets with large J high and electron and ion heating
 2017-12-14/21:58:13 - 2017-12-14/22:02:53, 125.0, aretino(EVA),  Quasi-perp shock with reflected/heated ions and strong E/B fluctuations

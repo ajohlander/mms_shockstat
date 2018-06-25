@@ -61,6 +61,9 @@ while tline ~= -1
     % read iPDist for MMSic
     try
         iPDist = mms.get_data('PDi_fpi_brst_l2',tint,ic);
+        iPDistErr = mms.get_data('PDERRi_fpi_brst_l2',tint,ic);
+        % ignore flux where count is 1
+        iPDist.data(iPDist.data<1.1*iPDistErr.data) = 0;
     catch
        disp(['error reading PDist for ',tstr,', skipping...'])
        continue;
@@ -199,7 +202,7 @@ TV = TV(TV~=0);
 
 
 %% Plot simple position
-
+plotShockPos
 
 %% plot parameter space
 fig = figure;
