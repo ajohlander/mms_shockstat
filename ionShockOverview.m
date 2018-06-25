@@ -16,7 +16,7 @@ ic = 1;
 shModel = 'farris';
 
 % for reduced distributions
-nMC = 2e1;
+nMC = 2e2;
 vlim = 800;
 vg = linspace(-vlim,vlim,100);
 
