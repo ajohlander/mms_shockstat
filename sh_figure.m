@@ -1,5 +1,5 @@
 function varargout = sh_figure(subNum,figSize)
-%ANJO.AFIGURE Quick way to call irf_plot.
+% SH_FIGURE Quick way to call irf_plot.
 %
 %   SH_FIGURE(subNum) initiates figure with number of panels subNum.
 %   Size of figure is set to 10x7 cm.
@@ -47,8 +47,6 @@ for i = 1:subNum
     end
 end
 
-%% Create dropdown menu option
-anjo.figmenu(f)
 
 
 %% Output
