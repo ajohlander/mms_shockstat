@@ -268,8 +268,8 @@ while tline ~= -1
     
     %% new title
     
-    ll = -0.1; % legend left
-    lr = 1.1; % right
+    ll = -0.14; % legend left
+    lr = 1.14; % right
     
     %descStr
     
@@ -279,8 +279,8 @@ while tline ~= -1
     irf_legend(h(1),['$\mathbf{R} = [',Rstr,']\,R_E$'],[ll,1.2],'Fontsize',15,'interpreter','latex','horizontalalignment','left')
     irf_legend(h(1),['$\mathbf{\hat{n}} = [',nstr,']$'],[lr,1.2],'Fontsize',15,'interpreter','latex','horizontalalignment','right')
    
-    irf_legend(h(1),['$\mathbf{B}_u = [',Bustr,']$\,nT,'],[ll,1.045],'Fontsize',15,'interpreter','latex','horizontalalignment','left')
-    irf_legend(h(1),['$N_u = ',Nustr,'$\,cm$^{-3}$, $V_u = ',Vustr,'$\,km/s, $M_A = ',Mastr,'$, $\theta_{Bn} = ',thstr,'^{\circ}$'],[lr,1.045],'Fontsize',15,'interpreter','latex','horizontalalignment','right')
+    irf_legend(h(1),['$\mathbf{B}_u = [',Bustr,']$\,nT,'],[ll,1.045],'Fontsize',14,'interpreter','latex','horizontalalignment','left')
+    irf_legend(h(1),['$N_u = ',Nustr,'$\,cm$^{-3}$, $V_u = ',Vustr,'$\,km/s, $M_A = ',Mastr,'$, $\theta_{Bn} = ',thstr,'^{\circ}$'],[lr,1.045],'Fontsize',14,'interpreter','latex','horizontalalignment','right')
     %% save figure
     % give it the time stamp of the start time
     irf_print_fig(h(1),[filePath,fileName(1:end-4)],'png')
