@@ -159,7 +159,8 @@ while tline ~= -1
         thBn = nan;
         Ma = nan;
         Bu = nan(1,3);
-        Nu = nan(1,3);
+        Nu = nan;
+        Vu = nan;
     end
     
     
