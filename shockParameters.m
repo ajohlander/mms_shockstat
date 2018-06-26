@@ -18,7 +18,8 @@ N = 1000;
 %TV = irf.time_array('2000-01-01T00:00:00Z',zeros(1,N));
 TV = zeros(N,1);
 MaV = zeros(N,1);
-thV = zeros(N,1);
+thBnV = zeros(N,1);
+thVnV = zeros(N,1);
 accEffV = zeros(N,1);
 RV = zeros(N,3);
 
@@ -105,12 +106,18 @@ while tline ~= -1
         if thBn>90 
             thBn = 180-thBn;
         end
+        thVn = acosd(dot(Vu,nvec)/(norm(Vu)));
+        if thVn>90 
+            thVn = 180-thVn;
+        end
+        
     else
         disp('failed to read omni data, moving on with plot...')
         thBn = nan;
         Ma = nan;
         Bu = nan(1,3);
-        Nu = nan(1,3);
+        Nu = nan;
+        Vu = nan;
     end
     
     
@@ -180,7 +187,8 @@ while tline ~= -1
     % fill arrays
     TV(count) = tint(1).epochUnix;
     MaV(count) = Ma;
-    thV(count) = thBn;
+    thBnV(count) = thBn;
+    thVnV(count) = thVn;
     accEffV(count) = accEff;
     % mean of all four
     RV(count,:) =mean((R.gseR1(:,1:3)+R.gseR2(:,1:3)+R.gseR3(:,1:3)+R.gseR4(:,1:3))/4)/u.RE*1e3;
@@ -194,7 +202,8 @@ end
 %% Clean arrays
 
 MaV = MaV(TV~=0);
-thV = thV(TV~=0);
+thBnV = thBnV(TV~=0);
+thVnV = thVnV(TV~=0);
 accEffV = accEffV(TV~=0,:);
 RV = RV(TV~=0,:);
 
@@ -208,8 +217,9 @@ plotShockPos
 fig = figure;
 hca = axes(fig);
 
-scatter(hca,thV,MaV,200,'.')
+scatter(hca,thBnV,MaV.*cosd(thVnV),200,'.')
 
+hcb = colorbar(hca);
 hca.XLim = [0,90];
 
 hca.Box = 'on';
@@ -226,7 +236,7 @@ hcb.LineWidth = 1.2;
 fig = figure;
 hca = axes(fig);
 
-scatter(hca,thV,accEffV*100,200,MaV,'.')
+scatter(hca,thBnV,accEffV*100,200,MaV.*cosd(thVnV),'.')
 hca.XLim = [0,90];
 
 grid(hca,'on')

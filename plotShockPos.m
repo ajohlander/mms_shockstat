@@ -88,7 +88,7 @@ end
 fig = figure;
 hca = axes(fig);
 
-scatter(atand(RV(:,2)./RV(:,1)),thV,200,MaV,'.')
+scatter(atand(RV(:,2)./RV(:,1)),thV,200,MaV.*cosd(thVnV),'.')
 hcb = colorbar(hca);
 
 xlabel(hca,'$\alpha$ [$^{\circ}$]','fontsize',15,'interpreter','latex')
