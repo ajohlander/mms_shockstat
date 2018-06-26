@@ -4,3 +4,9 @@
 2018-01-21/08:07:03 - 2018-01-21/08:08:23, 120.0, dturner(EVA), Young HFA
 2018-01-26/21:56:23 - 2018-01-26/21:57:33, 120.0, nahmadi(EVA), HFA
 2018-01-26/21:58:03 - 2018-01-26/21:59:03, 120.0, nahmadi(EVA), HFA
+2017-11-23/05:50:53 - 2017-11-23/05:51:23, 105.0, hhiroshi(EVA), possible SLAMS with large diffB
+2017-11-23/05:47:03 - 2017-11-23/05:49:13, 100.0, hhiroshi(EVA), quasi-parallel shock upstream with with possible SLAMS
+2017-12-15/14:21:43 - 2017-12-15/14:24:03, 125.0, lavanov(EVA), Well developed Hot Flow Anomaly 
+2017-12-15/14:56:13 - 2017-12-15/14:56:53, 120.0, lavanov(EVA), Small scale SW CSheet, significant increase in diffB current 
+2017-12-15/15:13:43 - 2017-12-15/15:14:43, 120.0, lavanov(EVA), Magnetosheath CS with number density  increase up to 100, significant enhancement in bdiffB current 
+2017-12-15/16:02:23 - 2017-12-15/16:03:53,  95.0, lavanov(EVA),  Small scale CS with Bz reversal
