@@ -1,4 +1,3 @@
-2017-10-03/17:24:33 - 2017-10-03/17:26:13, 125.0, seriksson(EVA),  Bow shock and associated strong diffB (SoP)
 2017-10-03/17:27:03 - 2017-10-03/17:31:13, 125.0, seriksson(EVA),  Bow shock related Bfield structure and diffB (SoP)
 2017-10-03/20:32:53 - 2017-10-03/20:39:13, 140.0, seriksson(EVA),  Bow shock (SoP)
 2017-10-03/20:48:43 - 2017-10-03/20:56:13, 140.0, seriksson(EVA),  Bow shock (SoP)
@@ -7,7 +6,6 @@
 2017-10-06/16:03:03 - 2017-10-06/16:05:33, 115.0, seriksson(EVA),  Bow shock
 2017-10-06/21:08:53 - 2017-10-06/21:11:33, 125.0, seriksson(EVA), Bow shock and foreshock
 2017-10-06/21:11:33 - 2017-10-06/21:14:03, 145.0, seriksson(EVA), Marginally quasi-para bow shock and foreshock region 
-2017-10-06/21:14:03 - 2017-10-06/21:15:43, 135.0, seriksson(EVA), Bow shock and foreshock
 2017-10-06/21:32:23 - 2017-10-06/21:39:13, 125.0, seriksson(EVA),  Bow shock and foreshock associated turbulence w/ strong diffB CS
 2017-10-06/22:05:43 - 2017-10-06/22:07:33, 130.0, seriksson(EVA),  Bow shock associated turbulence w/ strong diffB
 2017-10-06/22:07:33 - 2017-10-06/22:09:13, 110.0, seriksson(EVA),  Bow shock associated turbulence

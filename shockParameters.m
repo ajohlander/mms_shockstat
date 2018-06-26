@@ -22,7 +22,7 @@ thBnV = zeros(N,1);
 thVnV = zeros(N,1);
 accEffV = zeros(N,1);
 RV = zeros(N,3);
-
+sigV = zeros(N,1);
 %% Make plot
 tline = 1;
 
@@ -195,6 +195,8 @@ while tline ~= -1
     accEffV(count) = accEff;
     % mean of all four
     RV(count,:) =mean((R.gseR1(:,1:3)+R.gseR2(:,1:3)+R.gseR3(:,1:3)+R.gseR4(:,1:3))/4)/u.RE*1e3;
+    % compression factor of models
+    sigV(count) = nst.info.sig.(shModel);
     
     disp(['Actually completed one, count = ',num2str(count),' lineNumber = ',num2str(lineNumber)])
     count = count+1;
@@ -209,8 +211,13 @@ thBnV = thBnV(TV~=0);
 thVnV = thVnV(TV~=0);
 accEffV = accEffV(TV~=0,:);
 RV = RV(TV~=0,:);
+sigV = sigV(TV~=0);
 
 TV = TV(TV~=0);
+
+% angle between earth-sun line and sc position
+[alphaV,~] = cart2pol(RV(:,1),RV(:,2),RV(:,3));
+alphaV = alphaV*180/pi; % degrees
 
 N = numel(TV(~isnan(MaV)));
 
@@ -242,6 +249,8 @@ hca = axes(fig);
 scatter(hca,thBnV,accEffV*100,400,MaV.*cosd(thVnV),'.')
 hca.XLim = [0,90];
 
+sh_cmap(hca,'strangeways')
+hca.Color = [1,1,1]*.8;
 grid(hca,'on')
 
 hcb = colorbar(hca);
@@ -260,5 +269,27 @@ hleg.BackgroundColor = 'w';
 hca.LineWidth = 1.2;
 hca.FontSize = 14;
 hcb.LineWidth = 1.2;
+
+
+%% plot time
+
+fig = figure;
+hca = axes(fig);
+
+irf_plot([TV,alphaV],'.','markersize',20)
+hold(hca,'on')
+plot(hca.XLim,[0,0],'k--','linewidth',1.8)
+plot(hca.XLim,45*[1,1],'--','color',[1,1,1]*.4,'linewidth',1.2)
+plot(hca.XLim,-45*[1,1],'--','color',[1,1,1]*.4,'linewidth',1.2)
+plot(hca.XLim,90*[1,1],'--','color',[1,1,1]*.7,'linewidth',1.2)
+plot(hca.XLim,-90*[1,1],'--','color',[1,1,1]*.7,'linewidth',1.2)
+
+grid(hca,'off')
+hca.YLim = [-1,1]*110;
+
+xlabel(hca,'Time','Fontsize',15,'interpreter','latex')
+ylabel(hca,'$\alpha$ [$^{\circ}$]','Fontsize',15,'interpreter','latex')
+
+
 
 

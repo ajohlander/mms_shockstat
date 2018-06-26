@@ -88,15 +88,20 @@ end
 fig = figure;
 hca = axes(fig);
 
-scatter(atand(RV(:,2)./RV(:,1)),thBnV,200,MaV.*cosd(thVnV),'.')
+scatter(alphaV,thBnV,200,sigV,'.')
+hca.YLim = [0,90];
+hca.Color = [1,1,1]*.7;
 hcb = colorbar(hca);
+sh_cmap(hca,'bluered')
+
+title(hca,'Bow shock model scaling factor','Fontsize',15,'interpreter','latex')
 
 xlabel(hca,'$\alpha$ [$^{\circ}$]','fontsize',15,'interpreter','latex')
 ylabel(hca,'$\theta_{Bn}$ [$^{\circ}$]','fontsize',15,'interpreter','latex')
-ylabel(hcb,'$M_A$','fontsize',15,'interpreter','latex')
+ylabel(hcb,'$\sigma$','fontsize',17,'interpreter','latex')
 
 hca.Box = 'on';
 hca.LineWidth = 1.2;
 hcb.LineWidth = 1.2;
 hca.FontSize = 14;
-hca.CLim(1) = 0;
+hca.CLim = 1+[-1,1]*diff(hca.CLim)/2;
