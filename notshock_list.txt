@@ -1,16 +1,17 @@
 2017-11-16/14:12:13 - 2017-11-16/14:19:53,  99.0, rtorbert(EVA),  Mult. BS Xings.
 2017-11-19/11:31:13 - 2017-11-19/11:32:43, 112.0, rtorbert(EVA),  Poss HFA
-2017-12-15/14:24:03 - 2017-12-15/14:26:13, 100.0, lavanov(EVA), HFA 
-2018-01-21/08:07:03 - 2018-01-21/08:08:23, 120.0, dturner(EVA), Young HFA
-2018-01-26/21:56:23 - 2018-01-26/21:57:33, 120.0, nahmadi(EVA), HFA
-2018-01-26/21:58:03 - 2018-01-26/21:59:03, 120.0, nahmadi(EVA), HFA
-2017-11-23/05:50:53 - 2017-11-23/05:51:23, 105.0, hhiroshi(EVA), possible SLAMS with large diffB
 2017-11-23/05:47:03 - 2017-11-23/05:49:13, 100.0, hhiroshi(EVA), quasi-parallel shock upstream with with possible SLAMS
+2017-11-23/05:50:53 - 2017-11-23/05:51:23, 105.0, hhiroshi(EVA), possible SLAMS with large diffB
+2017-12-10/00:41:33 - 2017-12-10/00:48:13, 100.0, aretino(EVA),  Quasi-par shock crossings with alphas and possible HFA
 2017-12-15/14:21:43 - 2017-12-15/14:24:03, 125.0, lavanov(EVA), Well developed Hot Flow Anomaly 
+2017-12-15/14:24:03 - 2017-12-15/14:26:13, 100.0, lavanov(EVA), HFA 
 2017-12-15/14:56:13 - 2017-12-15/14:56:53, 120.0, lavanov(EVA), Small scale SW CSheet, significant increase in diffB current 
 2017-12-15/15:13:43 - 2017-12-15/15:14:43, 120.0, lavanov(EVA), Magnetosheath CS with number density  increase up to 100, significant enhancement in bdiffB current 
 2017-12-15/16:02:23 - 2017-12-15/16:03:53,  95.0, lavanov(EVA),  Small scale CS with Bz reversal
-2017-12-10/00:41:33 - 2017-12-10/00:48:13, 100.0, aretino(EVA),  Quasi-par shock crossings with alphas and possible HFA
+2017-12-17/17:52:23 - 2017-12-17/17:53:53, 145.0, lavanov(EVA),  Strong Interplanetary shock, number density sharp increase, magnetic field rotation, magnitude of the field in the trailing edge ~35 nT of the 
 2017-12-18/12:02:13 - 2017-12-18/12:12:33, 120.0, dturner(EVA), Foreshock transient: HFA or FB, with energetic ions
 2017-12-18/14:09:53 - 2017-12-18/14:12:03, 125.0, dturner(EVA), Foreshock transient: HFA or FB with thin current sheets
 2017-12-18/14:27:23 - 2017-12-18/14:30:43, 120.0, dturner(EVA), Foreshock transient: HFA or FB
+2018-01-21/08:07:03 - 2018-01-21/08:08:23, 120.0, dturner(EVA), Young HFA
+2018-01-26/21:56:23 - 2018-01-26/21:57:33, 120.0, nahmadi(EVA), HFA
+2018-01-26/21:58:03 - 2018-01-26/21:59:03, 120.0, nahmadi(EVA), HFA

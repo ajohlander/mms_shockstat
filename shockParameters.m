@@ -181,7 +181,9 @@ while tline ~= -1
         
         
     end
-    accEff = mean(EFen)/mean(EF);
+    % 2 alternatives, not sure which is best
+    % accEff = mean(EFen)/mean(EF);
+    accEff = mean(EFen)/(Nu*Esw*1e6);
     
     
     %% set values
