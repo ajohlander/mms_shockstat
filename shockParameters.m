@@ -106,7 +106,8 @@ while tline ~= -1
         if thBn>90 
             thBn = 180-thBn;
         end
-        thVn = acosd(dot(Vu,nvec)/(norm(Vu)));
+        % guess the solar wind is in x direction (~4 deg wrong)
+        thVn = acosd(nvec(1));
         if thVn>90 
             thVn = 180-thVn;
         end
