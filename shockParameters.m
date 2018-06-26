@@ -212,6 +212,8 @@ RV = RV(TV~=0,:);
 
 TV = TV(TV~=0);
 
+N = numel(TV(~isnan(MaV)));
+
 
 %% Plot simple position
 plotShockPos
@@ -237,19 +239,23 @@ hca.FontSize = 14;
 fig = figure;
 hca = axes(fig);
 
-scatter(hca,thBnV,accEffV*100,200,MaV.*cosd(thVnV),'.')
+scatter(hca,thBnV,accEffV*100,400,MaV.*cosd(thVnV),'.')
 hca.XLim = [0,90];
 
 grid(hca,'on')
 
 hcb = colorbar(hca);
-hca.CLim(1) = 0;
+hca.CLim = [0,25];
 
 hca.Box = 'on';
 
 ylabel(hca,'Acceleration efficiency [$\%$]','Fontsize',15,'interpreter','latex')
 xlabel(hca,'$\theta_{Bn}$ [$^{\circ}$]','Fontsize',15,'interpreter','latex')
 ylabel(hcb,'$M_A$','Fontsize',15,'interpreter','latex')
+
+title(hca,'Energy flux of ions with $E>10E_{sw}$ measured by MMS-FPI','Fontsize',15,'interpreter','latex')
+hleg = irf_legend(hca,['$N = ',num2str(N),'$'],[0.98,0.98],'Fontsize',15,'interpreter','latex');
+hleg.BackgroundColor = 'w';
 
 hca.LineWidth = 1.2;
 hca.FontSize = 14;
