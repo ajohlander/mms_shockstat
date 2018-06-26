@@ -61,7 +61,43 @@
 2017-11-25/00:51:13 - 2017-11-25/00:54:03, 110.0, hhiroshi(EVA), clean quasi-perpendicular shock
 2017-11-25/01:01:23 - 2017-11-25/01:07:23, 105.0, hhiroshi(EVA), quasi-perpendicular shock with downstream waves
 2017-11-25/01:25:03 - 2017-11-25/01:28:03, 125.0, hhiroshi(EVA), quasi-perpendicular shock with stable solar wind
+2017-11-25/23:24:53 - 2017-11-25/23:31:13, 145.0, hhiroshi(EVA), quasi-perpendicular shock with reformation signatures
+2017-11-25/23:31:13 - 2017-11-25/23:38:13, 149.0, hhiroshi(EVA), quasi-perpendicular shock with reformation signatures
+2017-11-25/23:38:13 - 2017-11-25/23:45:03, 145.0, hhiroshi(EVA), quasi-perpendicular shock with reformation signatures
+2017-11-25/23:45:03 - 2017-11-25/23:52:03, 135.0, hhiroshi(EVA), quasi-perpendicular shock with reformation signatures
+2017-11-26/00:21:43 - 2017-11-26/00:25:33, 115.0, hhiroshi(EVA), foreshock with field-aligned beam & possible SLAMS
+2017-11-26/00:27:03 - 2017-11-26/00:30:53, 120.0, hhiroshi(EVA), foreshock with field-aligned beam & possible SLAMS
+2017-11-26/00:30:53 - 2017-11-26/00:32:43, 115.0, hhiroshi(EVA), foreshock with field-aligned beam & possible SLAMS
+2017-11-28/00:45:13 - 2017-11-28/00:53:13, 110.0, hbreuillard(EVA),  Foreshock with energetic ions (10 keV) and E&B waves
+2017-11-28/00:54:43 - 2017-11-28/01:02:23, 130.0, hbreuillard(EVA),  Bow shock crossing with reformation signature
+2017-11-28/17:57:53 - 2017-11-28/18:02:23,  90.0, hbreuillard(EVA),  Low-shear quasi-perpendicular shock crossing 
+2017-11-28/18:24:43 - 2017-11-28/18:29:43, 100.0, hbreuillard(EVA),  Foreshock with reflected ions and E&B waves
+2017-11-30/16:21:43 - 2017-11-30/16:24:33,  60.0, margall(EVA), quasi-perpendicular bow shock
+2017-12-01/13:12:03 - 2017-12-01/13:16:03, 150.0, hbreuillard(EVA),  Shock crossing, possible reconnection event with high-speed jet and B null
+2017-12-01/13:20:03 - 2017-12-01/13:23:43, 150.0, hbreuillard(EVA),  Shock crossing, possible reconnection event with high-speed jet and B null
+2017-12-01/13:27:53 - 2017-12-01/13:30:13,  90.0, hbreuillard(EVA),  Partial shock crossing
+2017-12-01/13:51:03 - 2017-12-01/13:56:03,  90.0, hbreuillard(EVA),  Low-shear full Qperp shock crossing with possible jet
+2017-12-01/13:56:03 - 2017-12-01/14:03:03,  90.0, ocontel(EVA),  Low-shear full Qperp shock crossing with possible jet (possible HFA)
+2017-12-01/14:11:23 - 2017-12-01/14:15:53,  90.0, ocontel(EVA), Qperp hock crossing with high-speed jets (possible HFA)
+2017-12-01/14:16:23 - 2017-12-01/14:18:33,  90.0, hbreuillard(EVA),  Foreshock transient event
+2017-12-01/14:20:33 - 2017-12-01/14:22:43,  90.0, ocontel(EVA), Qperp shock crossing with foreshock reflected ions (and possible HFA)
+2017-12-01/14:27:43 - 2017-12-01/14:32:43,  90.0, ocontel(EVA),  Foreshock reflected ions, Qperp shock crossing with high-speed jets (possible HFA)
+2017-12-01/14:34:33 - 2017-12-01/14:36:13, 120.0, hbreuillard(EVA),  Qperp shock crossing with possible HFA
+2017-12-03/11:17:23 - 2017-12-03/11:22:13,  90.0, hbreuillard(EVA),  Low-shear full Qperp shock crossing with possible jet
+2017-12-03/11:25:33 - 2017-12-03/11:30:23,  90.0, hbreuillard(EVA),  Low-shear full Qperp shock crossing with field-aligned ion beams
+2017-12-04/08:18:03 - 2017-12-04/08:25:53,  80.0, margall(EVA), Quasi-perp bowshock
+2017-12-04/08:32:13 - 2017-12-04/08:36:43,  80.0, margall(EVA), Quasi-perp bowshock
+2017-12-04/08:38:53 - 2017-12-04/08:41:33,  80.0, margall(EVA), Quasi-perp bowshock
+2017-12-04/08:41:33 - 2017-12-04/08:46:53, 100.0, margall(EVA), Foreshock
+2017-12-04/08:51:23 - 2017-12-04/08:54:23,  80.0, margall(EVA), Quasi-perp bowshock
+2017-12-04/09:02:23 - 2017-12-04/09:05:33,  80.0, margall(EVA), Quasi-perp bowshock
+2017-12-06/08:15:33 - 2017-12-06/08:22:03,  75.0, margall(EVA), Double bowshock crossing
+2017-12-06/08:22:03 - 2017-12-06/08:34:33, 100.0, margall(EVA), Forshock with energetic protons and shocklets or SLAMS
+2017-12-06/08:47:43 - 2017-12-06/08:54:53,  75.0, margall(EVA), Bowshock
 2017-12-07/05:45:03 - 2017-12-07/05:53:03,  80.0, margall(EVA), Bowshock
+2017-12-07/06:25:53 - 2017-12-07/06:29:13,  80.0, margall(EVA), Bowshock
+2017-12-07/06:32:23 - 2017-12-07/06:36:43,  80.0, margall(EVA), Bowshock
+2017-12-07/07:58:33 - 2017-12-07/08:09:53, 100.0, margall(EVA), SLAMS
 2017-12-10/00:38:03 - 2017-12-10/00:41:33,  75.0, aretino(EVA),  Double quasi-par shock crossing. Large J structures.
 2017-12-10/00:41:33 - 2017-12-10/00:48:13, 100.0, aretino(EVA),  Quasi-par shock crossings with alphas and possible HFA
 2017-12-10/00:50:43 - 2017-12-10/00:57:23,  75.0, aretino(EVA),  Two consecutive quasi-par shock crossings with large J and alphas. Turbulent MSH thin curren sheets
@@ -86,7 +122,6 @@
 2017-12-14/23:20:03 - 2017-12-14/23:30:33, 125.0, aretino(EVA),  Turbulent quasi-par shock, turbulent current sheets
 2017-12-15/14:13:23 - 2017-12-15/14:21:43,  85.0, lavanov(EVA), Qpar Bow shock 
 2017-12-15/15:02:13 - 2017-12-15/15:04:15,  99.0, lavanov(EVA), Qpar bow shock 
-2017-12-15/16:03:53 - 2017-12-15/16:04:33, 100.0, lavanov(EVA),  Solar wind magnetic hole
 2017-12-15/16:04:43 - 2017-12-15/16:05:53,  85.0, lavanov(EVA), Shock related turbulence
 2017-12-15/16:06:43 - 2017-12-15/16:09:43, 100.0, lavanov(EVA), Turbulent MSheath, skimming bow shock (?)
 2017-12-15/16:12:53 - 2017-12-15/16:14:13,  95.0, lavanov(EVA),  Long solar wind magnetic hole
