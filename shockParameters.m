@@ -220,7 +220,6 @@ hca = axes(fig);
 
 scatter(hca,thBnV,MaV.*cosd(thVnV),200,'.')
 
-hcb = colorbar(hca);
 hca.XLim = [0,90];
 
 hca.Box = 'on';
@@ -230,7 +229,6 @@ xlabel(hca,'$\theta_{Bn}$ [$^{\circ}$]','fontsize',15,'interpreter','latex')
 
 hca.LineWidth = 1.2;
 hca.FontSize = 14;
-hcb.LineWidth = 1.2;
 
 
 %% Plot acceleration efficiency

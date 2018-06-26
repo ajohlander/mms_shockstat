@@ -8,7 +8,7 @@ h = gobjects(1,3);
 %% xy
 hca = subplot(1,3,1:2);
 
-scatter(hca,RV(:,1),RV(:,2),200,thV,'.')
+scatter(hca,RV(:,1),RV(:,2),200,thBnV,'.')
 axis(hca,'equal')
 hold(hca,'on')
 
@@ -34,7 +34,7 @@ h(1) = hca;
 
 %% xz
 hca = subplot(2,3,3);
-scatter(hca,RV(:,1),RV(:,3),200,thV,'.')
+scatter(hca,RV(:,1),RV(:,3),200,thBnV,'.')
 axis(hca,'equal')
 hold(hca,'on')
 
@@ -56,7 +56,7 @@ h(2) = hca;
 %
 %% yz
 hca = subplot(2,3,6);
-scatter(hca,RV(:,2),RV(:,3),200,thV,'.')
+scatter(hca,RV(:,2),RV(:,3),200,thBnV,'.')
 axis(hca,'equal')
 hold(hca,'on')
 
@@ -88,7 +88,7 @@ end
 fig = figure;
 hca = axes(fig);
 
-scatter(atand(RV(:,2)./RV(:,1)),thV,200,MaV.*cosd(thVnV),'.')
+scatter(atand(RV(:,2)./RV(:,1)),thBnV,200,MaV.*cosd(thVnV),'.')
 hcb = colorbar(hca);
 
 xlabel(hca,'$\alpha$ [$^{\circ}$]','fontsize',15,'interpreter','latex')
