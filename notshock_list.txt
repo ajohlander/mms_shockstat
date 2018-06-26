@@ -2,6 +2,10 @@
 2017-11-19/11:31:13 - 2017-11-19/11:32:43, 112.0, rtorbert(EVA),  Poss HFA
 2017-11-23/05:47:03 - 2017-11-23/05:49:13, 100.0, hhiroshi(EVA), quasi-parallel shock upstream with with possible SLAMS
 2017-11-23/05:50:53 - 2017-11-23/05:51:23, 105.0, hhiroshi(EVA), possible SLAMS with large diffB
+2017-11-26/00:21:43 - 2017-11-26/00:25:33, 115.0, hhiroshi(EVA), foreshock with field-aligned beam & possible SLAMS
+2017-11-26/00:27:03 - 2017-11-26/00:30:53, 120.0, hhiroshi(EVA), foreshock with field-aligned beam & possible SLAMS
+2017-11-26/00:30:53 - 2017-11-26/00:32:43, 115.0, hhiroshi(EVA), foreshock with field-aligned beam & possible SLAMS
+2017-11-28/00:45:13 - 2017-11-28/00:53:13, 110.0, hbreuillard(EVA),  Foreshock with energetic ions (10 keV) and E&B waves
 2017-12-10/00:41:33 - 2017-12-10/00:48:13, 100.0, aretino(EVA),  Quasi-par shock crossings with alphas and possible HFA
 2017-12-15/14:21:43 - 2017-12-15/14:24:03, 125.0, lavanov(EVA), Well developed Hot Flow Anomaly 
 2017-12-15/14:24:03 - 2017-12-15/14:26:13, 100.0, lavanov(EVA), HFA 
