@@ -4,7 +4,7 @@ rePlotAll = 0; % 1 to redo all
 
 filePath = irf_ask('Choose path for plots [%]>','filePath','../mms_shock_plots/');
 
-% wich line in shock_list.txt to start at
+% which line in shock_list.txt to start at
 startLine = irf_ask('Start line: [%]>','startLine',1);
 stopLine = irf_ask('Stop after line: [%]>','stopLine',20000);
 

@@ -5,8 +5,15 @@ u = irf_units;
 % sc number
 ic = 1;
 
-% wich line in shock_list.txt to start at
-startLine = 1;
+% which line in shock_list.txt to start at
+startLine = irf_ask('Start line: [%]>','startLine',1);
+stopLine = irf_ask('Stop after line: [%]>','stopLine',20000);
+
+saveParameters = irf_ask('Save parameters? (0=no, 1=yes) [%]>','saveParameters',0);
+
+if saveParameters
+    fileName = irf_ask('File name: [%]>','fileName','shockParams');
+end
 
 % normal bs model to use (cannot be slho)
 shModel = 'farris';
@@ -28,10 +35,10 @@ tline = 1;
 
 fid = fopen('shock_list.txt');
 
-lineNumber = 0;
+lineNum = 0;
 % loop through skipped lines
 for ii = 1:startLine-1
-    lineNumber = lineNumber+1;
+    lineNum = lineNum+1;
     tline = fgets(fid);
 end
 
@@ -41,7 +48,7 @@ while tline ~= -1
 
     %% read line from file
     tline = fgets(fid);
-    lineNumber = lineNumber+1;
+    lineNum = lineNum+1;
     
     if tline(1) == -1 || ~strcmp(tline(1),'2')
         disp('done!')
@@ -198,14 +205,19 @@ while tline ~= -1
     % compression factor of models
     sigV(count) = nst.info.sig.(shModel);
     
-    disp(['Actually completed one, count = ',num2str(count),' lineNumber = ',num2str(lineNumber)])
+    disp(['Actually completed one, count = ',num2str(count),' lineNumber = ',num2str(lineNum)])
     count = count+1;
+    
+    %% end loop if requested
+    if lineNum >= stopLine; disp('Reached stop line, exiting...'); break; end
+    
     
 end
 
+disp('Done calculating parameters!')
+
 
 %% Clean arrays
-
 MaV = MaV(TV~=0);
 thBnV = thBnV(TV~=0);
 thVnV = thVnV(TV~=0);
@@ -221,6 +233,13 @@ alphaV = alphaV*180/pi; % degrees
 
 N = numel(TV(~isnan(MaV)));
 
+%% Save parameters if requested
+
+if saveParameters
+    disp('Saving parameters...')
+    save(fileName,'MaV','thBnV','thVnV','accEffV','RV','sigV','TV','alphaV','N')
+    disp('saved!')
+end
 
 %% Plot simple position
 plotShockPos
@@ -229,9 +248,10 @@ plotShockPos
 fig = figure;
 hca = axes(fig);
 
-scatter(hca,thBnV,MaV.*cosd(thVnV),200,'.')
+scatter(hca,thBnV,MaV.*cosd(thVnV),400,'.')
 
 hca.XLim = [0,90];
+hca.YLim(1) = 0;
 
 hca.Box = 'on';
 
@@ -248,6 +268,7 @@ hca = axes(fig);
 
 scatter(hca,thBnV,accEffV*100,400,MaV.*cosd(thVnV),'.')
 hca.XLim = [0,90];
+hca.YLim(1) = 0;
 
 sh_cmap(hca,'strangeways')
 hca.Color = [1,1,1]*.8;
