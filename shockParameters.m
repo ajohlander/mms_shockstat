@@ -332,7 +332,7 @@ hca = axes(fig);
 
 dthBin = 10;
 thBinEdges = 0:dthBin:90;
-histogram(hca,thBnV,thBinEdges,'FaceColor',bincol,'edgecolor',textcol);
+histogram(hca,thBnV(~isnan(MaV)),thBinEdges,'FaceColor',bincol,'edgecolor',textcol);
 
 xlabel(hca,'$\theta_{Bn}$','Fontsize',15,'interpreter','latex')
 ylabel(hca,'Number of events','Fontsize',15,'interpreter','latex')
