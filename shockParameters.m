@@ -1,4 +1,6 @@
-%% read time intervals
+% get shock parameters for all events in list
+
+%% Set parameters
 
 u = irf_units;
 
@@ -21,7 +23,7 @@ shModel = 'farris';
 % number of events (should be more than actual events)
 N = 1000;
 
-% initiate arrays
+%% initiate arrays
 %TV = irf.time_array('2000-01-01T00:00:00Z',zeros(1,N));
 TV = zeros(N,1);
 MaV = zeros(N,1);
@@ -241,6 +243,12 @@ if saveParameters
     disp('saved!')
 end
 
+%% colors for plots
+cmap = 'strangeways';
+axcol = [1,1,1]*.4;
+figcol = [1,1,1]*.2;
+textcol = [1,1,1]*.95;
+
 %% Plot simple position
 plotShockPos
 
@@ -270,12 +278,16 @@ scatter(hca,thBnV,accEffV*100,400,MaV.*cosd(thVnV),'.')
 hca.XLim = [0,90];
 hca.YLim(1) = 0;
 
-sh_cmap(hca,'strangeways')
-hca.Color = [1,1,1]*.8;
-grid(hca,'on')
+sh_cmap(hca,cmap)
+hca.Color = axcol;
+fig.Color = figcol;
+hca.XAxis.Color = textcol;
+hca.YAxis.Color = textcol;
+%grid(hca,'on')
 
 hcb = colorbar(hca);
-hca.CLim = [0,25];
+hcb.Color = textcol;
+hca.CLim = [0,20];
 
 hca.Box = 'on';
 
@@ -283,9 +295,9 @@ ylabel(hca,'Acceleration efficiency [$\%$]','Fontsize',15,'interpreter','latex')
 xlabel(hca,'$\theta_{Bn}$ [$^{\circ}$]','Fontsize',15,'interpreter','latex')
 ylabel(hcb,'$M_A$','Fontsize',15,'interpreter','latex')
 
-title(hca,'Energy flux of ions with $E>10E_{sw}$ measured by MMS-FPI','Fontsize',15,'interpreter','latex')
-hleg = irf_legend(hca,['$N = ',num2str(N),'$'],[0.98,0.98],'Fontsize',15,'interpreter','latex');
-hleg.BackgroundColor = 'w';
+title(hca,'Energy flux of ions with $E>10E_{sw}$ measured by MMS-FPI','Fontsize',15,'interpreter','latex','color',textcol)
+hleg = irf_legend(hca,['$N = ',num2str(N),'$'],[0.98,0.98],'Fontsize',15,'interpreter','latex','color',textcol);
+hleg.BackgroundColor = hca.Color;
 
 hca.LineWidth = 1.2;
 hca.FontSize = 14;
@@ -310,6 +322,50 @@ hca.YLim = [-1,1]*110;
 
 xlabel(hca,'Time','Fontsize',15,'interpreter','latex')
 ylabel(hca,'$\alpha$ [$^{\circ}$]','Fontsize',15,'interpreter','latex')
+
+%% Histogram of thetaBn
+
+bincol = [157,214,166]/255;
+
+fig = figure;
+hca = axes(fig);
+
+dthBin = 10;
+thBinEdges = 0:dthBin:90;
+histogram(hca,thBnV,thBinEdges,'FaceColor',bincol,'edgecolor',textcol);
+
+xlabel(hca,'$\theta_{Bn}$','Fontsize',15,'interpreter','latex')
+ylabel(hca,'Number of events','Fontsize',15,'interpreter','latex')
+
+hca.Color = axcol;
+fig.Color = figcol;
+hca.XAxis.Color = textcol;
+hca.YAxis.Color = textcol;
+
+hca.LineWidth = 1.2;
+hca.FontSize = 14;
+
+%% Histogram of Ma
+
+bincol = [157,214,166]/255;
+
+fig = figure;
+hca = axes(fig);
+
+dMaBin = 2;
+MaBinEdges = 0:dMaBin:60;
+histogram(hca,MaV.*cosd(thVnV),MaBinEdges,'FaceColor',bincol,'edgecolor',textcol);
+
+xlabel(hca,'$M_A$','Fontsize',15,'interpreter','latex')
+ylabel(hca,'Number of events','Fontsize',15,'interpreter','latex')
+
+hca.Color = axcol;
+fig.Color = figcol;
+hca.XAxis.Color = textcol;
+hca.YAxis.Color = textcol;
+
+hca.LineWidth = 1.2;
+hca.FontSize = 14;
 
 
 

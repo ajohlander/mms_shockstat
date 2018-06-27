@@ -19,3 +19,5 @@
 2018-01-21/08:07:03 - 2018-01-21/08:08:23, 120.0, dturner(EVA), Young HFA
 2018-01-26/21:56:23 - 2018-01-26/21:57:33, 120.0, nahmadi(EVA), HFA
 2018-01-26/21:58:03 - 2018-01-26/21:59:03, 120.0, nahmadi(EVA), HFA
+2018-01-04/12:17:53 - 2018-01-04/12:21:53,  88.0, svines(EVA), SLAMS/shocklets in foreshock region, particle energization 
+2018-02-21/11:34:23 - 2018-02-21/11:37:23, 105.0, seriksson(EVA),  BS encounter with potential weak HFA

@@ -2,13 +2,13 @@
 
 
 %% Initiate figure
-figure;
+fig = figure;
 h = gobjects(1,3);
 
 %% xy
 hca = subplot(1,3,1:2);
 
-scatter(hca,RV(:,1),RV(:,2),200,thBnV,'.')
+scatter(hca,RV(~isnan(MaV),1),RV(~isnan(MaV),2),200,thBnV(~isnan(MaV)),'.')
 axis(hca,'equal')
 hold(hca,'on')
 
@@ -34,7 +34,7 @@ h(1) = hca;
 
 %% xz
 hca = subplot(2,3,3);
-scatter(hca,RV(:,1),RV(:,3),200,thBnV,'.')
+scatter(hca,RV(~isnan(MaV),1),RV(~isnan(MaV),3),200,thBnV(~isnan(MaV)),'.')
 axis(hca,'equal')
 hold(hca,'on')
 
@@ -56,7 +56,7 @@ h(2) = hca;
 %
 %% yz
 hca = subplot(2,3,6);
-scatter(hca,RV(:,2),RV(:,3),200,thBnV,'.')
+scatter(hca,RV(~isnan(MaV),2),RV(~isnan(MaV),3),200,thBnV(~isnan(MaV)),'.')
 axis(hca,'equal')
 hold(hca,'on')
 
@@ -79,8 +79,17 @@ for ii = 1:length(h)
     h(ii).FontSize = 14;
     
     h(ii).CLim = [0,90];
+    sh_cmap(h(ii),'strangeways')
+    h(ii).Color=[1,1,1]*.3;
+    
+    h(ii).XAxis.Color = 'w';
+    h(ii).YAxis.Color = 'w';
+    h(ii).FontSize = 15;
 end
-
+fig.Color=[1,1,1]*.2;
+hcb.Color = 'w';
+hcb.FontSize = 15;
+hcb.Ticks = 0:15:90;
 
 
 %% plot angles

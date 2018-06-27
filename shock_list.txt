@@ -114,16 +114,13 @@
 2017-12-04/08:18:03 - 2017-12-04/08:25:53,  80.0, margall(EVA), Quasi-perp bowshock
 2017-12-04/08:32:13 - 2017-12-04/08:36:43,  80.0, margall(EVA), Quasi-perp bowshock
 2017-12-04/08:38:53 - 2017-12-04/08:41:33,  80.0, margall(EVA), Quasi-perp bowshock
-2017-12-04/08:41:33 - 2017-12-04/08:46:53, 100.0, margall(EVA), Foreshock
 2017-12-04/08:51:23 - 2017-12-04/08:54:23,  80.0, margall(EVA), Quasi-perp bowshock
 2017-12-04/09:02:23 - 2017-12-04/09:05:33,  80.0, margall(EVA), Quasi-perp bowshock
 2017-12-06/08:15:33 - 2017-12-06/08:22:03,  75.0, margall(EVA), Double bowshock crossing
-2017-12-06/08:22:03 - 2017-12-06/08:34:33, 100.0, margall(EVA), Forshock with energetic protons and shocklets or SLAMS
 2017-12-06/08:47:43 - 2017-12-06/08:54:53,  75.0, margall(EVA), Bowshock
 2017-12-07/05:45:03 - 2017-12-07/05:53:03,  80.0, margall(EVA), Bowshock
 2017-12-07/06:25:53 - 2017-12-07/06:29:13,  80.0, margall(EVA), Bowshock
 2017-12-07/06:32:23 - 2017-12-07/06:36:43,  80.0, margall(EVA), Bowshock
-2017-12-07/07:58:33 - 2017-12-07/08:09:53, 100.0, margall(EVA), SLAMS
 2017-12-10/00:38:03 - 2017-12-10/00:41:33,  75.0, aretino(EVA),  Double quasi-par shock crossing. Large J structures.
 2017-12-10/00:50:43 - 2017-12-10/00:57:23,  75.0, aretino(EVA),  Two consecutive quasi-par shock crossings with large J and alphas. Turbulent MSH thin curren sheets
 2017-12-10/00:59:03 - 2017-12-10/01:02:03, 100.0, aretino(EVA),  Quasi-par shock crossing with large J and alpha heating. 
@@ -162,8 +159,6 @@
 2017-12-21/08:26:03 - 2017-12-21/08:27:03, 125.0, dturner(EVA), Isolated shocklet/SLAMS in ion foreshock
 2017-12-21/08:40:53 - 2017-12-21/08:49:03, 125.0, dturner(EVA), Isolated shocklet/SLAMS and steepened ULF waves in the ion foreshock
 2017-12-21/08:57:03 - 2017-12-21/09:01:13, 125.0, dturner(EVA), Shocklet/SLAMS in the ion foreshock
-2017-12-21/09:12:33 - 2017-12-21/09:15:33, 140.0, dturner(EVA), Shocklets: Nonlinearly steepend ULF waves in ion foreshock with higher frequency ripples and symmetric Bz reversals; possible weak bipolar jets in Vz and Vy
-2017-12-21/09:59:53 - 2017-12-21/10:04:03,  99.0, dturner(EVA), Boundary of ULF foreshock
 2017-12-23/10:44:13 - 2017-12-23/10:45:23, 120.0, dturner(EVA), Quasi-perp bow shock crossing
 2017-12-23/11:26:33 - 2017-12-23/11:28:53, 115.0, dturner(EVA), Quasi-perp bow shock crossing
 2017-12-23/11:31:03 - 2017-12-23/11:34:43, 110.0, dturner(EVA), Quasi-perp bow shock crossing
@@ -193,7 +188,6 @@
 2018-01-03/17:34:13 - 2018-01-03/17:36:33,  88.0, svines(EVA), Quasi-perp bow shocks, extended interval in foot region
 2018-01-03/17:36:33 - 2018-01-03/17:38:43,  82.0, svines(EVA), Quasi-perp bow shocks, extended interval in foot region
 2018-01-03/17:52:33 - 2018-01-03/17:56:03,  86.0, svines(EVA), Quasi-perp bow shock 
-2018-01-04/12:17:53 - 2018-01-04/12:21:53,  88.0, svines(EVA), SLAMS/shocklets in foreshock region, particle energization 
 2018-01-06/13:55:43 - 2018-01-06/13:57:03, 101.0, svines(EVA), Oblique shock, higher Ma (>10 at the shock)
 2018-01-06/14:02:43 - 2018-01-06/14:04:23,  93.0, svines(EVA), Oblique/quasi-perp bow shock 
 2018-01-07/05:19:43 - 2018-01-07/05:21:53,  90.0, lavanov(EVA), Qpar bow shock 
@@ -273,7 +267,6 @@
 2018-02-20/14:36:43 - 2018-02-20/14:38:13,  99.0, seriksson(EVA),  BS and turbulent MSH CS
 2018-02-20/14:38:13 - 2018-02-20/14:39:53, 105.0, seriksson(EVA),  BS and turbulent MSH CS
 2018-02-21/09:40:53 - 2018-02-21/09:44:13, 120.0, seriksson(EVA),  Quasi-perp BS and downstream Byz MSH CS
-2018-02-21/11:34:23 - 2018-02-21/11:37:23, 105.0, seriksson(EVA),  BS encounter with potential weak HFA
 2018-02-23/12:04:13 - 2018-02-23/12:06:43,  80.0, seriksson(EVA),  Extended quasi-parallel BS for fast solar wind speed
 2018-02-23/12:06:43 - 2018-02-23/12:09:03,  90.0, seriksson(EVA),  Extended quasi-parallel BS for fast solar wind speed
 2018-02-23/12:09:03 - 2018-02-23/12:11:33,  80.0, seriksson(EVA),  Extended quasi-parallel BS for fast solar wind speed
@@ -282,7 +275,23 @@
 2018-02-26/23:43:13 - 2018-02-26/23:44:53,  80.0, dgraham(EVA), Quasi-parallel bowshock
 2018-02-27/00:06:23 - 2018-02-27/00:09:03, 120.0, dgraham(EVA), Bowshock crossing and possible HFA
 2018-03-01/01:18:03 - 2018-03-01/01:20:33, 100.0, dgraham(EVA), Bowshock crossing
-
+2018-03-01/21:31:23 - 2018-03-01/21:33:33,  80.0, dgraham(EVA), Bowshock
+2018-03-01/21:35:33 - 2018-03-01/21:37:03,  90.0, dgraham(EVA), Bowshock, large density overshoot
+2018-03-01/21:42:03 - 2018-03-01/21:43:33, 105.0, dgraham(EVA), Bowshock with density overshoot
+2018-03-04/00:41:33 - 2018-03-04/00:44:33, 125.0, dgraham(EVA), Bowshock with density overshoot, dense MSH
+2018-03-04/16:14:53 - 2018-03-04/16:22:03, 140.0, jshuster(EVA),  Bow shock encounter: magnetic field transition, sharp density gradient, strong current, electric field fluctuations, ion anisotropy Ti-parallel > Ti-perp.
+2018-03-04/16:31:13 - 2018-03-04/16:34:23, 150.0, jshuster(EVA),  Second bow shock encounter.
+2018-03-04/16:42:53 - 2018-03-04/16:47:33, 120.0, jshuster(EVA),  Skimming the bow shock again, heated ions with Ti-perp > Ti-parallel anisotropies.
+2018-03-04/16:53:53 - 2018-03-04/16:56:13, 140.0, jshuster(EVA),  Bow shock.
+2018-03-04/17:06:13 - 2018-03-04/17:07:33, 120.0, jshuster(EVA),  Another encounter with the bow shock.
+2018-03-04/17:07:33 - 2018-03-04/17:08:53, 120.0, jshuster(EVA),  Another encounter with the bow shock.
+2018-03-04/17:13:43 - 2018-03-04/17:15:53, 120.0, jshuster(EVA),  Likely skimming the bow shock again.
+2018-03-04/17:15:53 - 2018-03-04/17:18:03, 120.0, jshuster(EVA),  Likely skimming the bow shock again.
+2018-03-04/17:19:53 - 2018-03-04/17:23:03, 130.0, jshuster(EVA),  Last encounter with the bow shock on this outbound
+2018-03-07/14:26:33 - 2018-03-07/14:28:13, 110.0, jshuster(EVA),  Bow shock encounter.
+2018-03-07/14:28:13 - 2018-03-07/14:29:53, 110.0, jshuster(EVA),  Bow shock encounter.
+2018-03-09/11:02:43 - 2018-03-09/11:09:53, 100.0, jshuster(EVA),  Clean bow shock crossing with possible evidence of electron acceleration.
+2018-03-09/11:26:33 - 2018-03-09/11:32:53,  90.0, jshuster(EVA),  Likely turbulent skimming of the bow shock, depletion of magnetosheath plasma, velocity enhancements, active magnetic field fluctuations.
 
 
 
