@@ -292,6 +292,116 @@
 2018-03-07/14:28:13 - 2018-03-07/14:29:53, 110.0, jshuster(EVA),  Bow shock encounter.
 2018-03-09/11:02:43 - 2018-03-09/11:09:53, 100.0, jshuster(EVA),  Clean bow shock crossing with possible evidence of electron acceleration.
 2018-03-09/11:26:33 - 2018-03-09/11:32:53,  90.0, jshuster(EVA),  Likely turbulent skimming of the bow shock, depletion of magnetosheath plasma, velocity enhancements, active magnetic field fluctuations.
+2018-03-10/07:36:13 - 2018-03-10/07:37:23, 110.0, lavanov(EVA), Bow Shock corrsing, curlB current enhancemnt
+2018-03-10/07:44:53 - 2018-03-10/07:46:53, 100.0, lavanov(EVA), Bow shock crossing with downstream turbulent MSheath, curlB increase 
+2018-03-10/09:02:13 - 2018-03-10/09:03:53, 100.0, lavanov(EVA), Bow shock crossing with downstream turbulent MSheath 
+2018-03-10/09:22:33 - 2018-03-10/09:27:33,  80.0, lavanov(EVA), Long Qpar bow shock
+2018-03-10/10:11:23 - 2018-03-10/10:13:33,  90.0, lavanov(EVA),  Qpar bos shock with large fluctuations of the magnetic field, final exiting to the solar wind 
+2018-03-12/07:46:03 - 2018-03-12/07:47:53, 100.0, lavanov(EVA), Qpar BS, strong compression down stream,large number density, presence of accelerated alpha paricles  
+2018-03-12/07:58:03 - 2018-03-12/07:59:53, 100.0, lavanov(EVA), Clean BS crossing 
+2018-03-12/08:50:13 - 2018-03-12/08:52:13, 103.0, lavanov(EVA), Bow shock 
+2018-03-13/04:46:43 - 2018-03-13/04:48:53, 140.0, yvernisse(EVA),  Main Bow shock crossing with downstream waves
+2018-03-13/04:48:53 - 2018-03-13/04:51:03, 140.0, yvernisse(EVA),  Main Bow shock crossing with downstream waves
+2018-03-13/04:51:03 - 2018-03-13/04:53:13, 140.0, yvernisse(EVA),  Main Bow shock crossing with downstream waves
+2018-03-13/05:29:03 - 2018-03-13/05:40:13,  80.0, yvernisse(EVA),  Foreshock with SLAMMS
+2018-03-15/01:36:13 - 2018-03-15/01:38:13,  60.0, yvernisse(EVA),  Partial schock crossing
+2018-03-15/01:38:13 - 2018-03-15/01:42:23,  60.0, yvernisse(EVA),  Partial schock crossing
+2018-03-15/02:15:03 - 2018-03-15/02:16:23, 120.0, yvernisse(EVA),  Perpendicular shock crossing
+2018-03-15/02:19:13 - 2018-03-15/02:20:33, 120.0, yvernisse(EVA),  Perpendicular shock crossing
+2018-03-15/02:28:03 - 2018-03-15/02:29:03, 120.0, yvernisse(EVA),  Perpendicular shock crossing
+2018-03-15/02:33:53 - 2018-03-15/02:35:43, 100.0, yvernisse(EVA),  More complex shocks with foreshocks and dowstream fluctuations
+2018-03-15/02:35:43 - 2018-03-15/02:39:33, 100.0, yvernisse(EVA),  More complex shocks with foreshocks and dowstream fluctuations
+2018-03-15/02:40:13 - 2018-03-15/02:48:13,  90.0, yvernisse(EVA),  Quasi-parallel shocks with foreshock and SLAMMS
+2018-03-15/02:48:13 - 2018-03-15/02:53:23,  90.0, yvernisse(EVA),  Quasi-parallel shocks with foreshock and SLAMMS
+2018-03-15/03:11:43 - 2018-03-15/03:14:23, 100.0, yvernisse(EVA),  Quasi-parallel shock
+2018-03-15/03:23:23 - 2018-03-15/03:27:03, 100.0, yvernisse(EVA),  Quasi-parallel shock
+2018-03-15/03:43:33 - 2018-03-15/03:50:33, 100.0, yvernisse(EVA),  Quasi-parallel shocks with foreshock
+2018-03-15/03:50:33 - 2018-03-15/03:57:43, 100.0, yvernisse(EVA),  Quasi-parallel shocks with foreshock
+2018-03-15/04:03:23 - 2018-03-15/04:06:13, 100.0, yvernisse(EVA),  Quasi-parallel shock
+2018-03-15/04:20:13 - 2018-03-15/04:26:13, 100.0, yvernisse(EVA),  Quasi-parallel shock
+2018-03-15/23:06:43 - 2018-03-15/23:16:23, 120.0, yvernisse(EVA),  Complex quasi-parallel shock with foreshock
+2018-03-15/23:16:23 - 2018-03-15/23:26:13,  90.0, yvernisse(EVA),  Complex quasi-parallel shock with foreshock
+2018-03-15/23:26:13 - 2018-03-15/23:35:53, 120.0, yvernisse(EVA),  Complex quasi-parallel shock with foreshock
+2018-03-16/00:36:13 - 2018-03-16/00:45:53, 110.0, yvernisse(EVA),  Quasi-parallel shock with foreshock
+2018-03-16/00:45:53 - 2018-03-16/00:53:03, 110.0, yvernisse(EVA),  Quasi-parallel shock with foreshock
+2018-03-16/00:53:03 - 2018-03-16/01:02:43, 110.0, yvernisse(EVA),  Quasi-parallel shock with foreshock
+2018-03-16/01:39:53 - 2018-03-16/01:47:03, 110.0, yvernisse(EVA),  Quasi-paralle shock with foreshock
+2018-03-16/01:47:03 - 2018-03-16/01:54:23, 110.0, yvernisse(EVA),  Quasi-paralle shock with foreshock
+2018-03-16/01:54:23 - 2018-03-16/01:59:13, 110.0, yvernisse(EVA),  Quasi-paralle shock with foreshock
+2018-03-17/22:14:33 - 2018-03-17/22:17:13, 110.0, yvernisse(EVA),  Quasi-perp shock
+2018-03-17/22:20:23 - 2018-03-17/22:22:23, 110.0, yvernisse(EVA),  Quasi-perp shock
+2018-03-17/23:35:43 - 2018-03-17/23:39:43, 105.0, yvernisse(EVA),  in and out Quasi-parallel shocks
+2018-03-17/23:39:43 - 2018-03-17/23:43:43, 105.0, yvernisse(EVA),  in and out Quasi-parallel shocks
+2018-03-18/00:07:13 - 2018-03-18/00:11:53, 105.0, yvernisse(EVA),  Quasi-Parallel shock
+2018-03-18/00:11:53 - 2018-03-18/00:16:43, 105.0, yvernisse(EVA),  Quasi-Parallel shock
+2018-03-18/00:24:03 - 2018-03-18/00:27:03, 120.0, yvernisse(EVA),  Quasi-perp shock
+2018-03-18/00:29:03 - 2018-03-18/00:31:43, 120.0, yvernisse(EVA),  Quasi-perp shock
+2018-03-18/01:21:03 - 2018-03-18/01:21:53, 110.0, yvernisse(EVA),  Quasi-perp shock
+2018-03-18/01:22:23 - 2018-03-18/01:24:23, 110.0, yvernisse(EVA),  Quasi-perp shock
+2018-03-24/10:37:23 - 2018-03-24/10:41:23, 100.0, lavanov(EVA), Long Q par bow shock crossing
+2018-03-24/11:56:13 - 2018-03-24/11:58:23,  90.0, lavanov(EVA), Bow shock 
+2018-03-24/11:58:43 - 2018-03-24/12:00:03,  90.0, lavanov(EVA),  Bow Shock
+2018-03-24/12:00:53 - 2018-03-24/12:02:33,  90.0, lavanov(EVA), Bow shock 
+2018-03-24/12:04:33 - 2018-03-24/12:05:53,  90.0, lavanov(EVA), Qpar bow shock 
+2018-03-24/12:07:03 - 2018-03-24/12:08:33,  90.0, lavanov(EVA), Qpar bow shock 
+2018-03-24/12:12:23 - 2018-03-24/12:14:33,  90.0, lavanov(EVA), Qpar bow shock with upstream in the solar windHFA (?) 
+2018-03-24/12:22:33 - 2018-03-24/12:24:53, 100.0, lavanov(EVA), Intersting solar wind/bow shock, could be two Qpar shocks or two HFAs(?)Two HFAs  
+2018-03-24/12:25:43 - 2018-03-24/12:29:03, 100.0, lavanov(EVA), INteresting sloar wind/bow shock, could be two Qpar shocks or two HFAs.
+2018-03-24/12:31:33 - 2018-03-24/12:33:13, 100.0, lavanov(EVA), Qpar bow shock 
+2018-03-24/12:34:13 - 2018-03-24/12:36:23, 100.0, lavanov(EVA), Bow shock with sigificant density increase in the Msheath 
+2018-03-24/12:41:43 - 2018-03-24/12:45:33,  90.0, lavanov(EVA), Qpar bow shock 
+2018-03-24/13:10:43 - 2018-03-24/13:14:53,  80.0, lavanov(EVA), Skimming the Bow shock 
+2018-03-24/13:19:23 - 2018-03-24/13:21:43,  90.0, lavanov(EVA), Qpar bows hock 
+2018-03-24/13:25:43 - 2018-03-24/13:27:13,  90.0, lavanov(EVA), Qpar bow shock, final exiting to solar wind
+2018-03-26/06:14:23 - 2018-03-26/06:16:33, 110.0, plindqvist(EVA), Qperp bow shock
+2018-03-26/06:30:03 - 2018-03-26/06:34:13, 110.0, plindqvist(EVA), Qperp bow shock
+2018-03-26/06:43:53 - 2018-03-26/06:45:53, 110.0, plindqvist(EVA), Qperp bow shock
+2018-03-26/07:27:23 - 2018-03-26/07:30:53, 110.0, plindqvist(EVA), Qperp bow shocks
+2018-03-26/07:33:03 - 2018-03-26/07:36:43, 110.0, plindqvist(EVA), Qperp bow shock
+2018-03-27/10:59:53 - 2018-03-27/11:03:23, 100.0, plindqvist(EVA), Qperp bow shock
+2018-03-27/11:08:23 - 2018-03-27/11:12:03, 100.0, plindqvist(EVA), Qperp bow shock
+2018-03-27/11:16:33 - 2018-03-27/11:21:13,  80.0, plindqvist(EVA), Bow shocks
+2018-03-27/11:23:43 - 2018-03-27/11:26:33,  70.0, plindqvist(EVA), Bow shock
+2018-03-27/11:27:03 - 2018-03-27/11:29:23,  70.0, plindqvist(EVA), Bow shock
+2018-03-30/07:26:53 - 2018-03-30/07:33:43, 100.0, plindqvist(EVA), Very gradual Qpar bow shock (?)
+2018-04-01/01:20:23 - 2018-04-01/01:22:53, 100.0, plindqvist(EVA), Qpar bow shock
+2018-04-02/02:29:23 - 2018-04-02/02:32:03,  80.0, icohen(EVA), Quasiparallel BS crossing; weak/moderate currents
+2018-04-02/02:47:23 - 2018-04-02/02:53:23,  95.0, icohen(EVA), Well-developed SLAMS
+2018-04-02/03:10:03 - 2018-04-02/03:14:43,  75.0, icohen(EVA), Quasiparallel BS crossing
+2018-04-02/03:24:53 - 2018-04-02/03:29:53,  75.0, icohen(EVA), Extended quasiparallel BS crossings; moderate currents
+2018-04-02/03:29:53 - 2018-04-02/03:34:53,  75.0, icohen(EVA), Extended BS crossings; moderate currents
+2018-04-02/04:11:33 - 2018-04-02/04:14:53,  65.0, icohen(EVA), Extended quasiparallel BS crossing
+2018-04-02/04:17:43 - 2018-04-02/04:20:43,  65.0, icohen(EVA), Extended quasiparallel BS crossing; mweak/moderate currents
+2018-04-02/04:24:03 - 2018-04-02/04:26:23,  70.0, icohen(EVA), Extended quasiparallel BS crossing; weak/moderate currents
+2018-04-02/04:26:23 - 2018-04-02/04:28:43,  70.0, icohen(EVA), Extended BS crossing; weak/moderate currents
+2018-04-02/04:31:03 - 2018-04-02/04:33:13,  70.0, icohen(EVA), Extended quasiparallel BS crossing; weak/moderate currents
+2018-04-02/04:35:33 - 2018-04-02/04:37:53,  70.0, icohen(EVA), Extended quasiparallel BS crossing; weak/moderate currents
+2018-04-02/05:13:43 - 2018-04-02/05:15:13,  85.0, icohen(EVA), Possible SLAMs
+2018-04-02/05:15:13 - 2018-04-02/05:16:53,  85.0, icohen(EVA), Possible SLAMs
+2018-04-03/14:34:43 - 2018-04-03/14:42:03,  75.0, icohen(EVA), Extended quasiparallel BS encounter w/ possible HFAs
+2018-04-03/14:42:03 - 2018-04-03/14:49:23,  75.0, icohen(EVA), Extended quasiparallel BS encounter w/ possible HFAs
+2018-04-03/14:49:23 - 2018-04-03/14:56:43,  75.0, icohen(EVA), Extended quasiparallel BS encounter w/ possible HFAs
+2018-04-03/14:56:43 - 2018-04-03/15:01:33,  75.0, icohen(EVA), Extended quasiparallel BS encounter w/ possible HFAs
+2018-04-03/15:06:23 - 2018-04-03/15:11:13,  75.0, icohen(EVA), Extended quasiparallel BS encounter w/ possible HFAs
+2018-04-03/15:13:43 - 2018-04-03/15:21:03,  75.0, icohen(EVA), Extended quasiparallel BS encounter w/ possible HFAs
+2018-04-04/21:00:23 - 2018-04-04/21:05:43, 125.0, icohen(EVA), Multiple high (>15) Mach number oblique BS crossings
+2018-04-04/21:18:23 - 2018-04-04/21:25:33, 125.0, icohen(EVA), Multiple high (>15) Mach number oblique BS crossings with ion foreshock signatures
+2018-04-04/21:25:33 - 2018-04-04/21:32:43, 125.0, icohen(EVA), Multiple high (>15) Mach number oblique BS crossings with ion foreshock signatures
+2018-04-04/21:32:43 - 2018-04-04/21:37:23, 125.0, icohen(EVA), Multiple high (>15) Mach number oblique BS crossings with ion foreshock signatures
+2018-04-04/21:37:23 - 2018-04-04/21:42:13, 125.0, icohen(EVA), Multiple high (>15) Mach number oblique BS crossings with ion foreshock signatures
+2018-04-06/12:34:33 - 2018-04-06/12:38:03, 100.0, icohen(EVA), BS crossing or possible HFA
+2018-04-06/13:57:43 - 2018-04-06/14:00:03, 100.0, icohen(EVA), Quasiparallel BS crossing or HFA
+2018-04-06/14:30:43 - 2018-04-06/14:34:23,  75.0, icohen(EVA), Quasiparallel BS crossing
+2018-04-06/14:37:13 - 2018-04-06/14:40:13,  75.0, icohen(EVA), Multiple quasiparallel BS crossings
+2018-04-06/14:45:03 - 2018-04-06/14:51:43,  75.0, icohen(EVA), Multiple quasiparallel BS crossings
+2018-04-06/15:03:33 - 2018-04-06/15:08:23,  75.0, icohen(EVA), Quasiparallel BS crossings
+2018-04-06/15:11:33 - 2018-04-06/15:13:43,  75.0, icohen(EVA), Quasiparallel BS crossing
+2018-04-06/15:16:53 - 2018-04-06/15:18:33,  75.0, icohen(EVA), Quasiparallel BS crossing
+2018-04-06/15:20:43 - 2018-04-06/15:25:43,  75.0, icohen(EVA), Multiple quasiparallel BS crosssings
+2018-04-06/15:28:43 - 2018-04-06/15:34:33,  75.0, icohen(EVA), Multiple quasiparallel BS crossings
+2018-04-06/15:40:13 - 2018-04-06/15:42:13,  75.0, icohen(EVA), Quasiparallel BS crossing
+2018-04-06/15:44:43 - 2018-04-06/15:46:13,  40.0, icohen(EVA), Quasiparallel BS crossing
+2018-04-06/15:57:23 - 2018-04-06/16:01:13,  75.0, icohen(EVA), Multiple quasiparallel BS crossings
 
 
 
