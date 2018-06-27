@@ -248,6 +248,8 @@ cmap = 'strangeways';
 axcol = [1,1,1]*.4;
 figcol = [1,1,1]*.2;
 textcol = [1,1,1]*.95;
+col1 = [253,232,159]/255;
+col2 = [211,64,82]/255;
 
 %% Plot simple position
 plotShockPos
@@ -274,7 +276,9 @@ hca.FontSize = 14;
 fig = figure;
 hca = axes(fig);
 
+% plot events with Ma as color
 scatter(hca,thBnV,accEffV*100,400,MaV.*cosd(thVnV),'.')
+hold(hca,'on')
 hca.XLim = [0,90];
 hca.YLim(1) = 0;
 
@@ -332,7 +336,7 @@ hca = axes(fig);
 
 dthBin = 10;
 thBinEdges = 0:dthBin:90;
-histogram(hca,thBnV(~isnan(MaV)),thBinEdges,'FaceColor',bincol,'edgecolor',textcol);
+histogram(hca,thBnV,thBinEdges,'FaceColor',bincol,'edgecolor',textcol);
 
 xlabel(hca,'$\theta_{Bn}$','Fontsize',15,'interpreter','latex')
 ylabel(hca,'Number of events','Fontsize',15,'interpreter','latex')
