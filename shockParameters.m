@@ -229,9 +229,13 @@ sigV = sigV(TV~=0);
 
 TV = TV(TV~=0);
 
-% angle between earth-sun line and sc position
+% angle between earth-sun line and sc position in xy plane
 [alphaV,~] = cart2pol(RV(:,1),RV(:,2),RV(:,3));
 alphaV = alphaV*180/pi; % degrees
+
+% angle between earth-sun line and sc position
+[phiV,~] = cart2pol(RV(:,1),sqrt(RV(:,2).^2+RV(:,3).^2));
+phiV = phiV*180/pi; % degrees
 
 N = numel(TV(~isnan(MaV)));
 
@@ -306,6 +310,22 @@ hleg.BackgroundColor = hca.Color;
 hca.LineWidth = 1.2;
 hca.FontSize = 14;
 hcb.LineWidth = 1.2;
+
+%% avg
+
+% idTh = discretize(thBnV,thBinEdges);
+% accEffAvg = zeros(1,length(thBinEdges)-1);
+% accEffStd = zeros(1,length(thBinEdges)-1);
+% for ii = 1:length(thBinEdges)-1
+%     
+%     accEffAvg(ii) = nanmean(accEffV(idTh==ii));
+%     accEffStd(ii) = nanstd(accEffV(idTh==ii),1);
+%     
+% end
+% 
+% 
+% %plot(hca,thBinEdges(1:end-1)+dthBin/2,accEffAvg*100,'w-o','linewidth',2)
+% errorbar(hca,thBinEdges(1:end-1)+dthBin/2,accEffAvg*100,accEffStd*100,'w-o','linewidth',2)
 
 
 %% plot time

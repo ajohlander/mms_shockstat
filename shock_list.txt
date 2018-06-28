@@ -39,7 +39,6 @@
 2017-10-15/07:19:03 - 2017-10-15/07:21:43,  80.0, svines(EVA), Series of 2 bow shocks 
 2017-10-15/07:23:53 - 2017-10-15/07:26:03,  85.0, svines(EVA), Series of 2 bow shocks 
 2017-10-15/23:05:13 - 2017-10-15/23:07:13, 100.0, svines(EVA), Bow shock, some energetic protons upstream 
-2017-10-15/23:09:03 - 2017-10-15/23:11:03, 100.0, svines(EVA), HFA? 
 2017-10-16/00:36:23 - 2017-10-16/00:40:33,  90.0, svines(EVA), Bow shock and foreshock 
 2017-10-16/01:04:43 - 2017-10-16/01:09:03,  90.0, svines(EVA), Bow shock 
 2017-10-16/01:30:53 - 2017-10-16/01:36:03,  90.0, svines(EVA), Bow shock 
@@ -71,7 +70,6 @@
 2017-10-21/14:14:13 - 2017-10-21/14:15:53, 100.0, svines(EVA), Quasi-perp shock and downstream sheath, lower mach, steady upstream SW 
 2017-10-21/15:46:33 - 2017-10-21/15:48:23,  95.0, svines(EVA), Quasi-perp bow shock and downstream sheath, steady upstream SW, moderate Mach (~10) 
 2017-10-21/20:42:03 - 2017-10-21/20:43:13,  93.0, svines(EVA), Quasi-perp bow shock with downstream sheath, moderate mach (~10-15), steady upstream SW 
-2017-10-24/19:58:23 - 2017-10-24/20:01:03, 120.0, jshuster(EVA),  Encountering the bow shock.
 2017-10-24/20:01:03 - 2017-10-24/20:03:53, 120.0, jshuster(EVA),  Encountering the bow shock.
 2017-10-24/20:03:53 - 2017-10-24/20:06:33, 120.0, jshuster(EVA),  Encountering the bow shock.
 2017-10-27/06:30:03 - 2017-10-27/06:32:33, 100.0, jshuster(EVA),  Possible skimming of the bow-shock, interesting Bz-reversals, multiple |B| nulls, wave activity, with electron & ion temperature increases.
