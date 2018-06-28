@@ -28,3 +28,4 @@
 2018-04-05/00:08:53 - 2018-04-05/00:13:53,  85.0, icohen(EVA), Possible SLAMs
 2018-03-30/07:26:53 - 2018-03-30/07:33:43, 100.0, plindqvist(EVA), Very gradual Qpar bow shock (?)
 2018-03-16/01:47:03 - 2018-03-16/01:54:23, 110.0, yvernisse(EVA),  Quasi-paralle shock with foreshock
+2017-10-18/05:12:53 - 2017-10-18/05:15:23, 115.0, svines(EVA), Foreshock with energetic ions 

@@ -29,6 +29,74 @@
 2017-10-12/23:35:53 - 2017-10-12/23:37:43,  81.0, jburch(EVA), bows shock 
 2017-10-13/01:43:13 - 2017-10-13/01:44:53,  81.0, jburch(EVA), bow shock 
 2017-10-13/03:17:43 - 2017-10-13/03:20:33,  90.0, jburch(EVA), bow shock 
+2017-10-15/03:23:53 - 2017-10-15/03:26:53, 110.0, svines(EVA), Series of 4 bow shocks, context, quasi-perp bow shock
+2017-10-15/03:29:33 - 2017-10-15/03:31:43,  75.0, svines(EVA), Series of 4 bow shocks, context
+2017-10-15/04:29:13 - 2017-10-15/04:32:23, 100.0, svines(EVA), Quasi-perp bow shock
+2017-10-15/04:56:23 - 2017-10-15/05:00:43,  80.0, svines(EVA), Partial bow shock crossings
+2017-10-15/05:30:33 - 2017-10-15/05:35:03, 100.0, svines(EVA), Bow shock 
+2017-10-15/05:38:43 - 2017-10-15/05:41:53, 100.0, svines(EVA), Bow shock
+2017-10-15/07:10:23 - 2017-10-15/07:13:43, 100.0, svines(EVA), Bow shock, foreshock energetic ions 
+2017-10-15/07:19:03 - 2017-10-15/07:21:43,  80.0, svines(EVA), Series of 2 bow shocks 
+2017-10-15/07:23:53 - 2017-10-15/07:26:03,  85.0, svines(EVA), Series of 2 bow shocks 
+2017-10-15/23:05:13 - 2017-10-15/23:07:13, 100.0, svines(EVA), Bow shock, some energetic protons upstream 
+2017-10-15/23:09:03 - 2017-10-15/23:11:03, 100.0, svines(EVA), HFA? 
+2017-10-16/00:36:23 - 2017-10-16/00:40:33,  90.0, svines(EVA), Bow shock and foreshock 
+2017-10-16/01:04:43 - 2017-10-16/01:09:03,  90.0, svines(EVA), Bow shock 
+2017-10-16/01:30:53 - 2017-10-16/01:36:03,  90.0, svines(EVA), Bow shock 
+2017-10-18/01:09:13 - 2017-10-18/01:13:43, 125.0, svines(EVA), Quasi-||, low Mach number Bow shock, foreshock and foreshock bubble
+2017-10-18/01:22:13 - 2017-10-18/01:26:03, 125.0, svines(EVA), Bow shock and foreshock 
+2017-10-18/01:38:33 - 2017-10-18/01:41:43, 130.0, svines(EVA), Bow shock 
+2017-10-18/05:08:53 - 2017-10-18/05:12:53, 125.0, svines(EVA), Bow shock (quasi-||), foreshock with energetic ions
+2017-10-18/05:18:03 - 2017-10-18/05:21:13, 130.0, svines(EVA), Brief/partial bow shock crossings, intense ion beams upstream
+2017-10-18/05:27:43 - 2017-10-18/05:29:53, 130.0, svines(EVA), Series of bow shock crossings, energetic particles 
+2017-10-18/05:29:53 - 2017-10-18/05:32:23, 130.0, svines(EVA), Series of bow shock crossings, energetic particles 
+2017-10-18/05:32:23 - 2017-10-18/05:34:03,  84.0, svines(EVA), Series of bow shock crossings, energetic particles 
+2017-10-18/05:43:53 - 2017-10-18/05:47:33, 126.0, svines(EVA), Quasi=|| bow shock, foreshock interval with SLAMS
+2017-10-18/05:47:33 - 2017-10-18/05:51:53,  73.0, svines(EVA), Foreshock interval, some energetic ion enhancements 
+2017-10-18/06:06:13 - 2017-10-18/06:08:43, 115.0, svines(EVA), Bow shock 
+2017-10-18/06:08:43 - 2017-10-18/06:11:13, 115.0, svines(EVA), Bow shock 
+2017-10-18/06:41:43 - 2017-10-18/06:43:53, 130.0, svines(EVA), Bow shock (with some kind of transient embedded?)
+2017-10-18/07:16:23 - 2017-10-18/07:18:53, 135.0, svines(EVA), Quasi-perp bow shock 
+2017-10-18/07:31:23 - 2017-10-18/07:34:03, 125.0, svines(EVA), Bow shock and foreshock 
+2017-10-18/07:34:03 - 2017-10-18/07:36:13,  85.0, svines(EVA), Foreshock with interesting ion beams 
+2017-10-18/07:36:13 - 2017-10-18/07:39:03, 135.0, svines(EVA), Quasi-perp bow shock with interesting higher-energy ion beam
+2017-10-18/07:51:33 - 2017-10-18/07:55:13, 105.0, svines(EVA), Bow shock and foreshock 
+2017-10-18/09:19:33 - 2017-10-18/09:22:13, 130.0, svines(EVA), Bow shock, quasi-perp with low Mach number 
+2017-10-18/09:32:33 - 2017-10-18/09:35:13, 125.0, svines(EVA), Bow shock, quasi-||
+2017-10-18/12:46:13 - 2017-10-18/12:51:03, 120.0, svines(EVA), Bow shock, quasi-perp 
+2017-10-18/13:16:23 - 2017-10-18/13:20:33, 125.0, svines(EVA), Bow shock (oblique to quasi-perp
+2017-10-19/00:56:03 - 2017-10-19/00:57:53, 120.0, svines(EVA), Bow shock, quasi-perp, lower Mach number 
+2017-10-20/23:09:33 - 2017-10-20/23:11:13, 120.0, svines(EVA), Quasi-|| bow shock with foreshock, SLAMS, localized electron heating 
+2017-10-20/23:11:13 - 2017-10-20/23:15:13, 115.0, svines(EVA), Quasi-|| bow shock? with foreshock, SLAMS 
+2017-10-21/14:14:13 - 2017-10-21/14:15:53, 100.0, svines(EVA), Quasi-perp shock and downstream sheath, lower mach, steady upstream SW 
+2017-10-21/15:46:33 - 2017-10-21/15:48:23,  95.0, svines(EVA), Quasi-perp bow shock and downstream sheath, steady upstream SW, moderate Mach (~10) 
+2017-10-21/20:42:03 - 2017-10-21/20:43:13,  93.0, svines(EVA), Quasi-perp bow shock with downstream sheath, moderate mach (~10-15), steady upstream SW 
+2017-10-24/19:58:23 - 2017-10-24/20:01:03, 120.0, jshuster(EVA),  Encountering the bow shock.
+2017-10-24/20:01:03 - 2017-10-24/20:03:53, 120.0, jshuster(EVA),  Encountering the bow shock.
+2017-10-24/20:03:53 - 2017-10-24/20:06:33, 120.0, jshuster(EVA),  Encountering the bow shock.
+2017-10-27/06:30:03 - 2017-10-27/06:32:33, 100.0, jshuster(EVA),  Possible skimming of the bow-shock, interesting Bz-reversals, multiple |B| nulls, wave activity, with electron & ion temperature increases.
+2017-10-27/06:32:33 - 2017-10-27/06:39:53, 100.0, jshuster(EVA),  Possible skimming of the bow-shock, interesting Bz-reversals, multiple |B| nulls, wave activity, with electron & ion temperature increases.
+2017-10-27/06:39:53 - 2017-10-27/06:44:53, 100.0, jshuster(EVA),  Possible skimming of the bow-shock, interesting Bz-reversals, multiple |B| nulls, wave activity, with electron & ion temperature increases.
+2017-10-27/12:10:03 - 2017-10-27/12:15:03, 100.0, jshuster(EVA),  Bow shock encounter.
+2017-10-27/12:15:03 - 2017-10-27/12:20:03, 100.0, jshuster(EVA),  Bow shock encounter.
+2017-10-27/13:16:43 - 2017-10-27/13:23:03, 100.0, jshuster(EVA),  Skimming the bow shock regions.
+2017-10-27/13:23:03 - 2017-10-27/13:27:13, 100.0, jshuster(EVA),  Skimming the bow shock regions.
+2017-10-21/20:53:53 - 2017-10-21/20:55:13, 110.0, svines(EVA), Quasi-|| bow shock, more turbulent upstream SW 
+2017-10-21/20:56:43 - 2017-10-21/20:58:33, 118.0, svines(EVA), Quasi-|| bow shock (and SLAMS?) 
+2017-10-21/21:00:53 - 2017-10-21/21:03:03, 121.0, svines(EVA), Quasi-perp bow shock, lower Mach, with embedded current sheet downstream in sheath 
+2017-10-21/21:03:43 - 2017-10-21/21:07:33,  96.0, svines(EVA), Series of bow shock/partial bow shocks, quasi-perp mainly, lower Mach (~5) 
+2017-10-21/21:26:13 - 2017-10-21/21:29:03, 110.0, svines(EVA), Quasi-|| shock and foreshock, lower mach (~8) 
+2017-10-21/21:29:03 - 2017-10-21/21:32:03, 110.0, svines(EVA), Quasi-|| bow shock and foreshock, more SLAMS? 
+2017-10-21/21:40:33 - 2017-10-21/21:43:13, 112.0, svines(EVA), Quasi-|| bow shock with foreshock energetic ions, low Mach (~5 and below) 
+2017-10-21/21:48:43 - 2017-10-21/21:51:03,  98.0, svines(EVA), Quasi-perp bow shock, lower mack, some energetic particle enhancements 
+2017-10-21/22:00:03 - 2017-10-21/22:01:43,  98.0, svines(EVA), Quasi-perp bow shock, lower Mach (~8), steady upstream SW 
+2017-10-21/22:10:53 - 2017-10-21/22:13:13, 108.0, svines(EVA), Quasi-|| bow shock, lower mach (~8), less steep density and velocity gradients, high-frequency B fluctuations 
+2017-10-21/22:16:43 - 2017-10-21/22:19:03,  96.0, svines(EVA), Quasi-perp bow shock, lower Mach (~5-6) 
+2017-10-21/22:24:33 - 2017-10-21/22:27:13, 102.0, svines(EVA), Quasi-perp bow shock, embedded current sheet downstream, with energetic particle enhancements upstream 
+2017-10-21/22:41:23 - 2017-10-21/22:42:43,  90.0, svines(EVA), Quasi-perp bow shock, moderate mach 
+2017-10-21/22:44:33 - 2017-10-21/22:46:53,  98.0, svines(EVA), Quasi-perp bow shock with foreshock particles
+2017-10-21/23:11:53 - 2017-10-21/23:18:23, 110.0, svines(EVA), Quasi-perp bow shock (followed by quasi-|| shock?), intense heating and energetic ion enhancements  
+
 2017-10-30/04:24:03 - 2017-10-30/04:26:23,  90.0, lavanov(EVA), Q-perp bow shock, number density up to 60 on the MSheath side
 2017-10-30/04:38:03 - 2017-10-30/04:40:23,  90.0, lavanov(EVA), Q-perp bow shock 
 2017-10-30/04:44:33 - 2017-10-30/04:46:33,  90.0, lavanov(EVA), Q-perp bow shock 
