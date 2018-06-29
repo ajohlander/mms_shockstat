@@ -94,7 +94,6 @@
 2017-10-21/22:41:23 - 2017-10-21/22:42:43,  90.0, svines(EVA), Quasi-perp bow shock, moderate mach 
 2017-10-21/22:44:33 - 2017-10-21/22:46:53,  98.0, svines(EVA), Quasi-perp bow shock with foreshock particles
 2017-10-21/23:11:53 - 2017-10-21/23:18:23, 110.0, svines(EVA), Quasi-perp bow shock (followed by quasi-|| shock?), intense heating and energetic ion enhancements  
-
 2017-10-30/04:24:03 - 2017-10-30/04:26:23,  90.0, lavanov(EVA), Q-perp bow shock, number density up to 60 on the MSheath side
 2017-10-30/04:38:03 - 2017-10-30/04:40:23,  90.0, lavanov(EVA), Q-perp bow shock 
 2017-10-30/04:44:33 - 2017-10-30/04:46:33,  90.0, lavanov(EVA), Q-perp bow shock 
