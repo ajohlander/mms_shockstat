@@ -1,17 +1,10 @@
 %% read time intervals
 
-rePlotAll = 0; % 1 to redo all
+rePlotAll = irf_ask('Redo all plots? (0:no, 1:yes) [%]>','rePlotAll',0);
 
-filePath = irf_ask('Choose path for plots [%]>','filePath','../mms_shock_plots/');
-
-% which line in shock_list.txt to start at
-startLine = irf_ask('Start line: [%]>','startLine',1);
-stopLine = irf_ask('Stop after line: [%]>','stopLine',20000);
+filePath = irf_ask('Choose path for plots [%]>','filePath','../mms_shock_plots/ions/');
 
 u = irf_units;
-
-% sc number
-ic = 1;
 
 % normal bs model to use (cannot be slho)
 shModel = 'farris';
@@ -30,7 +23,6 @@ cbl = axl+axw+.01;
 cbw = .03;
 
 
-
 %% Make plot
 tline = 1;
 lineNum = 0;
@@ -47,6 +39,10 @@ end
 while tline ~= -1
     lineNum = lineNum+1;
     disp(['Current line number: ',num2str(lineNum)])
+    
+    %% end loop if requested
+    if lineNum >= stopLine; disp('Reached stop line, exiting...'); break; end
+    
     %% read line from file
     tline = fgets(fid);
     
@@ -294,9 +290,6 @@ while tline ~= -1
     
     %% close figure
     close(h(1).Parent)
-    
-    %% end loop if requested
-    if lineNum >= stopLine; disp('Reached stop line, exiting...'); break; end
     
 end
 
