@@ -22,9 +22,9 @@ pars = fminsearch(@Rfun,[20,1,-0.01],options);
 
 
 %%
-L = pars(1)
-eps = pars(2)
-alpha = pars(3)
+L = pars(1);
+eps = pars(2);
+alpha = pars(3);
 
 
 %% construct Rabd
@@ -51,8 +51,11 @@ hold(hca,'on')
 
 scatter(hca,Rabd(:,1),sqrt(Rabd(:,2).^2+Rabd(:,3).^2),200,col1,'.')
 axis(hca,'equal')
-hca.YLim = [0,max(Rabd(:,2))+3];
-hca.XLim = [min(Rabd(:,1))-6,max(Rabd(:,1))+6];
+%hca.YLim = [0,max(Rabd(:,2))+3];
+%hca.XLim = [min(Rabd(:,1))-6,max(Rabd(:,1))+6];
+
+hca.YLim = [0,25];
+hca.XLim = [-10,25];
 
 
 % Plot Earth
@@ -75,14 +78,13 @@ irf_legend(hca,legstr,[0.02,0.98],'fontsize',15,'interpreter','latex','color',te
 
 h(1) = hca;
 
-
-
 hca.Box = 'on';
 hca.LineWidth = 1.2;
 hca.Color = axcol;
 fig.Color = figcol;
 hca.XAxis.Color = textcol;
 hca.YAxis.Color = textcol;
+hca.FontSize = 15;
 
 %%
 function Rval = Rfun(x)

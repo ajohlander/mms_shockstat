@@ -243,7 +243,7 @@ N = numel(TV(~isnan(MaV)));
 
 if saveParameters
     disp('Saving parameters...')
-    save(fileName,'MaV','thBnV','thVnV','accEffV','RV','sigV','TV','alphaV','N')
+    save(fileName,'MaV','thBnV','thVnV','accEffV','RV','sigV','TV','alphaV','phiV','N')
     disp('saved!')
 end
 
@@ -276,7 +276,7 @@ hca.LineWidth = 1.2;
 hca.FontSize = 14;
 
 
-%% Plot acceleration efficiency
+%% Plot acceleration efficiency as a function of shock angle
 fig = figure;
 hca = axes(fig);
 
@@ -326,6 +326,43 @@ hcb.LineWidth = 1.2;
 % 
 % %plot(hca,thBinEdges(1:end-1)+dthBin/2,accEffAvg*100,'w-o','linewidth',2)
 % errorbar(hca,thBinEdges(1:end-1)+dthBin/2,accEffAvg*100,accEffStd*100,'w-o','linewidth',2)
+
+
+%% Plot acceleration efficiency as a function of angle to sun-earth line
+fig = figure;
+hca = axes(fig);
+
+% plot events with Ma as color
+scatter(hca,phiV,accEffV*100,400,MaV.*cosd(thVnV),'.')
+hold(hca,'on')
+hca.XLim = [0,90];
+hca.YLim(1) = 0;
+
+sh_cmap(hca,cmap)
+hca.Color = axcol;
+fig.Color = figcol;
+hca.XAxis.Color = textcol;
+hca.YAxis.Color = textcol;
+%grid(hca,'on')
+
+hcb = colorbar(hca);
+hcb.Color = textcol;
+hca.CLim = [0,20];
+
+hca.Box = 'on';
+
+ylabel(hca,'Acceleration efficiency [$\%$]','Fontsize',15,'interpreter','latex')
+xlabel(hca,'$\theta_{Bn}$ [$^{\circ}$]','Fontsize',15,'interpreter','latex')
+ylabel(hcb,'$M_A$','Fontsize',15,'interpreter','latex')
+
+title(hca,'Energy flux of ions with $E>10E_{sw}$ measured by MMS-FPI','Fontsize',15,'interpreter','latex','color',textcol)
+hleg = irf_legend(hca,['$N = ',num2str(N),'$'],[0.98,0.98],'Fontsize',15,'interpreter','latex','color',textcol);
+hleg.BackgroundColor = hca.Color;
+
+hca.LineWidth = 1.2;
+hca.FontSize = 14;
+hcb.LineWidth = 1.2;
+
 
 
 %% plot time

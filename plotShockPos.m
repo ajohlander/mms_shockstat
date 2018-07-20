@@ -18,7 +18,7 @@ hcb = colorbar(hca,'location','northoutside');
 theta=0:pi/20:pi;
 xEarth=sin(theta);yEarth=cos(theta);
 patch(-xEarth,yEarth,'k','edgecolor','k','Parent',hca)
-patch(xEarth,yEarth,'w','edgecolor','k','Parent',hca)
+patch(xEarth,yEarth,textcol,'edgecolor','k','Parent',hca)
 plot(hca,[-xEarth,xEarth],[yEarth,yEarth],'k','linewidth',1.5)
 
 hca.XDir = 'reverse';
@@ -42,7 +42,7 @@ hold(hca,'on')
 theta=0:pi/20:pi;
 xEarth=sin(theta);yEarth=cos(theta);
 patch(-xEarth,yEarth,'k','edgecolor','k','Parent',hca)
-patch(xEarth,yEarth,'w','edgecolor','k','Parent',hca)
+patch(xEarth,yEarth,textcol,'edgecolor','k','Parent',hca)
 plot(hca,[-xEarth,xEarth],[yEarth,yEarth],'k','linewidth',1.5)
 
 hca.XDir = 'reverse';
@@ -63,6 +63,7 @@ hold(hca,'on')
 % Plot Earth
 theta=0:pi/20:pi;
 xEarth=sin(theta);yEarth=cos(theta);
+patch([-xEarth,xEarth],[yEarth,fliplr(yEarth)],textcol,'edgecolor','k','Parent',hca)
 plot(hca,[-xEarth,xEarth],[yEarth,fliplr(yEarth)],'k','linewidth',1.5)
 
 xlabel(hca,'$Y_{GSE}$ [$R_E$]','fontsize',15,'interpreter','latex')
@@ -79,15 +80,15 @@ for ii = 1:length(h)
     h(ii).FontSize = 14;
     
     h(ii).CLim = [0,90];
-    sh_cmap(h(ii),'strangeways')
-    h(ii).Color=[1,1,1]*.3;
+    sh_cmap(h(ii),cmap)
+    h(ii).Color=axcol;
     
-    h(ii).XAxis.Color = 'w';
-    h(ii).YAxis.Color = 'w';
+    h(ii).XAxis.Color = textcol;
+    h(ii).YAxis.Color = textcol;
     h(ii).FontSize = 15;
 end
-fig.Color=[1,1,1]*.2;
-hcb.Color = 'w';
+fig.Color=figcol;
+hcb.Color = textcol;
 hcb.FontSize = 15;
 hcb.Ticks = 0:15:90;
 
