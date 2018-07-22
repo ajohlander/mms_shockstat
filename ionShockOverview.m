@@ -27,7 +27,7 @@ cbw = .03;
 tline = 1;
 lineNum = 0;
 
-fid = fopen('shock_list.txt');
+fid = fopen(listFileName);
 
 % loop through skipped lines
 for ii = 1:startLine-1
