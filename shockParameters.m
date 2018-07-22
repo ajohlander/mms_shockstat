@@ -8,8 +8,9 @@ u = irf_units;
 if ~doLoadData
     saveParameters = irf_ask('Save parameters? (0=no, 1=yes) [%]>','saveParameters',0);
     
+    dataNameGuess = [listFileName(1:find(ismember(listFileName,'_'))-1),'Params'];
     if saveParameters
-        fileName = irf_ask('File name: [%]>','fileName','shockParams');
+        fileName = irf_ask('File name: [%]>','fileName',dataNameGuess);
     end
 end
 

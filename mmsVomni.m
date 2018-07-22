@@ -125,9 +125,10 @@ while tline ~= -1
     
     %% get average upstream omni values
     
-    Bu = nanmean(Bomni.tlim(tint).data);
-    Vu = nanmean(Vomni.tlim(tint).data);
-    nu = nanmean(Nomni.tlim(tint).data);
+    Bu = nanmean(Bomni.tlim(tint).data,1);
+    if isnan(Bu); Bu = nan(1,3); end
+    Vu = nanmean(Vomni.tlim(tint).data,1);
+    nu = nanmean(Nomni.tlim(tint).data,1);
     
     %% plot
     h = sh_figure(8,[12,16]);
