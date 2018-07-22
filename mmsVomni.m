@@ -12,7 +12,7 @@ u = irf_units;
 axl = 0.125; % axis left
 axu = 0.06;
 axw = .82;
-axh = .91;
+axh = .89;
 cbl = axl+axw+.01;
 cbw = .03;
 
@@ -67,7 +67,7 @@ while tline ~= -1
     tint = irf.tint(tintStr);
     
     % add some time 
-    tint = tint+edgeMinutes*60*[-1,1];
+    tint2 = tint+edgeMinutes*60*[-1,1];
     
     
     tstr = tint(1).toUtc;
@@ -86,16 +86,16 @@ while tline ~= -1
     
     
     %% get data 
-    B = mms.get_data('B_gse_fgm_srvy_l2',tint,ic);
+    B = mms.get_data('B_gse_fgm_srvy_l2',tint2,ic);
     
     if isempty(B)
         disp(['no FGM data for ',tstr,', skipping...'])
         continue;
     end
     
-    ni = mms.get_data('Ni_fpi_fast_l2',tint,ic);
-    ne = mms.get_data('Ne_fpi_fast_l2',tint,ic);
-    Vi = mms.get_data('Vi_gse_fpi_fast_l2',tint,ic);
+    ni = mms.get_data('Ni_fpi_fast_l2',tint2,ic);
+    ne = mms.get_data('Ne_fpi_fast_l2',tint2,ic);
+    Vi = mms.get_data('Vi_gse_fpi_fast_l2',tint2,ic);
     
     % check if all data is there
     if isempty(B) || isempty(ni) || isempty(ne) || isempty(Vi)
@@ -106,7 +106,7 @@ while tline ~= -1
     
     %% read omni data
     
-    ff= irf_get_data(tint,'bx,by,bz,vx,vy,vz,n','omni_min');
+    ff= irf_get_data(tint2,'bx,by,bz,vx,vy,vz,n','omni_min');
     
     if isempty(ff)
         irf.log('c','failed to read omni data, skipping...')
@@ -114,10 +114,20 @@ while tline ~= -1
     else
         omniTime = irf_time(ff(:,1),'epoch>epochTT');
         Bomni = irf.ts_vec_xyz(omniTime,ff(:,2:4));
+        % correct velocity for abberation 
         Vomni = irf.ts_vec_xyz(omniTime,ff(:,5:7)+[0,29.8,0]);
         Nomni = irf.ts_scalar(omniTime,ff(:,8));
     end
+    
+    %for good measures, remove old ff
+    clear ff
 
+    
+    %% get average upstream omni values
+    
+    Bu = nanmean(Bomni.tlim(tint).data);
+    Vu = nanmean(Vomni.tlim(tint).data);
+    nu = nanmean(Nomni.tlim(tint).data);
     
     %% plot
     h = sh_figure(8,[12,16]);
@@ -130,21 +140,31 @@ while tline ~= -1
     % babs
     hca = irf_panel(h,'babs');
     hold(hca,'on')
-    irf_plot(hca,Bomni.abs,'-x','color',col(2,:),'linewidth',3);
+    irf_plot(hca,Bomni.abs,'o','color',col(2,:),'linewidth',1.8,'markersize',6);
+    irf_plot(hca,[tint2.epochUnix,norm(Bu)*[1;1]],'.-','color',col(2,:),'linewidth',1.5);
     irf_plot(hca,B.abs,'color',col(1,:),'linewidth',1.5);
+    % for legend
+    plot(hca,nan,'color',col(3,:),'linewidth',1.5)
     ylabel(hca,'$B$ [nT]','fontsize',15,'interpreter','latex')
     hca.YLimMode ='auto';
     hca.YLim(1) = 0;
     hleg = irf_legend(hca,['MMS',num2str(ic)],[0.02,0.95],'Fontsize',15,'interpreter','latex');
     hleg.BackgroundColor = 'w';
     hca.ColorOrder = col;
-    % just make regular legend
-    irf_legend(hca,{'FPI-DIS','OMNI','FPI-DES'},[0.02,1.04],'Fontsize',15,'interpreter','latex')
+    % make legend
+    hleg = legend(h(1),'OMNI','Upstream','FGM/DIS','DES','location','northoutside');
+    hleg.Orientation = 'horizontal';
+    hleg.Position(2) = 0.947;
+    hleg.Interpreter = 'latex';
+    hleg.FontSize = 15;
+    hleg.Box = 'off';
+    
     
     % bx
     hca = irf_panel(h,'bx');
     hold(hca,'on')
-    irf_plot(hca,Bomni.x,'-x','color',col(2,:),'linewidth',3);
+    irf_plot(hca,Bomni.x,'o','color',col(2,:),'linewidth',1.8,'markersize',6);
+    irf_plot(hca,[tint2.epochUnix,Bu(1)*[1;1]],'.-','color',col(2,:),'linewidth',1.5);
     irf_plot(hca,B.x,'color',col(1,:),'linewidth',1.5);
     ylabel(hca,'$B_x$ [nT]','fontsize',15,'interpreter','latex')
     hca.YLimMode ='auto';
@@ -152,7 +172,8 @@ while tline ~= -1
     % by
     hca = irf_panel(h,'by');
     hold(hca,'on')
-    irf_plot(hca,Bomni.y,'-x','color',col(2,:),'linewidth',3);
+    irf_plot(hca,Bomni.y,'o','color',col(2,:),'linewidth',1.8,'markersize',6);
+    irf_plot(hca,[tint2.epochUnix,Bu(2)*[1;1]],'.-','color',col(2,:),'linewidth',1.5);
     irf_plot(hca,B.y,'color',col(1,:),'linewidth',1.5);
     ylabel(hca,'$B_y$ [nT]','fontsize',15,'interpreter','latex')
     hca.YLimMode ='auto';
@@ -160,16 +181,17 @@ while tline ~= -1
     % bz
     hca = irf_panel(h,'bz');
     hold(hca,'on')
-    irf_plot(hca,Bomni.z,'-x','color',col(2,:),'linewidth',3);
+    irf_plot(hca,Bomni.z,'o','color',col(2,:),'linewidth',1.8,'markersize',6);
+    irf_plot(hca,[tint2.epochUnix,Bu(3)*[1;1]],'.-','color',col(2,:),'linewidth',1.5);
     irf_plot(hca,B.z,'color',col(1,:),'linewidth',1.5);
     ylabel(hca,'$B_z$ [nT]','fontsize',15,'interpreter','latex')
     hca.YLimMode ='auto';
     
-    
     % vx
     hca = irf_panel(h,'vx');
     hold(hca,'on')
-    irf_plot(hca,Vomni.x,'-x','color',col(2,:),'linewidth',3);
+    irf_plot(hca,Vomni.x,'o','color',col(2,:),'linewidth',1.8,'markersize',6);
+    irf_plot(hca,[tint2.epochUnix,Vu(1)*[1;1]],'.-','color',col(2,:),'linewidth',1.5);
     irf_plot(hca,Vi.x,'color',col(1,:),'linewidth',1.5);
     ylabel(hca,'$V_x$ [km/s]','fontsize',15,'interpreter','latex')
     hca.YLimMode ='auto';
@@ -177,7 +199,8 @@ while tline ~= -1
     % vy
     hca = irf_panel(h,'vy');
     hold(hca,'on')
-    irf_plot(hca,Vomni.y,'-x','color',col(2,:),'linewidth',3);
+    irf_plot(hca,Vomni.y,'o','color',col(2,:),'linewidth',1.8,'markersize',6);
+    irf_plot(hca,[tint2.epochUnix,Vu(2)*[1;1]],'.-','color',col(2,:),'linewidth',1.5);
     irf_plot(hca,Vi.y,'color',col(1,:),'linewidth',1.5);
     ylabel(hca,'$V_y$ [km/s]','fontsize',15,'interpreter','latex')
     hca.YLimMode ='auto';
@@ -185,7 +208,8 @@ while tline ~= -1
     % vy
     hca = irf_panel(h,'vz');
     hold(hca,'on')
-    irf_plot(hca,Vomni.z,'-x','color',col(2,:),'linewidth',3);
+    irf_plot(hca,Vomni.z,'o','color',col(2,:),'linewidth',1.8,'markersize',6);
+    irf_plot(hca,[tint2.epochUnix,Vu(3)*[1;1]],'.-','color',col(2,:),'linewidth',1.5);
     irf_plot(hca,Vi.z,'color',col(1,:),'linewidth',1.5);
     ylabel(hca,'$V_z$ [km/s]','fontsize',15,'interpreter','latex')
     hca.YLimMode ='auto';
@@ -193,14 +217,14 @@ while tline ~= -1
     % n
     hca = irf_panel(h,'n');
     hold(hca,'on')
-    irf_plot(hca,Nomni,'-x','color',col(2,:),'linewidth',3);
+    irf_plot(hca,Nomni,'o','color',col(2,:),'linewidth',1.8,'markersize',6);
+    irf_plot(hca,[tint2.epochUnix,nu*[1;1]],'.-','color',col(2,:),'linewidth',1.5);
     irf_plot(hca,ni,'color',col(1,:),'linewidth',1.5);
     irf_plot(hca,ne,'color',col(3,:),'linewidth',1.5);
     ylabel(hca,'$N$ [cm$^{-3}$]','fontsize',15,'interpreter','latex')
     hca.YLimMode ='auto';
     
-    
-    irf_zoom(h,'x',tint)
+    irf_zoom(h,'x',tint2)
     irf_plot_axis_align(h)
     sh_panel_span(h,[axu,axu+axh])
     pause(0.01)
@@ -214,7 +238,7 @@ while tline ~= -1
         h(jj).LineWidth = 1.3;
         h(jj).YLabel.Position(1) = -0.08;
         
-        irf_pl_mark(h(jj),tint+edgeMinutes*60*[1,-1])
+        irf_pl_mark(h(jj),tint)
     end
     
     hcb1.LineWidth = 1.3; hcb2.LineWidth = 1.3;
@@ -224,6 +248,11 @@ while tline ~= -1
     hca = irf_panel(h,'redi');
     hcb2.Position([2,4]) = hca.Position([2,4]);
     hcb2.Position([1,3]) = [cbl,cbw];
+    
+    %% make title
+    % title with file name and line number
+    irf_legend(h(1),tstr,[0,1.3],'Fontsize',15,'interpreter','latex','horizontalalignment','left')
+    irf_legend(h(1),['Line number: ',num2str(lineNum)],[1,1.3],'Fontsize',15,'interpreter','latex','horizontalalignment','right')
     
     
     %% save figure
