@@ -159,6 +159,9 @@ while tline ~= -1
         Vu = nan;
     end
     
+    %for good measures, remove old ff
+    clear ff
+    
     
     %% set title strings
     meanRx = mean(R.gseR1(:,1)+R.gseR2(:,1)+R.gseR3(:,1)+R.gseR4(:,1))/4/u.RE*1e3;
