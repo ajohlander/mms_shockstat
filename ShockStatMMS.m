@@ -7,7 +7,7 @@ optStr = sprintf(['\nPlease select an option: \n',...
     '1: TBD \n',...
     '2: Ion burst overview plots \n',...
     '3: Electron burst overview plots \n',...
-    '4: Plot shock parameters \n',...
+    '4: Plot/calculate shock parameters \n',...
     '5: Construct bow shock model \n',...
     '6: MMS vs OMNI plots']);
 
@@ -22,7 +22,7 @@ scriptFileNameArr = {'',...
 
 
 optNum = irf_ask('Select option: [%]>','optNum',1);
-
+fprintf('\n')
 
 %% Ask if data should be loaded
 % only valid for shockParams and BSmodel
@@ -53,11 +53,13 @@ if ~doLoadData
     listFileName = listFileArr(listFileInd).name;
     
     % sc number
+    fprintf('\n')
     ic = irf_ask('Select spacecraft: [%]>','ic',1);
     
     % which line in list to start at
-    startLine = irf_ask('Start line: [%]>','startLine',1);
-    stopLine = irf_ask('Stop after line: [%]>','stopLine',20000);
+    fprintf('\n')
+    startLine = irf_ask('Start at line: [%]>','startLine',1);
+    stopLine = irf_ask('Stop at line: [%]>','stopLine',20000);
     
 end
 
@@ -81,7 +83,7 @@ if doLoadData
                 preSelectedFile = ii;
             end
         end
-        
+        fprintf('\n')
         dataFileInd = irf_ask('Select file: [%]>','listFileName',preSelectedFile);
         
         load(dataFileArr(dataFileInd).name)
