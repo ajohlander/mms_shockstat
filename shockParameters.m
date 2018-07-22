@@ -105,7 +105,7 @@ if ~doLoadData
         
         %% try to read omni data
         
-        ff= irf_get_data(tint,'bx,by,bz,Ma,v,n','omni_min');
+        ff = irf_get_data(tint,'bx,by,bz,Ma,v,n','omni_min');
         
         if ~isempty(ff)
             Bu = nanmean(ff(:,2:4),1);
@@ -131,6 +131,9 @@ if ~doLoadData
             Nu = nan;
             Vu = nan;
         end
+        
+        %for good measures, remove old ff
+        clear ff
         
         
         %% get energy flux of ions with E>10Esw
