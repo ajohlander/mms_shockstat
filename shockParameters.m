@@ -12,6 +12,8 @@ if ~doLoadData
     if saveParameters
         fileName = irf_ask('File name: [%]>','fileName',dataNameGuess);
     end
+else
+    saveParameters = 0;
 end
 
 % normal bs model to use (cannot be slho)
@@ -359,7 +361,7 @@ hca.CLim = [0,20];
 hca.Box = 'on';
 
 ylabel(hca,'Acceleration efficiency [$\%$]','Fontsize',15,'interpreter','latex')
-xlabel(hca,'$\theta_{Bn}$ [$^{\circ}$]','Fontsize',15,'interpreter','latex')
+xlabel(hca,'$\alpha$ [$^{\circ}$]','Fontsize',15,'interpreter','latex')
 ylabel(hcb,'$M_A$','Fontsize',15,'interpreter','latex')
 
 title(hca,'Energy flux of ions with $E>10E_{sw}$ measured by MMS-FPI','Fontsize',15,'interpreter','latex','color',textcol)
