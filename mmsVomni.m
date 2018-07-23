@@ -17,6 +17,16 @@ cbl = axl+axw+.01;
 cbw = .03;
 
 
+%% Set limits in y direction in plots
+% factor times norm(Bu)
+fB = 2;
+% plus/minus Bu(i)
+dB = 5;
+% plus/minus Vu(i)
+dV = 100;
+% factor times Nu
+fN = 2;
+
 %% Make plot
 tline = 1;
 lineNum = 0;
@@ -128,6 +138,7 @@ while tline ~= -1
     Bu = nanmean(Bomni.tlim(tint).data,1);
     if isnan(Bu); Bu = nan(1,3); end
     Vu = nanmean(Vomni.tlim(tint).data,1);
+    if isnan(Vu); Vu = nan(1,3); end
     nu = nanmean(Nomni.tlim(tint).data,1);
     
     %% plot
@@ -147,8 +158,8 @@ while tline ~= -1
     % for legend
     plot(hca,nan,'color',col(3,:),'linewidth',1.5)
     ylabel(hca,'$B$ [nT]','fontsize',15,'interpreter','latex')
-    hca.YLimMode ='auto';
-    hca.YLim(1) = 0;
+    %hca.YLimMode ='auto';
+    if ~isnan(Bu(1)); hca.YLim = [0,fB*norm(Bu)]; end
     hleg = irf_legend(hca,['MMS',num2str(ic)],[0.02,0.95],'Fontsize',15,'interpreter','latex');
     hleg.BackgroundColor = 'w';
     hca.ColorOrder = col;
@@ -168,7 +179,7 @@ while tline ~= -1
     irf_plot(hca,[tint2.epochUnix,Bu(1)*[1;1]],'.-','color',col(2,:),'linewidth',1.5);
     irf_plot(hca,B.x,'color',col(1,:),'linewidth',1.5);
     ylabel(hca,'$B_x$ [nT]','fontsize',15,'interpreter','latex')
-    hca.YLimMode ='auto';
+    if ~isnan(Bu(1)); hca.YLim = Bu(1)+[-1,1]*dB; end
     
     % by
     hca = irf_panel(h,'by');
@@ -177,7 +188,7 @@ while tline ~= -1
     irf_plot(hca,[tint2.epochUnix,Bu(2)*[1;1]],'.-','color',col(2,:),'linewidth',1.5);
     irf_plot(hca,B.y,'color',col(1,:),'linewidth',1.5);
     ylabel(hca,'$B_y$ [nT]','fontsize',15,'interpreter','latex')
-    hca.YLimMode ='auto';
+    if ~isnan(Bu(2)); hca.YLim = Bu(2)+[-1,1]*dB; end
     
     % bz
     hca = irf_panel(h,'bz');
@@ -186,7 +197,7 @@ while tline ~= -1
     irf_plot(hca,[tint2.epochUnix,Bu(3)*[1;1]],'.-','color',col(2,:),'linewidth',1.5);
     irf_plot(hca,B.z,'color',col(1,:),'linewidth',1.5);
     ylabel(hca,'$B_z$ [nT]','fontsize',15,'interpreter','latex')
-    hca.YLimMode ='auto';
+    if ~isnan(Bu(3)); hca.YLim = Bu(3)+[-1,1]*dB; end
     
     % vx
     hca = irf_panel(h,'vx');
@@ -195,7 +206,7 @@ while tline ~= -1
     irf_plot(hca,[tint2.epochUnix,Vu(1)*[1;1]],'.-','color',col(2,:),'linewidth',1.5);
     irf_plot(hca,Vi.x,'color',col(1,:),'linewidth',1.5);
     ylabel(hca,'$V_x$ [km/s]','fontsize',15,'interpreter','latex')
-    hca.YLimMode ='auto';
+    if ~isnan(Vu(1)); hca.YLim = Vu(1)+[-1,1]*dV; end
     
     % vy
     hca = irf_panel(h,'vy');
@@ -204,7 +215,7 @@ while tline ~= -1
     irf_plot(hca,[tint2.epochUnix,Vu(2)*[1;1]],'.-','color',col(2,:),'linewidth',1.5);
     irf_plot(hca,Vi.y,'color',col(1,:),'linewidth',1.5);
     ylabel(hca,'$V_y$ [km/s]','fontsize',15,'interpreter','latex')
-    hca.YLimMode ='auto';
+    if ~isnan(Vu(2)); hca.YLim = Vu(2)+[-1,1]*dV; end
     
     % vy
     hca = irf_panel(h,'vz');
@@ -213,7 +224,7 @@ while tline ~= -1
     irf_plot(hca,[tint2.epochUnix,Vu(3)*[1;1]],'.-','color',col(2,:),'linewidth',1.5);
     irf_plot(hca,Vi.z,'color',col(1,:),'linewidth',1.5);
     ylabel(hca,'$V_z$ [km/s]','fontsize',15,'interpreter','latex')
-    hca.YLimMode ='auto';
+    if ~isnan(Vu(3)); hca.YLim = Vu(3)+[-1,1]*dV; end
     
     % n
     hca = irf_panel(h,'n');
@@ -223,7 +234,7 @@ while tline ~= -1
     irf_plot(hca,ni,'color',col(1,:),'linewidth',1.5);
     irf_plot(hca,ne,'color',col(3,:),'linewidth',1.5);
     ylabel(hca,'$N$ [cm$^{-3}$]','fontsize',15,'interpreter','latex')
-    hca.YLimMode ='auto';
+    if ~isnan(nu); hca.YLim = [0,fN*norm(nu)]; end
     
     irf_zoom(h,'x',tint2)
     irf_plot_axis_align(h)
