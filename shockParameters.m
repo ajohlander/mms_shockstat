@@ -30,11 +30,17 @@ if ~doLoadData
     %TV = irf.time_array('2000-01-01T00:00:00Z',zeros(1,N));
     TV = zeros(N,1);
     MaV = zeros(N,1);
+    VuV = zeros(N,1);
     thBnV = zeros(N,1);
     thVnV = zeros(N,1);
     accEffV = zeros(N,1);
     RV = zeros(N,3);
     sigV = zeros(N,1);
+    dstV = zeros(N,1);
+    kpV = zeros(N,1);
+    ssnV = zeros(N,1);
+    s107V = zeros(N,1);
+    
     
     %% Read line  
     
@@ -109,6 +115,7 @@ if ~doLoadData
         %% try to read omni data
         
         ff = irf_get_data(tint,'bx,by,bz,Ma,v,n','omni_min');
+        ff2 = irf_get_data(tint+[-1,1]*3.6e3,'dst,kp,ssn,f10.7','omni2');
         
         if ~isempty(ff)
             Bu = nanmean(ff(:,2:4),1);
@@ -117,6 +124,14 @@ if ~doLoadData
             Vu = nanmean(ff(:,6));
             Nu = nanmean(ff(:,7));
             thBn = acosd(dot(Bu,nvec)/(norm(Bu)));
+            
+            % other info
+            dst = nanmean(ff2(:,2));
+            kp = nanmean(ff2(:,3));
+            ssn = nanmean(ff2(:,4));
+            s107 = nanmean(ff2(:,5));
+            
+            
             if thBn>90
                 thBn = 180-thBn;
             end
@@ -133,6 +148,12 @@ if ~doLoadData
             Bu = nan(1,3);
             Nu = nan;
             Vu = nan;
+                        
+            % other info
+            dst = nan;
+            kp = nan;
+            ssn = nan;
+            s107 = nan;
         end
         
         %for good measures, remove old ff
@@ -207,6 +228,7 @@ if ~doLoadData
         % fill arrays
         TV(count) = tint(1).epochUnix;
         MaV(count) = Ma;
+        VuV(count) = Vu;
         thBnV(count) = thBn;
         thVnV(count) = thVn;
         accEffV(count) = accEff;
@@ -214,6 +236,13 @@ if ~doLoadData
         RV(count,:) =mean((R.gseR1(:,1:3)+R.gseR2(:,1:3)+R.gseR3(:,1:3)+R.gseR4(:,1:3))/4)/u.RE*1e3;
         % compression factor of models
         sigV(count) = nst.info.sig.(shModel);
+        % dst index
+        sigV(count) = nst.info.sig.(shModel);
+        
+        dstV(count) = dst;
+        kpV(count) = kp;
+        ssnV(count) = ssn;
+        s107V(count) = s107;
         
         disp(['Actually completed one, count = ',num2str(count),' lineNumber = ',num2str(lineNum)])
         count = count+1;
@@ -236,6 +265,11 @@ accEffV = accEffV(TV~=0,:);
 RV = RV(TV~=0,:);
 sigV = sigV(TV~=0);
 
+% dstV = dstV(TV~=0);
+% kpV = kpV(TV~=0);
+% ssnV = ssnV(TV~=0);
+% s107V = s107V(TV~=0);
+
 TV = TV(TV~=0);
 
 % angle between earth-sun line and sc position in xy plane
@@ -252,7 +286,7 @@ N = numel(TV(~isnan(MaV)));
 
 if saveParameters
     disp('Saving parameters...')
-    save(fileName,'MaV','thBnV','thVnV','accEffV','RV','sigV','TV','alphaV','phiV','N')
+    save(fileName,'MaV','VuV','thBnV','thVnV','accEffV','RV','sigV','TV','alphaV','phiV','N','dstV','kpV','ssnV','s107V')
     disp('saved!')
 end
 
@@ -263,6 +297,11 @@ figcol = [1,1,1]*.2;
 textcol = [1,1,1]*.95;
 col1 = [253,232,159]/255;
 col2 = [211,64,82]/255;
+
+
+%% some bin edges
+dthBin = 10;
+thBinEdges = 0:dthBin:90;
 
 %% Plot simple position
 plotShockPos
@@ -294,6 +333,7 @@ scatter(hca,thBnV,accEffV*100,400,MaV.*cosd(thVnV),'.')
 hold(hca,'on')
 hca.XLim = [0,90];
 hca.YLim(1) = 0;
+plot(hca,45*[1,1],hca.YLim,'--','color',textcol,'linewidth',1.2)
 
 sh_cmap(hca,cmap)
 hca.Color = axcol;
@@ -320,21 +360,62 @@ hca.LineWidth = 1.2;
 hca.FontSize = 14;
 hcb.LineWidth = 1.2;
 
-%% avg
 
-% idTh = discretize(thBnV,thBinEdges);
-% accEffAvg = zeros(1,length(thBinEdges)-1);
-% accEffStd = zeros(1,length(thBinEdges)-1);
-% for ii = 1:length(thBinEdges)-1
-%
-%     accEffAvg(ii) = nanmean(accEffV(idTh==ii));
-%     accEffStd(ii) = nanstd(accEffV(idTh==ii),1);
-%
-% end
-%
-%
-% %plot(hca,thBinEdges(1:end-1)+dthBin/2,accEffAvg*100,'w-o','linewidth',2)
-% errorbar(hca,thBinEdges(1:end-1)+dthBin/2,accEffAvg*100,accEffStd*100,'w-o','linewidth',2)
+
+%% same as above but with avg with proper Baysian limits
+fig = figure;
+hca = axes(fig);
+hold(hca,'on')
+scatter(hca,thBnV,accEffV*100,200,col2,'.')
+
+% set significance
+beta = .68;
+
+idTh = discretize(thBnV,thBinEdges);
+accEffAvg = zeros(1,length(thBinEdges)-1);
+accEffStd = zeros(1,length(thBinEdges)-1);
+
+accEffErrUp = zeros(1,length(thBinEdges)-1);
+accEffErrDown = zeros(1,length(thBinEdges)-1);
+
+for ii = 1:length(thBinEdges)-1
+    % mean and std
+    mu =  nanmean(accEffV(idTh==ii));
+    sig = nanstd(accEffV(idTh==ii),1);
+    
+    % after a lot(!) of math
+    accEffErrUp(ii) = norminv(beta*normcdf(mu/sig)-normcdf(mu/sig)+1)*sig;
+    accEffErrDown(ii) = norminv(1-beta*normcdf(mu/sig))*sig;
+    
+    accEffAvg(ii) = mu;
+    accEffStd(ii) = sig;
+    
+end
+
+errorbar(hca,thBinEdges(1:end-1)+dthBin/2,accEffAvg*100,accEffErrDown*100,accEffErrUp*100,'-o','color',col1,'linewidth',2.2)
+
+hca.XLim = [0,90];
+hca.YLim = [0,10];
+
+
+plot(hca,45*[1,1],hca.YLim,'--','color',textcol,'linewidth',1.2)
+
+hca.Box = 'on';
+
+ylabel(hca,'Acceleration efficiency [$\%$]','Fontsize',15,'interpreter','latex')
+xlabel(hca,'$\theta_{Bn}$ [$^{\circ}$]','Fontsize',15,'interpreter','latex')
+
+hca.Color = axcol;
+fig.Color = figcol;
+hca.XAxis.Color = textcol;
+hca.YAxis.Color = textcol;
+
+title(hca,'Energy flux of ions with $E>10E_{sw}$ measured by MMS-FPI','Fontsize',15,'interpreter','latex','color',textcol)
+hleg = irf_legend(hca,['$N = ',num2str(N),'$'],[0.98,0.98],'Fontsize',15,'interpreter','latex','color',textcol);
+hleg.BackgroundColor = hca.Color;
+
+hca.LineWidth = 1.2;
+hca.FontSize = 14;
 
 
 %% Plot acceleration efficiency as a function of angle to sun-earth line
@@ -400,8 +481,7 @@ bincol = [157,214,166]/255;
 fig = figure;
 hca = axes(fig);
 
-dthBin = 10;
-thBinEdges = 0:dthBin:90;
+% thBnEdges is defined above
 histogram(hca,thBnV,thBinEdges,'FaceColor',bincol,'edgecolor',textcol);
 
 xlabel(hca,'$\theta_{Bn}$','Fontsize',15,'interpreter','latex')
