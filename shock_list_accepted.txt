@@ -76,12 +76,9 @@
 2017-12-14/21:19:13 - 2017-12-14/21:20:03, 125.0, aretino(EVA),  SW fast waves/shocklet with ion heating
 2017-12-14/21:28:23 - 2017-12-14/21:31:13, 145.0, aretino(EVA),  SW shocklets with large J high and electron and ion heating
 2017-12-14/22:05:43 - 2017-12-14/22:10:13, 125.0, aretino(EVA),  Quasi-perp shock with reflected/heated ions and strong E/B fluctuations
-2017-12-14/23:20:03 - 2017-12-14/23:30:33, 125.0, aretino(EVA),  Turbulent quasi-par shock, turbulent current sheets
 2017-12-15/16:12:53 - 2017-12-15/16:14:13,  95.0, lavanov(EVA),  Long solar wind magnetic hole
 2017-12-15/16:14:13 - 2017-12-15/16:15:13, 110.0, lavanov(EVA), Bow shock related CS Bz reversal
-2017-12-21/07:49:33 - 2017-12-21/07:55:53, 150.0, dturner(EVA), Field reversals, magnetic nulls, and Vz and Vy reversals near quasi-parallel bow shock
 2017-12-21/07:57:43 - 2017-12-21/08:00:03, 125.0, dturner(EVA), Quasi-parallel bow shock crossings (multiple)
-2017-12-21/08:00:03 - 2017-12-21/08:12:03, 125.0, dturner(EVA), Quasi-parallel bow shock crossings (multiple) and/or shocklet/SLAMS
 2017-12-21/08:14:13 - 2017-12-21/08:20:33, 125.0, dturner(EVA), Shocklet/SLAMS in ion foreshock
 2017-12-21/08:40:53 - 2017-12-21/08:49:03, 125.0, dturner(EVA), Isolated shocklet/SLAMS and steepened ULF waves in the ion foreshock
 2017-12-21/08:57:03 - 2017-12-21/09:01:13, 125.0, dturner(EVA), Shocklet/SLAMS in the ion foreshock

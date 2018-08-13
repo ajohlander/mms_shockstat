@@ -259,17 +259,19 @@ end
 
 %% Clean arrays
 MaV = MaV(TV~=0);
-%VuV = VuV(TV~=0);
+VuV = VuV(TV~=0);
 thBnV = thBnV(TV~=0);
 thVnV = thVnV(TV~=0);
 accEffV = accEffV(TV~=0,:);
 RV = RV(TV~=0,:);
 sigV = sigV(TV~=0);
 
-% dstV = dstV(TV~=0);
-% kpV = kpV(TV~=0);
-% ssnV = ssnV(TV~=0);
-% s107V = s107V(TV~=0);
+dstV = dstV(TV~=0);
+kpV = kpV(TV~=0);
+ssnV = ssnV(TV~=0);
+s107V = s107V(TV~=0);
+
+
 
 TV = TV(TV~=0);
 
@@ -330,10 +332,10 @@ fig = figure;
 hca = axes(fig);
 
 vlim = 425;
-N = numel(TV(~isnan(MaV)))% & VuV<vlim));
+N = numel(TV(~isnan(MaV) & VuV<vlim));
 % plot events with Ma as color
-%scatter(hca,thBnV(VuV<vlim),accEffV(VuV<vlim)*100,400,MaV(VuV<vlim).*cosd(thVnV(VuV<vlim)),'.')
-scatter(hca,thBnV,accEffV*100,200,[1,1,1]*.2,'.')
+scatter(hca,thBnV(VuV<vlim),accEffV(VuV<vlim)*100,400,MaV(VuV<vlim).*cosd(thVnV(VuV<vlim)),'.')
+%scatter(hca,thBnV,accEffV*100,200,[1,1,1]*.2,'.')
 %scatter(hca,thBnV(VuV<vlim),accEffV(VuV<vlim)*100,400,VuV(VuV<vlim),'.')
 hold(hca,'on')
 hca.XLim = [0,90];
