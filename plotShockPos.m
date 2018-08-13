@@ -98,8 +98,8 @@ hcb.Ticks = 0:15:90;
 fig = figure;
 hca = axes(fig);
 
-scatter(alphaV,thBnV,200,sigV,'.')
-hca.YLim = [0,90];
+scatter(alphaV,MaV,200,sigV,'.')
+%hca.YLim = [0,90];
 hca.Color = [1,1,1]*.7;
 hcb = colorbar(hca);
 sh_cmap(hca,'bluered')

@@ -259,6 +259,7 @@ end
 
 %% Clean arrays
 MaV = MaV(TV~=0);
+%VuV = VuV(TV~=0);
 thBnV = thBnV(TV~=0);
 thVnV = thVnV(TV~=0);
 accEffV = accEffV(TV~=0,:);
@@ -328,8 +329,12 @@ hca.FontSize = 14;
 fig = figure;
 hca = axes(fig);
 
+vlim = 425;
+N = numel(TV(~isnan(MaV)))% & VuV<vlim));
 % plot events with Ma as color
-scatter(hca,thBnV,accEffV*100,400,MaV.*cosd(thVnV),'.')
+%scatter(hca,thBnV(VuV<vlim),accEffV(VuV<vlim)*100,400,MaV(VuV<vlim).*cosd(thVnV(VuV<vlim)),'.')
+scatter(hca,thBnV,accEffV*100,200,[1,1,1]*.2,'.')
+%scatter(hca,thBnV(VuV<vlim),accEffV(VuV<vlim)*100,400,VuV(VuV<vlim),'.')
 hold(hca,'on')
 hca.XLim = [0,90];
 hca.YLim(1) = 0;
@@ -344,7 +349,7 @@ hca.YAxis.Color = textcol;
 
 hcb = colorbar(hca);
 hcb.Color = textcol;
-hca.CLim = [0,20];
+%hca.CLim = [0,20];
 
 hca.Box = 'on';
 
