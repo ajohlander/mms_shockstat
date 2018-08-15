@@ -283,7 +283,7 @@ alphaV = alphaV*180/pi; % degrees
 [phiV,~] = cart2pol(RV(:,1),sqrt(RV(:,2).^2+RV(:,3).^2));
 phiV = phiV*180/pi; % degrees
 
-N = numel(TV(~isnan(MaV)));
+Nevents = numel(TV(~isnan(MaV)));
 
 %% Save parameters if requested
 
@@ -332,7 +332,7 @@ fig = figure;
 hca = axes(fig);
 
 vlim = 425;
-N = numel(TV(~isnan(MaV) & VuV<vlim));
+Nevents = numel(TV(~isnan(MaV) & VuV<vlim));
 % plot events with Ma as color
 scatter(hca,thBnV(VuV<vlim),accEffV(VuV<vlim)*100,400,MaV(VuV<vlim).*cosd(thVnV(VuV<vlim)),'.')
 %scatter(hca,thBnV,accEffV*100,200,[1,1,1]*.2,'.')
@@ -360,13 +360,12 @@ xlabel(hca,'$\theta_{Bn}$ [$^{\circ}$]','Fontsize',15,'interpreter','latex')
 ylabel(hcb,'$M_A$','Fontsize',15,'interpreter','latex')
 
 title(hca,'Energy flux of ions with $E>10E_{sw}$ measured by MMS-FPI','Fontsize',15,'interpreter','latex','color',textcol)
-hleg = irf_legend(hca,['$N = ',num2str(N),'$'],[0.98,0.98],'Fontsize',15,'interpreter','latex','color',textcol);
+hleg = irf_legend(hca,['$N = ',num2str(Nevents),'$'],[0.98,0.98],'Fontsize',15,'interpreter','latex','color',textcol);
 hleg.BackgroundColor = hca.Color;
 
 hca.LineWidth = 1.2;
 hca.FontSize = 14;
 hcb.LineWidth = 1.2;
-
 
 
 %% same as above but with avg with proper Baysian limits
@@ -376,7 +375,7 @@ hold(hca,'on')
 scatter(hca,thBnV,accEffV*100,200,col2,'.')
 
 % set significance
-beta = .68;
+beta = .95;
 
 idTh = discretize(thBnV,thBinEdges);
 accEffAvg = zeros(1,length(thBinEdges)-1);
@@ -402,7 +401,7 @@ end
 errorbar(hca,thBinEdges(1:end-1)+dthBin/2,accEffAvg*100,accEffErrDown*100,accEffErrUp*100,'-o','color',col1,'linewidth',2.2)
 
 hca.XLim = [0,90];
-hca.YLim = [0,10];
+hca.YLim = [0,15];
 
 
 plot(hca,45*[1,1],hca.YLim,'--','color',textcol,'linewidth',1.2)
@@ -418,7 +417,7 @@ hca.XAxis.Color = textcol;
 hca.YAxis.Color = textcol;
 
 title(hca,'Energy flux of ions with $E>10E_{sw}$ measured by MMS-FPI','Fontsize',15,'interpreter','latex','color',textcol)
-hleg = irf_legend(hca,['$N = ',num2str(N),'$'],[0.98,0.98],'Fontsize',15,'interpreter','latex','color',textcol);
+hleg = irf_legend(hca,['$N = ',num2str(Nevents),'$'],[0.98,0.98],'Fontsize',15,'interpreter','latex','color',textcol);
 hleg.BackgroundColor = hca.Color;
 
 hca.LineWidth = 1.2;
@@ -453,7 +452,7 @@ xlabel(hca,'$\alpha$ [$^{\circ}$]','Fontsize',15,'interpreter','latex')
 ylabel(hcb,'$M_A$','Fontsize',15,'interpreter','latex')
 
 title(hca,'Energy flux of ions with $E>10E_{sw}$ measured by MMS-FPI','Fontsize',15,'interpreter','latex','color',textcol)
-hleg = irf_legend(hca,['$N = ',num2str(N),'$'],[0.98,0.98],'Fontsize',15,'interpreter','latex','color',textcol);
+hleg = irf_legend(hca,['$N = ',num2str(Nevents),'$'],[0.98,0.98],'Fontsize',15,'interpreter','latex','color',textcol);
 hleg.BackgroundColor = hca.Color;
 
 hca.LineWidth = 1.2;

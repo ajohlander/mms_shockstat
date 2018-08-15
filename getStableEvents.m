@@ -10,16 +10,23 @@ end
 % Ask for parameters
 intMinutes = irf_ask('How many minutes of interval? [%]>','intMinutes',15);
 
+% |B|
 magAbsStdLim = irf_ask('Standard deviation limit for |B| (in nT) [%]>','magAbsStdLim',2);
-magDegStdLim = irf_ask('Standard deviation limit for B direction (in deg) [%]>','magDegStdLim',10);
 magAbsLim = irf_ask('Maximum deviation limit for |B| (in nT) [%]>','magAbsLim',2);
+
+% B direction
+magDegStdLim = irf_ask('Standard deviation limit for B direction (in deg) [%]>','magDegStdLim',10);
 magDegLim = irf_ask('Maximum deviation limit for B direction (in deg) [%]>','magDegLim',45);
 
-velAbsStdLim = irf_ask('Standard deviation limit for |V| (in km/s) [%]>','velAbsStdLim',2);
-velDegStdLim = irf_ask('Standard deviation limit for V direction (in deg) [%]>','velDegStdLim',5);
+% |V|
+velAbsStdLim = irf_ask('Standard deviation limit for |V| (in km/s) [%]>','velAbsStdLim',20);
 velAbsLim = irf_ask('Maximum deviation limit for |V| (in km/s) [%]>','magAbsLim',50);
+
+% V direction
+velDegStdLim = irf_ask('Standard deviation limit for V direction (in deg) [%]>','velDegStdLim',5);
 velDegLim = irf_ask('Maximum deviation limit for V direction (in deg) [%]>','magDegLim',20);
 
+% n
 nStdLim = irf_ask('Standard deviation limit for n (in /cc) [%]>','nStdLim',2);
 nLim = irf_ask('Maximum deviation limit for n (in /cc) [%]>','nLim',5);
 
@@ -257,14 +264,33 @@ end
 
 if writeToTextFile
     fclose(fidWrite);
+    disp('File written!')
 end
 
 
 %% Print results (TODO)
+fprintf('\n')
 
+disp('Criteria')
 % should also print all selection criterias
+fprintf(['|B| diff std limit: \t\t ',num2str(magAbsStdLim),' nT \n'])
+fprintf(['|B| diff max limit: \t\t ',num2str(magAbsLim),' nT \n\n'])
+
+fprintf(['B angle diff std limit: \t ',num2str(magDegStdLim),' deg \n'])
+fprintf(['B angle diff max limit: \t ',num2str(magAbsLim),' deg \n\n'])
+
+fprintf(['|V| diff std limit: \t\t ',num2str(velAbsStdLim),' km/s \n'])
+fprintf(['|V| diff max limit: \t\t ',num2str(velAbsLim),' km/s \n\n'])
+
+fprintf(['V angle diff std limit: \t ',num2str(velDegStdLim),' deg \n'])
+fprintf(['V angle diff max limit: \t ',num2str(velAbsLim),' deg \n\n'])
+
+fprintf(['N diff std limit: \t\t ',num2str(nStdLim),' cm^-3 \n'])
+fprintf(['N diff max limit: \t\t ',num2str(nLim),' cm^-3 \n\n'])
+
 
 fprintf('\n')
+disp('Resulting line numbers:')
 disp(num2str(accLineNums(accLineNums~=0)'))
 
 

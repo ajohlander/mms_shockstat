@@ -54,9 +54,11 @@ if ~doLoadData
     listFileInd = irf_ask('Select file: [%]>','listFileInd',preSelectedFile);
     listFileName = listFileArr(listFileInd).name;
     
-    % sc number
-    fprintf('\n')
-    ic = irf_ask('Select spacecraft: [%]>','ic',1);
+    if optNum ~= 7
+        % sc number
+        fprintf('\n')
+        ic = irf_ask('Select spacecraft: [%]>','ic',1);
+    end
     
     % which line in list to start at
     fprintf('\n')
@@ -99,9 +101,3 @@ fprintf('\n')
 eval(scriptFileNameArr{optNum})
     
     
-
-
-
-
-
-
