@@ -7,7 +7,6 @@
 2017-10-06/22:12:33 - 2017-10-06/22:18:33, 130.0, seriksson(EVA),  Bow shock associated B rotations and backstreaming ion beam
 2017-10-06/22:28:13 - 2017-10-06/22:30:03, 115.0, seriksson(EVA),  Bow shock associated turbulence
 2017-10-06/22:32:33 - 2017-10-06/22:35:03, 120.0, seriksson(EVA), Bow shock and enhanced diffB
-2017-10-12/23:14:53 - 2017-10-12/23:17:53,  89.0, jburch(EVA), bow shock and foreshock electrons 
 2017-10-12/23:17:53 - 2017-10-12/23:19:23,  89.0, jburch(EVA), bow shock and foreshock electrons 
 2017-10-12/23:26:23 - 2017-10-12/23:29:53,  89.0, jburch(EVA), bow shock and foreshock electrons 
 2017-10-12/23:35:53 - 2017-10-12/23:37:43,  81.0, jburch(EVA), bows shock 
@@ -22,10 +21,8 @@
 2017-10-20/23:09:33 - 2017-10-20/23:11:13, 120.0, svines(EVA), Quasi-|| bow shock with foreshock, SLAMS, localized electron heating 
 2017-10-21/21:26:13 - 2017-10-21/21:29:03, 110.0, svines(EVA), Quasi-|| shock and foreshock, lower mach (~8) 
 2017-10-21/21:29:03 - 2017-10-21/21:32:03, 110.0, svines(EVA), Quasi-|| bow shock and foreshock, more SLAMS? 
-2017-10-21/21:40:33 - 2017-10-21/21:43:13, 112.0, svines(EVA), Quasi-|| bow shock with foreshock energetic ions, low Mach (~5 and below) 
 2017-10-21/21:48:43 - 2017-10-21/21:51:03,  98.0, svines(EVA), Quasi-perp bow shock, lower mack, some energetic particle enhancements 
 2017-10-21/22:10:53 - 2017-10-21/22:13:13, 108.0, svines(EVA), Quasi-|| bow shock, lower mach (~8), less steep density and velocity gradients, high-frequency B fluctuations 
-2017-10-21/23:11:53 - 2017-10-21/23:18:23, 110.0, svines(EVA), Quasi-perp bow shock (followed by quasi-|| shock?), intense heating and energetic ion enhancements  
 2017-10-30/04:24:03 - 2017-10-30/04:26:23,  90.0, lavanov(EVA), Q-perp bow shock, number density up to 60 on the MSheath side
 2017-10-30/04:38:03 - 2017-10-30/04:40:23,  90.0, lavanov(EVA), Q-perp bow shock 
 2017-10-30/05:08:13 - 2017-10-30/05:10:33,  80.0, lavanov(EVA), Q-perp bow shock, enhanced nuber density in t he sheath, ion dispersion 
