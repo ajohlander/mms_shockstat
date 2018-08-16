@@ -32,6 +32,7 @@ if ~doLoadData
     MaV = zeros(N,1);
     VuV = zeros(N,1);
     thBnV = zeros(N,1);
+    thBrV = zeros(N,1);
     thVnV = zeros(N,1);
     accEffV = zeros(N,1);
     RV = zeros(N,3);
@@ -141,6 +142,11 @@ if ~doLoadData
                 thVn = 180-thVn;
             end
             
+            thBr = acosd(Bu(1)/norm(Bu));
+            if thBr>90
+                thBr = 180-thBr;
+            end
+            
         else
             disp('failed to read omni data, moving on with plot...')
             thBn = nan;
@@ -231,6 +237,7 @@ if ~doLoadData
         VuV(count) = Vu;
         thBnV(count) = thBn;
         thVnV(count) = thVn;
+        thBrV(count) = thBr;
         accEffV(count) = accEff;
         % mean of all four
         RV(count,:) =mean((R.gseR1(:,1:3)+R.gseR2(:,1:3)+R.gseR3(:,1:3)+R.gseR4(:,1:3))/4)/u.RE*1e3;
@@ -261,6 +268,7 @@ end
 MaV = MaV(TV~=0);
 VuV = VuV(TV~=0);
 thBnV = thBnV(TV~=0);
+thBrV = thBrV(TV~=0);
 thVnV = thVnV(TV~=0);
 accEffV = accEffV(TV~=0,:);
 RV = RV(TV~=0,:);
@@ -289,7 +297,7 @@ Nevents = numel(TV(~isnan(MaV)));
 
 if saveParameters
     disp('Saving parameters...')
-    save(fileName,'MaV','VuV','thBnV','thVnV','accEffV','RV','sigV','TV','alphaV','phiV','N','dstV','kpV','ssnV','s107V')
+    save(fileName,'MaV','VuV','thBnV','thVnV','accEffV','RV','sigV','TV','alphaV','phiV','N','dstV','kpV','ssnV','s107V','thBrV')
     disp('saved!')
 end
 
@@ -331,7 +339,7 @@ hca.FontSize = 14;
 fig = figure;
 hca = axes(fig);
 
-vlim = 425;
+vlim = 450;
 Nevents = numel(TV(~isnan(MaV) & VuV<vlim));
 % plot events with Ma as color
 scatter(hca,thBnV(VuV<vlim),accEffV(VuV<vlim)*100,400,MaV(VuV<vlim).*cosd(thVnV(VuV<vlim)),'.')
