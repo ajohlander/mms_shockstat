@@ -141,11 +141,11 @@ while tline ~= -1
     ff= irf_get_data(tint,'bx,by,bz,Ma,v,n','omni_min');
     
     if ~isempty(ff)
-        Bu = mean(ff(:,2:4),1);
+        Bu = nanmean(ff(:,2:4),1);
         if isnan(Bu); Bu = nan(1,3); end
-        Ma = mean(ff(:,5));
-        Vu = mean(ff(:,6));
-        Nu = mean(ff(:,7));
+        Ma = nanmean(ff(:,5));
+        Vu = nanmean(ff(:,6));
+        Nu = nanmean(ff(:,7));
         thBn = acosd(dot(Bu,nvec)/(norm(Bu)));
         if thBn>90 
             thBn = 180-thBn;

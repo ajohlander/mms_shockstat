@@ -1,19 +1,15 @@
 2017-10-03/20:32:53 - 2017-10-03/20:39:13, 140.0, seriksson(EVA),  Bow shock (SoP)
 2017-10-03/20:48:43 - 2017-10-03/20:56:13, 140.0, seriksson(EVA),  Bow shock (SoP)
 2017-10-04/02:55:03 - 2017-10-04/02:58:23, 125.0, seriksson(EVA),  Bow shock (SoP)
-2017-10-06/21:08:53 - 2017-10-06/21:11:33, 125.0, seriksson(EVA), Bow shock and foreshock
 2017-10-06/21:11:33 - 2017-10-06/21:14:03, 145.0, seriksson(EVA), Marginally quasi-para bow shock and foreshock region 
 2017-10-06/22:05:43 - 2017-10-06/22:07:33, 130.0, seriksson(EVA),  Bow shock associated turbulence w/ strong diffB
-2017-10-06/22:07:33 - 2017-10-06/22:09:13, 110.0, seriksson(EVA),  Bow shock associated turbulence
 2017-10-06/22:09:13 - 2017-10-06/22:11:03, 120.0, seriksson(EVA),  Bow shock associated turbulence
 2017-10-06/22:12:33 - 2017-10-06/22:18:33, 130.0, seriksson(EVA),  Bow shock associated B rotations and backstreaming ion beam
 2017-10-06/22:28:13 - 2017-10-06/22:30:03, 115.0, seriksson(EVA),  Bow shock associated turbulence
 2017-10-06/22:32:33 - 2017-10-06/22:35:03, 120.0, seriksson(EVA), Bow shock and enhanced diffB
-2017-10-06/22:56:33 - 2017-10-06/22:58:13, 125.0, seriksson(EVA), Bow shock B fluctuations 
 2017-10-12/23:14:53 - 2017-10-12/23:17:53,  89.0, jburch(EVA), bow shock and foreshock electrons 
 2017-10-12/23:17:53 - 2017-10-12/23:19:23,  89.0, jburch(EVA), bow shock and foreshock electrons 
 2017-10-12/23:26:23 - 2017-10-12/23:29:53,  89.0, jburch(EVA), bow shock and foreshock electrons 
-2017-10-12/23:29:53 - 2017-10-12/23:31:33,  89.0, jburch(EVA), bow shock and foreshock electrons 
 2017-10-12/23:35:53 - 2017-10-12/23:37:43,  81.0, jburch(EVA), bows shock 
 2017-10-15/05:30:33 - 2017-10-15/05:35:03, 100.0, svines(EVA), Bow shock 
 2017-10-15/05:38:43 - 2017-10-15/05:41:53, 100.0, svines(EVA), Bow shock
@@ -23,7 +19,6 @@
 2017-10-16/01:30:53 - 2017-10-16/01:36:03,  90.0, svines(EVA), Bow shock 
 2017-10-18/09:32:33 - 2017-10-18/09:35:13, 125.0, svines(EVA), Bow shock, quasi-||
 2017-10-18/12:46:13 - 2017-10-18/12:51:03, 120.0, svines(EVA), Bow shock, quasi-perp 
-2017-10-18/13:16:23 - 2017-10-18/13:20:33, 125.0, svines(EVA), Bow shock (oblique to quasi-perp
 2017-10-20/23:09:33 - 2017-10-20/23:11:13, 120.0, svines(EVA), Quasi-|| bow shock with foreshock, SLAMS, localized electron heating 
 2017-10-21/21:26:13 - 2017-10-21/21:29:03, 110.0, svines(EVA), Quasi-|| shock and foreshock, lower mach (~8) 
 2017-10-21/21:29:03 - 2017-10-21/21:32:03, 110.0, svines(EVA), Quasi-|| bow shock and foreshock, more SLAMS? 
@@ -45,8 +40,6 @@
 2017-11-16/12:26:53 - 2017-11-16/12:29:23, 119.0, rtorbert(EVA),  BS Xing; 
 2017-11-16/12:34:23 - 2017-11-16/12:36:53, 119.0, rtorbert(EVA),  BS Xing; 
 2017-11-16/12:39:03 - 2017-11-16/12:41:03, 132.0, rtorbert(EVA),  BS Xing.
-2017-11-20/07:31:43 - 2017-11-20/07:33:43, 100.0, hhiroshi(EVA), foreshock ion beams
-2017-11-20/07:38:03 - 2017-11-20/07:39:33, 105.0, hhiroshi(EVA), foreshock ion beams with possible SLAMS
 2017-11-22/05:22:03 - 2017-11-22/05:29:53, 100.0, hbreuillard(EVA),  Quasi-parallel shock with energetic ions
 2017-11-23/05:08:13 - 2017-11-23/05:11:13, 115.0, hhiroshi(EVA), quasi-parallel shocks with large diffB
 2017-11-23/05:11:13 - 2017-11-23/05:13:03,  95.0, hhiroshi(EVA), quasi-parallel shocks with possible SLAMS
@@ -59,7 +52,6 @@
 2017-11-25/23:38:13 - 2017-11-25/23:45:03, 145.0, hhiroshi(EVA), quasi-perpendicular shock with reformation signatures
 2017-11-28/17:57:53 - 2017-11-28/18:02:23,  90.0, hbreuillard(EVA),  Low-shear quasi-perpendicular shock crossing 
 2017-12-01/14:11:23 - 2017-12-01/14:15:53,  90.0, ocontel(EVA), Qperp hock crossing with high-speed jets (possible HFA)
-2017-12-01/14:16:23 - 2017-12-01/14:18:33,  90.0, hbreuillard(EVA),  Foreshock transient event
 2017-12-01/14:20:33 - 2017-12-01/14:22:43,  90.0, ocontel(EVA), Qperp shock crossing with foreshock reflected ions (and possible HFA)
 2017-12-03/11:17:23 - 2017-12-03/11:22:13,  90.0, hbreuillard(EVA),  Low-shear full Qperp shock crossing with possible jet
 2017-12-03/11:25:33 - 2017-12-03/11:30:23,  90.0, hbreuillard(EVA),  Low-shear full Qperp shock crossing with field-aligned ion beams
@@ -71,13 +63,8 @@
 2017-12-12/19:16:13 - 2017-12-12/19:23:03, 125.0, aretino(EVA), Turbulent quasi-par shock, turbulent current sheets
 2017-12-12/19:23:03 - 2017-12-12/19:32:23, 125.0, aretino(EVA), Turbulent quasi-par shock, turbulent current sheets
 2017-12-12/19:32:23 - 2017-12-12/19:43:53, 125.0, aretino(EVA), Turbulent quasi-par shock, turbulent current sheets
-2017-12-12/21:02:53 - 2017-12-12/21:03:33, 100.0, aretino(EVA),  Upstream steepened waves with large J 
-2017-12-12/21:45:33 - 2017-12-12/21:53:53, 125.0, aretino(EVA),  SW large-amplitude fast waves/shocklets with large J and energetic protons
-2017-12-14/21:19:13 - 2017-12-14/21:20:03, 125.0, aretino(EVA),  SW fast waves/shocklet with ion heating
-2017-12-14/21:28:23 - 2017-12-14/21:31:13, 145.0, aretino(EVA),  SW shocklets with large J high and electron and ion heating
 2017-12-14/22:05:43 - 2017-12-14/22:10:13, 125.0, aretino(EVA),  Quasi-perp shock with reflected/heated ions and strong E/B fluctuations
 2017-12-15/16:12:53 - 2017-12-15/16:14:13,  95.0, lavanov(EVA),  Long solar wind magnetic hole
-2017-12-15/16:14:13 - 2017-12-15/16:15:13, 110.0, lavanov(EVA), Bow shock related CS Bz reversal
 2017-12-21/07:57:43 - 2017-12-21/08:00:03, 125.0, dturner(EVA), Quasi-parallel bow shock crossings (multiple)
 2017-12-21/08:14:13 - 2017-12-21/08:20:33, 125.0, dturner(EVA), Shocklet/SLAMS in ion foreshock
 2017-12-21/08:40:53 - 2017-12-21/08:49:03, 125.0, dturner(EVA), Isolated shocklet/SLAMS and steepened ULF waves in the ion foreshock
@@ -86,33 +73,26 @@
 2017-12-24/01:39:53 - 2017-12-24/01:42:43, 100.0, pgangkai(EVA), SLAMS/bow shock crossings
 2017-12-24/01:43:23 - 2017-12-24/01:44:43,  80.0, pgangkai(EVA), periodic |B| increase with decreasing amplitude
 2017-12-24/01:43:23 - 2017-12-24/01:44:43,  80.0, pgangkai(EVA), periodic |B| increase with decreasing amplitude
-2017-12-24/01:57:33 - 2017-12-24/01:58:43, 125.0, pgangkai(EVA), Quasi-perpendicular shock with nice overshoot and whistler waves in the foreshock region
-2017-12-24/01:59:43 - 2017-12-24/02:00:13,  99.0, pgangkai(EVA), wave activities in the solar wind
 2017-12-24/02:00:23 - 2017-12-24/02:05:53, 100.0, pgangkai(EVA),  Magnetic field fluctuations in the foreshock region
 2017-12-26/04:53:53 - 2017-12-26/04:56:33, 100.0, pgangkai(EVA), possible multiple shock crossings
 2017-12-26/04:57:53 - 2017-12-26/04:58:53, 100.0, pgangkai(EVA), possible shock crossing with whistler waves
 2017-12-26/05:02:33 - 2017-12-26/05:10:23,  90.0, pgangkai(EVA), increase in |B| in the foreshock region
 2017-12-28/23:48:03 - 2017-12-28/23:53:33,  80.0, pgangkai(EVA), HFA/Bow shock crossings
 2017-12-28/23:57:23 - 2017-12-29/00:09:13,  80.0, pgangkai(EVA), Multiple bow shock crossings
-2017-12-29/00:17:53 - 2017-12-29/00:20:53,  80.0, pgangkai(EVA), quasi-parallel shock with overshoot
 2017-12-29/00:28:23 - 2017-12-29/00:46:33,  80.0, pgangkai(EVA), Multiple Quasi-parallel bow shock crossings
 2018-01-01/13:08:43 - 2018-01-01/13:14:13,  94.0, svines(EVA), Quasi-perp bow shock with distinct secondary/reflected ion beam 
 2018-01-01/13:19:23 - 2018-01-01/13:22:13,  88.0, svines(EVA), Oblique shock with foreshock particles
 2018-01-06/13:55:43 - 2018-01-06/13:57:03, 101.0, svines(EVA), Oblique shock, higher Ma (>10 at the shock)
-2018-01-06/14:02:43 - 2018-01-06/14:04:23,  93.0, svines(EVA), Oblique/quasi-perp bow shock 
 2018-01-07/05:19:43 - 2018-01-07/05:21:53,  90.0, lavanov(EVA), Qpar bow shock 
 2018-01-07/05:26:43 - 2018-01-07/05:28:53, 102.0, lavanov(EVA), Qperp bow shock with alpha particles in and upstream 
-2018-01-12/03:21:13 - 2018-01-12/03:24:33, 110.0, lavanov(EVA),  Strong Qperp bow shock
 2018-01-12/05:17:43 - 2018-01-12/05:19:53,  90.0, lavanov(EVA),  Qpar Bow Shock crossinhg
 2018-01-12/19:58:13 - 2018-01-12/20:09:33,  90.0, lavanov(EVA), Long Qpar bow shock crossing with turbulent magnetoshetah downstream 
-2018-01-23/08:51:53 - 2018-01-23/08:53:53,  90.0, dturner(EVA), Isolated SLAMS
 2018-01-26/08:22:43 - 2018-01-26/08:25:03, 135.0, dturner(EVA), Series of foreshock transients (HFAs, FBs, and/or SLAMS) and quasi-parallel bow shock activity
 2018-01-26/08:25:03 - 2018-01-26/08:27:13, 150.0, dturner(EVA), Intense current sheet during series of foreshock transients (HFAs, FBs, and/or SLAMS) and quasi-parallel bow shock activity
 2018-02-04/09:05:13 - 2018-02-04/09:10:13,  90.0, kgoodrich(EVA),  Turbulent BS crossing
 2018-02-04/09:15:53 - 2018-02-04/09:18:23,  80.0, kgoodrich(EVA),  Multiple short shock crossings
 2018-02-04/09:32:53 - 2018-02-04/09:34:23,  80.0, kgoodrich(EVA),  Multiple BS crossings
 2018-02-04/09:36:03 - 2018-02-04/09:39:03,  80.0, kgoodrich(EVA),  Multiple BS crossings
-2018-02-04/10:06:53 - 2018-02-04/10:14:23, 100.0, kgoodrich(EVA),  Possible ULF foreshock activity
 2018-02-06/12:53:23 - 2018-02-06/12:55:43,  80.0, kgoodrich(EVA),  Bow shock crossing with prominent reflected ion population
 2018-02-06/13:28:53 - 2018-02-06/13:30:53, 110.0, kgoodrich(EVA), Turbulent foreshock activity
 2018-02-06/13:35:03 - 2018-02-06/13:44:23, 105.0, kgoodrich(EVA),  Turbulent foreshock activity
@@ -128,18 +108,13 @@
 2018-02-20/12:24:33 - 2018-02-20/12:29:23,  80.0, seriksson(EVA),  BS encounter
 2018-02-20/13:52:33 - 2018-02-20/13:54:23,  85.0, seriksson(EVA),  Quasi-parallel BS with large diffB=2.5 event
 2018-02-20/13:54:23 - 2018-02-20/13:56:13, 130.0, seriksson(EVA),  Quasi-parallel BS with large diffB=2.5 event
-2018-02-20/14:13:03 - 2018-02-20/14:14:43, 115.0, seriksson(EVA),  Quasi-parallel BS and large diffB=1.2 activity
 2018-02-20/14:14:43 - 2018-02-20/14:16:33,  90.0, seriksson(EVA),  Quasi-parallel BS and large diffB=1.2 activity
 2018-02-20/14:23:03 - 2018-02-20/14:25:13, 105.0, seriksson(EVA),  Quasi-parallel BS and turbulent MSH CS
 2018-02-20/14:27:13 - 2018-02-20/14:30:13, 110.0, seriksson(EVA),  Quasi-parallel BS with diffB
 2018-02-20/14:36:43 - 2018-02-20/14:38:13,  99.0, seriksson(EVA),  BS and turbulent MSH CS
-2018-02-20/14:38:13 - 2018-02-20/14:39:53, 105.0, seriksson(EVA),  BS and turbulent MSH CS
 2018-02-21/09:40:53 - 2018-02-21/09:44:13, 120.0, seriksson(EVA),  Quasi-perp BS and downstream Byz MSH CS
-2018-03-04/17:07:33 - 2018-03-04/17:08:53, 120.0, jshuster(EVA),  Another encounter with the bow shock.
 2018-03-09/11:26:33 - 2018-03-09/11:32:53,  90.0, jshuster(EVA),  Likely turbulent skimming of the bow shock, depletion of magnetosheath plasma, velocity enhancements, active magnetic field fluctuations.
 2018-03-10/10:11:23 - 2018-03-10/10:13:33,  90.0, lavanov(EVA),  Qpar bos shock with large fluctuations of the magnetic field, final exiting to the solar wind 
-2018-03-13/04:46:43 - 2018-03-13/04:48:53, 140.0, yvernisse(EVA),  Main Bow shock crossing with downstream waves
-2018-03-13/04:48:53 - 2018-03-13/04:51:03, 140.0, yvernisse(EVA),  Main Bow shock crossing with downstream waves
 2018-03-13/04:51:03 - 2018-03-13/04:53:13, 140.0, yvernisse(EVA),  Main Bow shock crossing with downstream waves
 2018-03-15/01:36:13 - 2018-03-15/01:38:13,  60.0, yvernisse(EVA),  Partial schock crossing
 2018-03-15/01:38:13 - 2018-03-15/01:42:23,  60.0, yvernisse(EVA),  Partial schock crossing
@@ -149,7 +124,6 @@
 2018-03-15/02:48:13 - 2018-03-15/02:53:23,  90.0, yvernisse(EVA),  Quasi-parallel shocks with foreshock and SLAMMS
 2018-03-15/03:11:43 - 2018-03-15/03:14:23, 100.0, yvernisse(EVA),  Quasi-parallel shock
 2018-03-15/04:20:13 - 2018-03-15/04:26:13, 100.0, yvernisse(EVA),  Quasi-parallel shock
-2018-03-15/23:26:13 - 2018-03-15/23:35:53, 120.0, yvernisse(EVA),  Complex quasi-parallel shock with foreshock
 2018-03-16/00:36:13 - 2018-03-16/00:45:53, 110.0, yvernisse(EVA),  Quasi-parallel shock with foreshock
 2018-03-17/23:35:43 - 2018-03-17/23:39:43, 105.0, yvernisse(EVA),  in and out Quasi-parallel shocks
 2018-03-17/23:39:43 - 2018-03-17/23:43:43, 105.0, yvernisse(EVA),  in and out Quasi-parallel shocks
@@ -159,7 +133,6 @@
 2018-03-24/12:41:43 - 2018-03-24/12:45:33,  90.0, lavanov(EVA), Qpar bow shock 
 2018-03-24/13:10:43 - 2018-03-24/13:14:53,  80.0, lavanov(EVA), Skimming the Bow shock 
 2018-03-24/13:25:43 - 2018-03-24/13:27:13,  90.0, lavanov(EVA), Qpar bow shock, final exiting to solar wind
-2018-03-26/06:30:03 - 2018-03-26/06:34:13, 110.0, plindqvist(EVA), Qperp bow shock
 2018-03-26/06:43:53 - 2018-03-26/06:45:53, 110.0, plindqvist(EVA), Qperp bow shock
 2018-03-26/07:27:23 - 2018-03-26/07:30:53, 110.0, plindqvist(EVA), Qperp bow shocks
 2018-03-26/07:33:03 - 2018-03-26/07:36:43, 110.0, plindqvist(EVA), Qperp bow shock
@@ -178,8 +151,6 @@
 2018-04-02/04:24:03 - 2018-04-02/04:26:23,  70.0, icohen(EVA), Extended quasiparallel BS crossing; weak/moderate currents
 2018-04-02/04:31:03 - 2018-04-02/04:33:13,  70.0, icohen(EVA), Extended quasiparallel BS crossing; weak/moderate currents
 2018-04-02/04:35:33 - 2018-04-02/04:37:53,  70.0, icohen(EVA), Extended quasiparallel BS crossing; weak/moderate currents
-2018-04-02/05:13:43 - 2018-04-02/05:15:13,  85.0, icohen(EVA), Possible SLAMs
-2018-04-02/05:15:13 - 2018-04-02/05:16:53,  85.0, icohen(EVA), Possible SLAMs
 2018-04-03/14:34:43 - 2018-04-03/14:42:03,  75.0, icohen(EVA), Extended quasiparallel BS encounter w/ possible HFAs
 2018-04-03/14:49:23 - 2018-04-03/14:56:43,  75.0, icohen(EVA), Extended quasiparallel BS encounter w/ possible HFAs
 2018-04-03/15:13:43 - 2018-04-03/15:21:03,  75.0, icohen(EVA), Extended quasiparallel BS encounter w/ possible HFAs
@@ -193,3 +164,17 @@
 2018-04-06/15:40:13 - 2018-04-06/15:42:13,  75.0, icohen(EVA), Quasiparallel BS crossing
 2018-04-06/15:44:43 - 2018-04-06/15:46:13,  40.0, icohen(EVA), Quasiparallel BS crossing
 2018-04-06/15:57:23 - 2018-04-06/16:01:13,  75.0, icohen(EVA), Multiple quasiparallel BS crossings
+
+
+
+
+
+
+% cool stuff
+2017-12-15/16:14:13 - 2017-12-15/16:15:13, 110.0, lavanov(EVA), Bow shock related CS Bz reversal
+2017-12-24/01:57:33 - 2017-12-24/01:58:43, 125.0, pgangkai(EVA), Quasi-perpendicular shock with nice overshoot and whistler waves in the foreshock region
+2017-12-24/01:59:43 - 2017-12-24/02:00:13,  99.0, pgangkai(EVA), wave activities in the solar wind
+
+
+% Really nice DSA example?
+2018-02-06/12:53:23 - 2018-02-06/12:55:43,  80.0, kgoodrich(EVA),  Bow shock crossing with prominent reflected ion population
