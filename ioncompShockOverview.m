@@ -61,7 +61,7 @@ iPDistSI.data = iPDist.data*1e12;
 irf_spectrogram(hca,iPDistSI.omni.specrec,'donotshowcolorbar')
 hca.YScale = 'log';
 sh_cmap(hca,'irf')
-ylabel(hca,'Energy [eV]','fontsize',15,'interpreter','latex')
+ylabel(hca,'E [eV]','fontsize',15,'interpreter','latex')
 hca.YTick = 10.^[1,2,3,4];
 
 % fi hp
@@ -69,24 +69,27 @@ hca = irf_panel(h,'hpdist');
 irf_spectrogram(hca,hpomnispec,'donotshowcolorbar')
 hca.YScale = 'log';
 sh_cmap(hca,'irf')
-ylabel(hca,'Energy [eV]','fontsize',15,'interpreter','latex')
+ylabel(hca,'E [eV]','fontsize',15,'interpreter','latex')
 hca.YTick = 10.^[1,2,3,4];
+irf_legend(hca,'$\mathrm{H}^{+}$',[0.02,0.95],'Fontsize',15,'interpreter','latex');
 
 % fi he2p
 hca = irf_panel(h,'he2pdist');
 irf_spectrogram(hca,he2pomnispec,'donotshowcolorbar')
 hca.YScale = 'log';
 sh_cmap(hca,'irf')
-ylabel(hca,'Energy [eV]','fontsize',15,'interpreter','latex')
+ylabel(hca,'E [eV]','fontsize',15,'interpreter','latex')
 hca.YTick = 10.^[1,2,3,4];
+irf_legend(hca,'$\mathrm{He}^{2+}$',[0.02,0.95],'Fontsize',15,'interpreter','latex');
 
 % fi op
 hca = irf_panel(h,'opdist');
 irf_spectrogram(hca,opomnispec,'donotshowcolorbar')
 hca.YScale = 'log';
 sh_cmap(hca,'irf')
-ylabel(hca,'Energy [eV]','fontsize',15,'interpreter','latex')
+ylabel(hca,'E [eV]','fontsize',15,'interpreter','latex')
 hca.YTick = 10.^[1,2,3,4];
+irf_legend(hca,'$\mathrm{O}^{+}$',[0.02,0.95],'Fontsize',15,'interpreter','latex');
 
 % reduced fi
 hca = irf_panel(h,'redi');
@@ -99,12 +102,14 @@ hca = irf_panel(h,'hpx');
 irf_spectrogram(hca,hpspecx);
 ylabel(hca,'$V_{n}$ [km/s]','interpreter','latex')
 sh_cmap(hca,'irf')
+irf_legend(hca,'$\mathrm{H}^{+}$',[0.02,0.95],'Fontsize',15,'interpreter','latex');
 
 % reduced he2p dist
 hca = irf_panel(h,'he2px');
 irf_spectrogram(hca,he2pspecx);
 ylabel(hca,'$V_{n}$ [km/s]','interpreter','latex')
 sh_cmap(hca,'irf')
+irf_legend(hca,'$\mathrm{He}^{2+}$',[0.02,0.95],'Fontsize',15,'interpreter','latex');
 
 
 
@@ -146,7 +151,6 @@ ylabel(hcb2,{'$\log{F_i}$ ';'[s$^2$\,m$^{-5}$]'},'fontsize',15,'interpreter','la
 
 hcb1.LineWidth = 1.3; hcb2.LineWidth = 1.3;
 
-%%
 hcb1.Position(1) = 0.85;
 hcb2.Position(1) = 0.85;
 
