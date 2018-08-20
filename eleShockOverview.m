@@ -1,8 +1,8 @@
 
-% Plot the ion overview
+% Plot the electron overview
 % this script is called from within plotShockOverview
 
-h = sh_figure(6,[12,16]);
+h = sh_figure(7,[12,16]);
 
 % babs 4sc
 hca = irf_panel(h,'babs');
@@ -23,6 +23,14 @@ irf_legend(hca,{'$B_x$';'$B_y$';'$B_z$'},[1.02,0.9],'Fontsize',15,'interpreter',
 hleg = irf_legend(hca,['MMS',num2str(ic)],[0.02,0.95],'Fontsize',15,'interpreter','latex');
 hleg.BackgroundColor = 'w';
 
+% E
+hca = irf_panel(h,'E');
+hl = irf_plot(hca,E);
+uistack(hl(2),'bottom')
+uistack(hl(3),'bottom')
+ylabel(hca,'$\mathbf{E}$ [mV/m]','fontsize',15,'interpreter','latex')
+irf_legend(hca,{'$E_x$';'$E_y$';'$E_z$'},[1.02,0.9],'Fontsize',15,'interpreter','latex')
+
 % n
 hca = irf_panel(h,'n');
 irf_plot(hca,ni)
@@ -32,33 +40,32 @@ ylabel(hca,'$N$ [cm$^{-3}$]','fontsize',15,'interpreter','latex')
 hca.YLim(1) = 0;
 irf_legend(hca,{'$N_i$';'$N_e$'},[1.02,0.9],'Fontsize',15,'interpreter','latex')
 
-% Vi
-hca = irf_panel(h,'Vi');
-irf_plot(hca,Vi)
-ylabel(hca,'$\mathbf{V}_i$ [km/s]','fontsize',15,'interpreter','latex')
+% Ve
+hca = irf_panel(h,'Ve');
+irf_plot(hca,Ve)
+ylabel(hca,'$\mathbf{V}_e$ [km/s]','fontsize',15,'interpreter','latex')
 irf_legend(hca,{'$V_x$';'$V_y$';'$V_z$'},[1.02,0.9],'Fontsize',15,'interpreter','latex')
 
+% Te
+hca = irf_panel(h,'Te');
+irf_plot(hca,TePar)
+hold(hca,'on')
+irf_plot(hca,TePerp)
+ylabel(hca,'$T_e$ [eV]','fontsize',15,'interpreter','latex')
+hca.YLim(1) = 0;
+irf_legend(hca,{'$T_{e,\parallel}$';'$T_{e,\perp}$'},[1.02,0.9],'Fontsize',15,'interpreter','latex')
+
 % fi
-hca = irf_panel(h,'fi');
-iPDistSI = iPDist;
-iPDistSI.data = iPDist.data*1e12;
-irf_spectrogram(hca,iPDistSI.omni.specrec,'donotshowcolorbar')
+hca = irf_panel(h,'fe');
+ePDistSI = ePDist;
+ePDistSI.data = ePDist.data*1e12;
+irf_spectrogram(hca,ePDistSI.omni.specrec,'donotshowcolorbar')
 hca.YScale = 'log';
 sh_cmap(hca,'irf')
 ylabel(hca,'Energy [eV]','fontsize',15,'interpreter','latex')
 hca.YTick = 10.^[1,2,3,4];
 hcb1 = colorbar(hca);
 ylabel(hcb1,{'$\log{f_i}$ ';'[s$^3$\,m$^{-6}$]'},'fontsize',14,'interpreter','latex')
-
-
-% reduced fi
-hca = irf_panel(h,'redi');
-irf_spectrogram(hca,f1Dn.specrec('1D_velocity'),'donotshowcolorbar')
-sh_cmap(hca,'irf')
-ylabel(hca,'$V_n$ [km/s]','fontsize',15,'interpreter','latex')
-hcb2 = colorbar(hca);
-ylabel(hcb2,{'$\log{F_i}$ ';'[s$^2$\,m$^{-5}$]'},'fontsize',15,'interpreter','latex')
-
 
 
 irf_zoom(h,'x',tint)
