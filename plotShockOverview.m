@@ -143,6 +143,11 @@ while tline ~= -1
             Ve = mms.get_data('Ve_gse_fpi_brst_l2',tint,ic);
             Te = mms.get_data('Te_gse_fpi_brst_l2',tint,ic);
             
+            if isempty(Te)
+                disp(['no electron moments for ',tstr,', skipping...'])
+                continue;
+            end
+            
             E = mms.get_data('E_gse_edp_fast_l2',tint,ic);
             Eb = mms.get_data('E_gse_edp_brst_l2',tint,ic);
             TeFac = mms.rotate_tensor(Te,'fac',B);
