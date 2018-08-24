@@ -474,6 +474,222 @@
 2018-04-06/15:57:23 - 2018-04-06/16:01:13,  75.0, icohen(EVA), Multiple quasiparallel BS crossings
 
 
+2015-11-13/10:02:14	- 2015-11-13/10:02:44,  60.0,	fwilder(EVA),		Bow	Shock
+2015-11-13/10:03:24	- 2015-11-13/10:04:14,	60.0,	fwilder(EVA),		Bow	Shock
+2015-11-13/10:20:24	- 2015-11-13/10:22:14,	60.0,	fwilder(EVA),		Bow	Shock
+2015-11-13/10:24:54	- 2015-11-13/10:26:44,	60.0,	fwilder(EVA),		Bow	Shock
+2015-11-13/10:31:14	- 2015-11-13/10:33:04,	60.0,	fwilder(EVA),		Bow	Shock
+2015-11-13/10:41:54	- 2015-11-13/10:43:04,	60.0,	fwilder(EVA),		Bow	Shock
+2015-11-13/10:46:54	- 2015-11-13/10:47:54,	60.0,	fwilder(EVA),		Bow	Shock
+2015-11-13/10:47:54	- 2015-11-13/10:49:04,	60.0,	fwilder(EVA),		Bow	Shock
+2015-11-13/11:27:04	- 2015-11-13/11:28:24,	60.0,	fwilder(EVA),		Bow	Shock
+2015-11-13/11:32:54	- 2015-11-13/11:34:14,	60.0,	fwilder(EVA),	Bow	Shock
+2015-11-13/11:40:04	- 2015-11-13/11:41:04,	60.0,	fwilder(EVA),	Bow	Shock
+2015-11-13/12:06:04	- 2015-11-13/12:07:04,	60.0,	fwilder(EVA),		Bow	Shock
+2015-11-13/12:12:24	- 2015-11-13/12:13:04,	60.0,	fwilder(EVA),		Bow	Shock
+2015-11-13/12:33:04	- 2015-11-13/12:34:04,	60.0,	fwilder(EVA),		Bow	Shock
+2015-11-13/12:35:34	- 2015-11-13/12:36:54,	60.0,	fwilder(EVA),		Bow	Shock
+2015-11-13/12:36:54	- 2015-11-13/12:38:24,	60.0,	fwilder(EVA),		Bow	Shock
+2015-11-13/12:39:54	- 2015-11-13/12:40:44,	60.0,	fwilder(EVA),		Bow	Shock
+2015-11-13/12:41:04	- 2015-11-13/12:42:14,	60.0,	fwilder(EVA),		Two	Bow	Shock	Crossings
+2015-11-13/12:42:14	- 2015-11-13/12:43:34,	60.0,	fwilder(EVA),		Two	Bow	Shock	Crossings
+2015-11-13/12:50:14	- 2015-11-13/12:51:14,	60.0,	fwilder(EVA),		Bow	Shock
+2015-11-13/12:53:44	- 2015-11-13/12:54:34,	60.0,	fwilder(EVA),		Bow	Shock
+2015-11-13/13:57:54	- 2015-11-13/13:59:04,	60.0,	fwilder(EVA),	Bow	Shock
+2015-11-19/06:58:14 - 2015-11-19/06:59:04, 70.0, kgoodrich(EVA), BS crossing
+2015-11-19/07:03:04 - 2015-11-19/07:05:34, 70.0, kgoodrich(EVA), BS crossing
+2015-11-19/07:09:04 - 2015-11-19/07:10:34, 60.0, kgoodrich(EVA), Possible partial BS crossing
+2015-11-19/07:21:34 - 2015-11-19/07:23:04, 75.0, kgoodrich(EVA), BS crossing
+2015-11-19/07:34:44 - 2015-11-19/07:36:04, 70.0, kgoodrich(EVA), BS crossing
+2015-11-19/07:38:24 - 2015-11-19/07:39:14, 70.0, kgoodrich(EVA), BS crossing
+2015-11-19/07:43:44 - 2015-11-19/07:44:54, 70.0, kgoodrich(EVA), BS crossing
+2015-11-19/07:43:44 - 2015-11-19/07:44:54, 70.0, kgoodrich(EVA), BS crossing
+2015-11-19/07:51:14 - 2015-11-19/07:54:24, 70.0, kgoodrich(EVA), BS crossings
+2015-11-19/07:56:44 - 2015-11-19/07:58:04, 70.0, kgoodrich(EVA), BS crossing
+2015-11-19/08:29:24 - 2015-11-19/08:31:34, 70.0, kgoodrich(EVA), BS crossing with intense E field activity
+2015-11-19/08:34:04 - 2015-11-19/08:35:54, 70.0, kgoodrich(EVA), BS crossing
+2015-11-19/09:08:04 - 2015-11-19/09:09:34, 70.0, kgoodrich(EVA), BS crossing
+2015-11-19/09:10:44 - 2015-11-19/09:15:14, 70.0, kgoodrich(EVA), Multiple BS crossings
+2015-11-19/09:29:04 - 2015-11-19/09:30:14, 70.0, kgoodrich(EVA), BS crossing
+2015-11-19/09:42:34 - 2015-11-19/09:43:54, 70.0, kgoodrich(EVA), BS crossing
+2015-11-19/09:45:14 - 2015-11-19/09:47:04, 70.0, kgoodrich(EVA), BS crossing
+2015-11-19/10:54:44 - 2015-11-19/10:56:04, 70.0, kgoodrich(EVA), BS crossing
+2015-11-19/10:59:24 - 2015-11-19/11:01:14, 70.0, kgoodrich(EVA), Two BS crossings
+2015-11-19/11:18:24 - 2015-11-19/11:19:14, 70.0, kgoodrich(EVA), BS crossing
+2015-11-19/11:24:14 - 2015-11-19/11:25:34, 70.0, kgoodrich(EVA), BS crossing
+2015-11-19/11:29:54 - 2015-11-19/11:30:54, 70.0, kgoodrich(EVA), BS crossing
+2015-11-19/11:31:34 - 2015-11-19/11:32:24, 70.0, kgoodrich(EVA), Two BS crossings
+2015-11-19/11:34:24 - 2015-11-19/11:36:54, 70.0, kgoodrich(EVA), BS crossing
+2015-11-20/06:49:34 - 2015-11-20/06:51:54, 70.0, kgoodrich(EVA), BS crossing,
+2015-11-20/08:05:04 - 2015-11-20/08:07:04, 70.0, kgoodrich(EVA), BS crossing
+2015-11-20/08:11:14 - 2015-11-20/08:14:14, 70.0, kgoodrich(EVA), BS crossing
+2015-11-20/08:21:44 - 2015-11-20/08:24:14, 70.0, kgoodrich(EVA), BS crossing
+2015-11-20/08:31:24 - 2015-11-20/08:34:34, 70.0, kgoodrich(EVA), BS crossing
+2015-11-20/08:48:14 - 2015-11-20/08:51:14, 70.0, kgoodrich(EVA), BS crossing
+2015-11-20/08:55:44 - 2015-11-20/08:59:04, 70.0, kgoodrich(EVA), BS crossing
+2015-11-20/09:04:04 - 2015-11-20/09:05:54, 70.0, kgoodrich(EVA), BS crossing
+2015-11-20/09:06:34 - 2015-11-20/09:08:44, 70.0, kgoodrich(EVA), BS crossings
+2015-11-20/09:09:54 - 2015-11-20/09:11:24, 70.0, kgoodrich(EVA), BS crossing
+2015-11-20/09:17:24 - 2015-11-20/09:19:54, 70.0, kgoodrich(EVA), BS crossing
+2015-11-20/09:31:34 - 2015-11-20/09:33:44, 70.0, kgoodrich(EVA), BS crossing
+2015-11-27/06:01:44 - 2015-11-27/06:04:54, 70.0, ktrattner(EVA), Bow Shock Crossing with energetic particles
+2015-11-27/06:05:44 - 2015-11-27/06:09:24, 70.0, ktrattner(EVA), Bow Shock Crossing - with energetic particles 
+2015-11-27/07:01:44 - 2015-11-27/07:05:34, 85.0, ktrattner(EVA), Bow Shock Crossing - from the way it disrupts the magnetosheath I expect it to be a quasi-parallel shock
+2015-11-27/07:06:34 - 2015-11-27/07:10:04, 85.0, ktrattner(EVA), Bow Shock Crossings - quasiparallel shock
+2015-11-27/07:19:34 - 2015-11-27/07:25:34, 85.0, ktrattner(EVA), several Bow Shock Crossings
+2015-11-27/10:19:24 - 2015-11-27/10:23:54, 60.0, ktrattner(EVA), Bow Shock Crossing
+2015-11-27/10:41:14 - 2015-11-27/10:45:14, 60.0, ktrattner(EVA), Bow Shock Crossing
+2015-11-27/10:48:14 - 2015-11-27/10:50:44, 60.0, ktrattner(EVA), bow shock crossing
+2015-11-27/11:52:24 - 2015-11-27/11:55:14, 60.0, ktrattner(EVA), bow shock crossings
+2015-11-30/03:43:24 - 2015-11-30/03:45:44, 65.0, ykhotyaintsev(EVA),  SLAMS
+2015-11-30/08:43:14 - 2015-11-30/08:43:54, 70.0, ykhotyaintsev(EVA),  BS
+2015-11-30/08:49:14 - 2015-11-30/08:49:44, 65.0, ykhotyaintsev(EVA),  BS
+2015-11-30/08:51:54 - 2015-11-30/08:53:04, 65.0, ykhotyaintsev(EVA),  2 BS
+2015-11-30/09:03:04 - 2015-11-30/09:04:04, 60.0, ykhotyaintsev(EVA),  BS
+2015-11-30/09:07:04 - 2015-11-30/09:08:14, 65.0, ykhotyaintsev(EVA),  BS
+2015-12-01/09:10:34 - 2015-12-01/09:12:04, 60.0, ykhotyaintsev(EVA),  BS
+2015-12-01/09:19:34 - 2015-12-01/09:20:34, 70.0, ykhotyaintsev(EVA),  BS
+2015-12-01/09:22:14 - 2015-12-01/09:24:04, 60.0, ykhotyaintsev(EVA),  BS
+2015-12-01/09:29:24 - 2015-12-01/09:29:44, 70.0, ykhotyaintsev(EVA),  SLAMS
+2015-12-01/09:29:44 - 2015-12-01/09:32:04, 60.0, ykhotyaintsev(EVA),  BS
+2015-12-05/08:42:34 - 2015-12-05/08:46:04, 70.0, ykhotyaintsev(EVA),  BS
+2015-12-05/09:14:54 - 2015-12-05/09:17:04, 65.0, ykhotyaintsev(EVA),  BS
+2015-12-06/04:37:24 - 2015-12-06/04:40:14, 60.0, margall(EVA),  BS
+2015-12-06/04:59:24 - 2015-12-06/05:00:04, 60.0, margall(EVA),  BS
+2015-12-06/07:24:34 - 2015-12-06/07:25:14, 65.0, margall(EVA),  BS
+2015-12-06/07:26:44 - 2015-12-06/07:27:44, 65.0, margall(EVA),  BS
+2015-12-06/08:19:24 - 2015-12-06/08:19:54, 60.0, margall(EVA),  BS
+2015-12-10/01:32:14 - 2015-12-10/01:32:44, 65.0, margall(EVA),  BS
+2015-12-10/01:33:14 - 2015-12-10/01:33:44, 65.0, margall(EVA),  BS
+2015-12-10/02:52:04 - 2015-12-10/02:53:54, 65.0, margall(EVA),  BS
+2015-12-10/03:24:24 - 2015-12-10/03:24:54, 65.0, margall(EVA),  BS
+2015-12-10/03:29:24 - 2015-12-10/03:30:04, 65.0, margall(EVA),  BS
+2015-12-10/04:57:54 - 2015-12-10/04:58:44, 65.0, margall(EVA),  BS
+2015-12-10/05:02:04 - 2015-12-10/05:03:14, 65.0, margall(EVA),  BS
+2015-12-10/05:25:24 - 2015-12-10/05:26:04, 65.0, margall(EVA),  BS
+2015-12-10/05:45:54 - 2015-12-10/05:48:04, 65.0, margall(EVA),  BS, partial
+2015-12-10/05:56:14 - 2015-12-10/05:56:54, 65.0, margall(EVA),  BS
+2015-12-10/05:58:24 - 2015-12-10/05:59:14, 65.0, margall(EVA),  BS
+2015-12-10/06:08:44 - 2015-12-10/06:09:44, 65.0, margall(EVA),  BS
+2015-12-10/06:10:14 - 2015-12-10/06:10:44, 70.0, margall(EVA),  SLAMS
+2015-12-10/06:16:24 - 2015-12-10/06:17:14, 65.0, margall(EVA),  BS
+2015-12-10/08:17:44 - 2015-12-10/08:18:44, 65.0, margall(EVA), BS
+2015-12-10/08:27:54 - 2015-12-10/08:32:04, 65.0, margall(EVA),  BS
+2015-12-10/08:51:04 - 2015-12-10/08:52:14, 65.0, margall(EVA),  BS
+2015-12-10/09:24:14 - 2015-12-10/09:25:04, 65.0, margall(EVA),  BS
+2015-12-11/02:51:54 - 2015-12-11/02:52:44, 65.0, margall(EVA),  BS
+2015-12-11/02:55:14 - 2015-12-11/02:56:14, 65.0, margall(EVA),  BS
+2015-12-11/03:41:04 - 2015-12-11/03:42:04, 65.0, margall(EVA),  BS
+2015-12-11/03:59:54 - 2015-12-11/04:00:24, 65.0, margall(EVA),  BS
+2015-12-11/04:01:24 - 2015-12-11/04:02:04, 65.0, margall(EVA),  BS
+2015-12-11/04:10:04 - 2015-12-11/04:10:34, 65.0, margall(EVA),  BS
+2015-12-11/04:21:04 - 2015-12-11/04:21:34, 65.0, margall(EVA),  BS
+2015-12-11/04:39:04 - 2015-12-11/04:40:54, 65.0, margall(EVA),  BS
+2015-12-11/05:24:24 - 2015-12-11/05:26:44, 65.0, margall(EVA),  BS
+2015-12-11/05:35:24 - 2015-12-11/05:35:54, 65.0, margall(EVA),  BS
+2015-12-11/05:55:04 - 2015-12-11/05:55:54, 65.0, margall(EVA),  BS
+2015-12-11/05:58:54 - 2015-12-11/05:59:54, 65.0, margall(EVA),  BS
+2015-12-11/07:22:44 - 2015-12-11/07:24:24, 65.0, margall(EVA),  BS
+2015-12-11/07:48:34 - 2015-12-11/07:50:44, 65.0, margall(EVA),  BS
+2015-12-11/08:49:34 - 2015-12-11/08:50:34, 65.0, margall(EVA),  BS
+2015-12-19/22:24:14	- 2015-12-19/22:26:44,	51.0,	jburch(EVA),	Bow	shock	
+2015-12-19/22:31:04	- 2015-12-19/22:32:24,	51.0,	jburch(EVA),	Bow	shock	crossing	
+2015-12-19/22:38:24	- 2015-12-19/22:39:24,	48.0,	jburch(EVA),	Bow	shock	crossing	
+2015-12-19/22:53:14	- 2015-12-19/22:59:04,	48.0,	jburch(EVA),	Bow	shock	crossing	
+2015-12-19/23:32:14	- 2015-12-19/23:33:44,	48.0,	jburch(EVA),	Bow	shock	crossing	
+2015-12-19/23:37:34	- 2015-12-19/23:39:44,	48.0,	jburch(EVA),	Bow	shock	crossing	
+2015-12-20/00:03:54	- 2015-12-20/00:06:24,	48.0,	jburch(EVA),	Bow	shock	crossing	
+2015-12-20/00:23:44	- 2015-12-20/00:26:14,	51.0,	jburch(EVA),	Bow	shock	crossing
+2015-12-20/01:23:24	- 2015-12-20/01:29:24,	48.0,	jburch(EVA),	Bow	shock	crossing
+2015-12-20/03:15:04	- 2015-12-20/03:16:54,	48.1,	jburch(EVA),	Bow	shock	crossing	
+2015-12-20/03:25:24	- 2015-12-20/03:27:14,	48.5,	jburch(EVA),	Bow	shock	crossing	
+2015-12-20/03:27:14	- 2015-12-20/03:29:04,	48.5,	jburch(EVA),	Bow	shock	crossing	
+2015-12-22/01:47:14	- 2015-12-22/01:48:24,	53.5,	jburch(EVA),	Bow	shock	
+2015-12-22/01:53:14	- 2015-12-22/01:54:34,	66.0,	jburch(EVA),	Bow	shock	
+2015-12-22/02:03:34	- 2015-12-22/02:04:34,	61.0,	jburch(EVA),	Bow	shock	
+2015-12-22/02:05:34	- 2015-12-22/02:06:44,	61.0,	jburch(EVA),	Bow	shock	
+2015-12-22/02:09:04	- 2015-12-22/02:09:54,	61.0,	jburch(EVA),	Bow	shock	
+2015-12-22/02:10:54	- 2015-12-22/02:11:54,	61.2,	jburch(EVA),	Bow	shock	
+2015-12-22/02:15:44	- 2015-12-22/02:16:34,	61.2,	jburch(EVA),	Bow	shock	
+2015-12-22/02:17:14	- 2015-12-22/02:17:54,	61.0,	jburch(EVA),	Bow	shock	
+2015-12-22/02:18:44	- 2015-12-22/02:19:54,	61.2,	jburch(EVA),	Bow	shock	
+2015-12-22/02:23:04	- 2015-12-22/02:24:34,	81.6,	jburch(EVA),	Bow	shock	
+2015-12-22/02:41:24	- 2015-12-22/02:42:34,	61.2,	jburch(EVA),	Bow	shock	
+2015-12-22/02:46:24	- 2015-12-22/02:47:44,	61.2,	jburch(EVA),	Bow	shock	
+2015-12-22/02:52:44	- 2015-12-22/02:54:44,	61.2,	jburch(EVA),	Bow	shock	
+2015-12-22/03:01:04	- 2015-12-22/03:02:04,	61.0,	jburch(EVA),	Bow	shock	
+2015-12-22/03:02:34	- 2015-12-22/03:03:14,	61.0,	jburch(EVA),	Bow	shock	
+2015-12-22/03:11:44	- 2015-12-22/03:13:14,	68.8,	jburch(EVA),	Possible	hot	flow	anomaly	
+2015-12-22/03:17:04	- 2015-12-22/03:17:34,	61.0,	jburch(EVA),	Bow	shock	
+2015-12-22/03:18:04	- 2015-12-22/03:18:34,	61.0,	jburch(EVA),	Bow	shock	
+2015-12-22/03:19:14	- 2015-12-22/03:19:54,	61.0,	jburch(EVA),	Bow	shock	
+2015-12-22/03:24:44	- 2015-12-22/03:25:34,	61.0,	jburch(EVA),	Bow	shock	
+2015-12-22/03:26:24	- 2015-12-22/03:26:54,	61.0,	jburch(EVA),	Bow	shock	
+2015-12-22/03:26:54	- 2015-12-22/03:28:34,	61.0,	jburch(EVA),	Foreshock	ions	
+2015-12-22/03:29:14	- 2015-12-22/03:29:54,	61.0,	jburch(EVA),	Bow	shock	
+2015-12-22/03:31:54	- 2015-12-22/03:32:24,	61.0,	jburch(EVA),	Bow	shock	
+2015-12-22/03:32:44	- 2015-12-22/03:33:24,	61.0,	jburch(EVA),	Bow	shock	
+2015-12-22/03:38:04	- 2015-12-22/03:39:44,	61.2,	jburch(EVA),	Possible	hot	flow	anomaly	
+2015-12-22/03:43:04	- 2015-12-22/03:43:54,	61.0,	jburch(EVA),	Bow	shock	
+2015-12-22/03:46:44	- 2015-12-22/03:47:24,	60.0,	jburch(EVA),	Bow	shock	
+2015-12-22/03:49:34	- 2015-12-22/03:50:14,	60.0,	jburch(EVA),	Bow	shock	
+2015-12-22/03:56:34	- 2015-12-22/03:59:44,	60.2,	jburch(EVA),	Multiple	bow	shock	crossing	
+2015-12-22/04:13:54	- 2015-12-22/04:16:34,	60.0,	jburch(EVA),	Multiple	bow	shock	crossings	
+2015-12-22/04:25:54	- 2015-12-22/04:27:44,	60.0,	jburch(EVA),	Multiple	bow	shock	crossing	
+2015-12-22/04:38:04	- 2015-12-22/04:39:04,	60.0,	jburch(EVA),	Bow	shock	
+2015-12-22/04:40:44	- 2015-12-22/04:41:34,	60.0,	jburch(EVA),	Bow	shock	
+2015-12-22/06:43:44 - 2015-12-22/06:46:04,	61.0,	jburch(EVA),	Bow	shock	
+2015-12-22/07:13:24	- 2015-12-22/07:16:14,	61.0,	jburch(EVA),	Bow	shock	
+2015-12-22/10:17:54	- 2015-12-22/10:19:24,	61.0,	jburch(EVA),	Bow	shock	
+2015-12-22/10:23:54	- 2015-12-22/10:26:04,	61.0,	jburch(EVA),	Bow	shock	
+2015-12-22/10:30:54	- 2015-12-22/10:32:24,	61.0,	jburch(EVA),	Bow	shock	
+2015-12-22/10:39:14	- 2015-12-22/10:40:34,	61.0,	jburch(EVA),	Bow	shock
+2015-12-22/10:43:04	- 2015-12-22/10:44:14,	61.0,	jburch(EVA),	Bow	shock	
+2015-12-22/10:47:04	- 2015-12-22/10:48:24,	61.0,	jburch(EVA),	Bow	shock	
+2015-12-24/06:39:34	- 2015-12-24/06:40:14,	79.0,	jburch(EVA),	Bow	shock crossing	
+2015-12-24/06:43:54	- 2015-12-24/06:44:44,	73.0,	jburch(EVA),	Bow	shock	crossing	
+2015-12-24/06:59:34	- 2015-12-24/07:00:04,	68.0,	jburch(EVA),	Bow	shock	crossing	
+2015-12-24/07:02:14	- 2015-12-24/07:02:44,	73.0,	jburch(EVA),	Bow	shock	crossing	
+2015-12-24/07:46:14	- 2015-12-24/07:46:44,	68.0,	jburch(EVA),	Bow	shock	crossing	
+2015-12-24/07:50:04	- 2015-12-24/07:50:44,	68.0,	jburch(EVA),	Bow	shock	crossing	
+2015-12-25/03:20:54	- 2015-12-25/03:21:54,	79.0,	jburch(EVA),	Bow	shock	touch	
+2015-12-25/03:23:14	- 2015-12-25/03:24:14,	86.0,	jburch(EVA),	Bow	shock	touch	
+2015-12-25/05:36:34	- 2015-12-25/05:37:54,	79.0,	jburch(EVA),	Bow	shock	crossing	
+2015-12-25/05:38:54	- 2015-12-25/05:40:14,	79.0,	jburch(EVA),	Bow	shock	crossing	
+2015-12-25/08:38:54	- 2015-12-25/08:39:44,	79.1,	jburch(EVA),	Bow	shock encounter	
+2015-12-26/04:49:54	- 2015-12-26/04:51:34,	89.0,	jburch(EVA),	Bow	shock crossing	
+2015-12-26/04:55:34	- 2015-12-26/04:57:14,	81.6,	jburch(EVA),	Bow	shock crossing	
+2015-12-26/05:09:54	- 2015-12-26/05:10:14, 68.0,	jburch(EVA),	Bow	shock crossing	
+2015-12-26/05:10:14	- 2015-12-26/05:10:34,	68.0,	jburch(EVA),	Bow	shock crossing	
+2015-12-26/06:35:24	- 2015-12-26/06:36:14,	79.0,	jburch(EVA),	Bow	shock crossing	
+2015-12-26/06:37:24	- 2015-12-26/06:38:14,	73.0,	jburch(EVA),	Bow	shock crossing
+2015-12-27/04:35:14	-2015-12-27/04:37:34,	68.0,	lavanov(EVA),		Bow	Shock	crosing
+2015-12-27/05:52:34	-2015-12-27/05:53:54,	68.8,	lavanov(EVA),		Bow	Shock	crossing
+2015-12-28/03:56:14 - 2015-12-28/03:57:14, 90.0, lavanov(EVA), Clean BS crossing with large density overshoot
+2015-12-28/03:57:14 - 2015-12-28/03:58:04, 90.0, lavanov(EVA), Clean BS crossing with large density overshoot
+2015-12-28/03:58:04 - 2015-12-28/03:59:04, 90.0, lavanov(EVA), Clean BS crossing with large density overshoot
+2015-12-28/03:59:04 - 2015-12-28/04:00:04, 90.0, lavanov(EVA), Clean BS crossing with large density overshoot
+2015-12-28/04:31:14 - 2015-12-28/04:32:54, 90.0, lavanov(EVA),  Bow Shock crossing
+2015-12-28/05:18:14 - 2015-12-28/05:19:14, 200.0, lavanov(EVA), Cold Solar Wind very good for FPI calibration (distint proton and alpha peaks) 
+2015-12-28/05:26:44 - 2015-12-28/05:27:44, 70.0, lavanov(EVA),  Active HFA
+2015-12-28/05:29:24 - 2015-12-28/05:29:54, 65.0, lavanov(EVA),  BS
+2015-12-28/05:58:44 - 2015-12-28/05:59:14, 70.0, lavanov(EVA), HFA 
+2015-12-28/06:16:54 - 2015-12-28/06:18:04, 90.0, lavanov(EVA),  BS possible spatial structure, looks different on other spacecarft
+2015-12-31/00:51:44 - 2015-12-31/00:53:14, 60.0, lavanov(EVA),  Bow shock
+2015-12-31/01:01:54 - 2015-12-31/01:03:54, 60.0, lavanov(EVA), Bow shock 
+2015-12-31/03:47:14 - 2015-12-31/03:48:54, 40.0, lavanov(EVA), Clean bow shock with density overshoot 
+
+
+
+2015‐10‐07/11:36:44 ‐ 2015‐10‐07/11:37:44, 130.0, tphan(EVA),arelativelyhighMashockwithlargeampBfluctuationsinthedownstream
+2015‐10‐07/11:44:14 ‐ 2015‐10‐07/11:45:24, 130.0, tphan(EVA),cleanperpbowshock
+2015‐10‐07/12:06:04 ‐ 2015‐10‐07/12:08:04, 125.0, tphan(EVA),cleanbowshock
+2015‐10‐07/12:23:54 ‐ 2015‐10‐07/12:24:34, 75.0, tphan(EVA),solarwindcurrentsheet
+2015‐10‐07/12:53:54 ‐ 2015‐10‐07/12:55:14, 125.0, tphan(EVA),cleanbowshock
+2015‐10‐07/12:59:34 ‐ 2015‐10‐07/13:00:34, 125.0, tphan(EVA),cleanbowshock
+2015‐10‐07/13:23:54 ‐ 2015‐10‐07/13:24:24, 75.0, tphan(EVA),solarwindcurrentsheet
+2015‐10‐07/13:46:14 ‐ 2015‐10‐07/13:47:24, 130.0, tphan(EVA),cleanobliqueB
+
 
 % There may be duplicates
 % Order does not matter

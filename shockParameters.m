@@ -283,15 +283,6 @@ s107V = s107V(TV~=0);
 
 TV = TV(TV~=0);
 
-% angle between earth-sun line and sc position in xy plane
-[alphaV,~] = cart2pol(RV(:,1),RV(:,2),RV(:,3));
-alphaV = alphaV*180/pi; % degrees
-
-% angle between earth-sun line and sc position
-[phiV,~] = cart2pol(RV(:,1),sqrt(RV(:,2).^2+RV(:,3).^2));
-phiV = phiV*180/pi; % degrees
-
-Nevents = numel(TV(~isnan(MaV)));
 
 %% Save parameters if requested
 
@@ -314,6 +305,37 @@ col2 = [211,64,82]/255;
 dthBin = 10;
 thBinEdges = 0:dthBin:90;
 
+%% approved data indices
+dind = (~isnan(MaV) & VuV<vlim);
+
+MaV = MaV(dind);
+VuV = VuV(dind);
+thBnV = thBnV(dind);
+thBrV = thBrV(dind);
+thVnV = thVnV(dind);
+accEffV = accEffV(dind,:);
+RV = RV(dind,:);
+sigV = sigV(dind);
+
+dstV = dstV(dind);
+kpV = kpV(dind);
+ssnV = ssnV(dind);
+s107V = s107V(dind);
+
+TV = TV(dind);
+
+
+% angle between earth-sun line and sc position in xy plane
+[alphaV,~] = cart2pol(RV(:,1),RV(:,2),RV(:,3));
+alphaV = alphaV*180/pi; % degrees
+
+% angle between earth-sun line and sc position
+[phiV,~] = cart2pol(RV(:,1),sqrt(RV(:,2).^2+RV(:,3).^2));
+phiV = phiV*180/pi; % degrees
+
+Nevents = numel(TV);
+
+
 %% Plot simple position
 plotShockPos
 
@@ -321,7 +343,7 @@ plotShockPos
 fig = figure;
 hca = axes(fig);
 
-scatter(hca,thBnV,MaV.*cosd(thVnV),400,'.')
+scatter(hca,thBnV(dind),MaV(dind).*cosd(thVnV(dind)),400,'.')
 
 hca.XLim = [0,90];
 hca.YLim(1) = 0;
@@ -340,9 +362,9 @@ fig = figure;
 hca = axes(fig);
 
 vlim = 450;
-Nevents = numel(TV(~isnan(MaV) & VuV<vlim));
+Nevents = numel(dind);
 % plot events with Ma as color
-scatter(hca,thBnV(VuV<vlim),accEffV(VuV<vlim)*100,400,MaV(VuV<vlim).*cosd(thVnV(VuV<vlim)),'.')
+scatter(hca,thBnV,accEffV*100,400,MaV.*cosd(thVnV),'.')
 %scatter(hca,thBnV,accEffV*100,200,[1,1,1]*.2,'.')
 %scatter(hca,thBnV(VuV<vlim),accEffV(VuV<vlim)*100,400,VuV(VuV<vlim),'.')
 hold(hca,'on')
@@ -359,7 +381,7 @@ hca.YAxis.Color = textcol;
 
 hcb = colorbar(hca);
 hcb.Color = textcol;
-%hca.CLim = [0,20];
+hca.CLim = [3,20];
 
 hca.Box = 'on';
 
@@ -380,12 +402,12 @@ hcb.LineWidth = 1.2;
 fig = figure;
 hca = axes(fig);
 hold(hca,'on')
-scatter(hca,thBnV,accEffV*100,200,col2,'.')
+hsc = scatter(hca,thBrV,accEffV*100,200,col2,'.');
 
 % set significance
 beta = .95;
 
-idTh = discretize(thBnV,thBinEdges);
+idTh = discretize(thBrV,thBinEdges);
 accEffAvg = zeros(1,length(thBinEdges)-1);
 accEffStd = zeros(1,length(thBinEdges)-1);
 
@@ -404,20 +426,36 @@ for ii = 1:length(thBinEdges)-1
     accEffAvg(ii) = mu;
     accEffStd(ii) = sig;
     
+    % clean arrays
+    accEffErrUp(isnan(accEffErrUp)) = 0;
+    accEffErrDown(isnan(accEffErrDown)) = 0;
+    
 end
 
 errorbar(hca,thBinEdges(1:end-1)+dthBin/2,accEffAvg*100,accEffErrDown*100,accEffErrUp*100,'-o','color',col1,'linewidth',2.2)
+xErr = thBinEdges(1:end-1)+dthBin/2;
+
+[smErrX,smUpY] = anjo.smooth_line(xErr,accEffErrUp);
+[~,smDownY] = anjo.smooth_line(xErr,accEffErrDown);
+[~,smAvgY] = anjo.smooth_line(xErr,accEffAvg);
+
+%hfill = fill(hca,[xErr,fliplr(xErr)],([accEffAvg,fliplr(accEffAvg)]+[accEffErrUp,fliplr(accEffErrDown)])*100,col1);
+hfill = fill(hca,[smErrX,fliplr(smErrX)],([smAvgY,fliplr(smAvgY)]+[smUpY,fliplr(smDownY)])*100,col1);
+hfill.EdgeColor = 'none';
+hfill.FaceAlpha = .5;
+%uistack(hfill,'bottom');
 
 hca.XLim = [0,90];
 hca.YLim = [0,15];
 
+uistack(hsc,'top');
 
 plot(hca,45*[1,1],hca.YLim,'--','color',textcol,'linewidth',1.2)
 
 hca.Box = 'on';
 
 ylabel(hca,'Acceleration efficiency [$\%$]','Fontsize',15,'interpreter','latex')
-xlabel(hca,'$\theta_{Bn}$ [$^{\circ}$]','Fontsize',15,'interpreter','latex')
+xlabel(hca,'$\theta_{Br}$ [$^{\circ}$]','Fontsize',15,'interpreter','latex')
 
 hca.Color = axcol;
 fig.Color = figcol;
@@ -426,6 +464,7 @@ hca.YAxis.Color = textcol;
 
 title(hca,'Energy flux of ions with $E>10E_{sw}$ measured by MMS-FPI','Fontsize',15,'interpreter','latex','color',textcol)
 hleg = irf_legend(hca,['$N = ',num2str(Nevents),'$'],[0.98,0.98],'Fontsize',15,'interpreter','latex','color',textcol);
+irf_legend(hca,[num2str(beta*100),'\% significance'],[0.98,0.92],'Fontsize',15,'interpreter','latex','color',textcol);
 hleg.BackgroundColor = hca.Color;
 
 hca.LineWidth = 1.2;
