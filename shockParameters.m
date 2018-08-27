@@ -29,6 +29,7 @@ if ~doLoadData
     
     %TV = irf.time_array('2000-01-01T00:00:00Z',zeros(1,N));
     TV = zeros(N,1);
+    dTV = zeros(N,1);
     MaV = zeros(N,1);
     VuV = zeros(N,1);
     thBnV = zeros(N,1);
@@ -233,6 +234,7 @@ if ~doLoadData
         %% set values
         % fill arrays
         TV(count) = tint(1).epochUnix;
+        dTV(count) = diff(tint.epochUnix);
         MaV(count) = Ma;
         VuV(count) = Vu;
         thBnV(count) = thBn;
@@ -265,6 +267,7 @@ if ~doLoadData
 end
 
 %% Clean arrays
+dTV = dTV(TV~=0);
 MaV = MaV(TV~=0);
 VuV = VuV(TV~=0);
 thBnV = thBnV(TV~=0);
@@ -288,7 +291,7 @@ TV = TV(TV~=0);
 
 if saveParameters
     disp('Saving parameters...')
-    save(fileName,'MaV','VuV','thBnV','thVnV','accEffV','RV','sigV','TV','alphaV','phiV','N','dstV','kpV','ssnV','s107V','thBrV')
+    save(fileName,'dTV','MaV','VuV','thBnV','thVnV','accEffV','RV','sigV','TV','alphaV','phiV','N','dstV','kpV','ssnV','s107V','thBrV')
     disp('saved!')
 end
 
@@ -308,6 +311,7 @@ thBinEdges = 0:dthBin:90;
 %% approved data indices
 dind = (~isnan(MaV) & VuV<vlim);
 
+dTV = dTV(dind);
 MaV = MaV(dind);
 VuV = VuV(dind);
 thBnV = thBnV(dind);
@@ -324,6 +328,7 @@ s107V = s107V(dind);
 
 TV = TV(dind);
 
+Nevents = numel(dind);
 
 % angle between earth-sun line and sc position in xy plane
 [alphaV,~] = cart2pol(RV(:,1),RV(:,2),RV(:,3));
@@ -332,8 +337,6 @@ alphaV = alphaV*180/pi; % degrees
 % angle between earth-sun line and sc position
 [phiV,~] = cart2pol(RV(:,1),sqrt(RV(:,2).^2+RV(:,3).^2));
 phiV = phiV*180/pi; % degrees
-
-Nevents = numel(TV);
 
 
 %% Plot simple position
@@ -362,7 +365,7 @@ fig = figure;
 hca = axes(fig);
 
 vlim = 450;
-Nevents = numel(dind);
+
 % plot events with Ma as color
 scatter(hca,thBnV,accEffV*100,400,MaV.*cosd(thVnV),'.')
 %scatter(hca,thBnV,accEffV*100,200,[1,1,1]*.2,'.')
