@@ -14,6 +14,10 @@ filePath = irf_ask('Choose path for plots [%]>','filePath',guessFilePath);
 
 filePrefix = irf_ask('Prefix of file name [%]>','filePrefix',guessFilePrefix);
 
+if strcmp(plotType,'ion')
+    eisMode = irf_ask('EIS mode (auto/srvy/brst) [%]>','eisMode','srvy');
+end
+
 if strcmp(plotType,'ioncomp')
     hpcaMode = irf_ask('HPCA mode (auto/srvy/brst) [%]>','hpcaMode','auto');
 end
@@ -125,8 +129,8 @@ while tline ~= -1
     switch plotType
         case 'ion'
             % ----- ion specific data -----
+            % FPI-DIS
             Vi = mms.get_data('Vi_gse_fpi_brst_l2',tint,ic);
-            
             
             try
                 iPDist = mms.get_data('PDi_fpi_brst_l2',tint,ic);
@@ -137,6 +141,35 @@ while tline ~= -1
                 disp(['error reading PDist for ',tstr,', skipping...'])
                 continue;
             end
+            
+            % EPD-EIS
+            switch eisMode
+                case 'srvy'
+                    c_eval('EISdpf! = mms.db_get_ts(''mms?_epd-eis_srvy_l2_phxtof'',''mms?_epd_eis_phxtof_proton_P4_flux_t!'',tint);',1:4,0:5)
+                    % assume all energy tables are the same
+                    [filepath,filename] = mms.get_filepath('mms2_epd-eis_srvy_l2_phxtof',tint(1));
+                    do = dataobj([filepath,filename]);
+                    Eeis = 1e3*do.data.mms2_epd_eis_phxtof_proton_t0_energy.data; % in eV                  
+                case 'brst'
+                    c_eval('EISdpf! = mms.db_get_ts(''mms?_epd-eis_brst_l2_phxtof'',''mms?_epd_eis_brst_phxtof_proton_P4_flux_t!'',tint);',1:4,0:5)
+                    % assume all energy tables are the same
+                    [filepath,filename] = mms.get_filepath('mms2_epd-eis_srvy_l2_phxtof',tint(1));
+                    do = dataobj([filepath,filename]);
+                    Eeis = 1e3*do.data.mms2_epd_eis_brst_phxtof_proton_t0_energy.data;
+            end
+            
+            % convert EIS data to PSD
+            mm = 1; % ion mass
+            % energy table for each time step and energy index
+            ETabEis = repmat(Eeis,EISdpf0.length,1);
+            % copy objects
+            c_eval('EISpsd? = EISdpf?;',0:5)
+            % sort of magic conversion :(
+            c_eval('EISpsd?.data = EISdpf?.data/1e12*mm^2*0.53707./ETabEis;',0:5)
+            % mysterious correction factor
+            c_eval('EISpsd?.data = EISpsd?.data*1e-3;',0:5)
+            % average EIS psd from all detectors (same time stamps)
+            EISpsd = (EISpsd0+EISpsd1+EISpsd2+EISpsd3+EISpsd4+EISpsd5)/6;
             
         case 'electron'
             % ----- electron specific data -----

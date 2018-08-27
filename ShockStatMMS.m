@@ -59,7 +59,7 @@ if ~doLoadData
     if optNum ~= 8
         % sc number
         fprintf('\n')
-        ic = irf_ask('Select spacecraft: [%]>','ic',1);
+        ic = irf_ask('Select spacecraft: [%]>','ic',2);
     end
     
     % which line in list to start at

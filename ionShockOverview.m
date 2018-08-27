@@ -2,7 +2,21 @@
 % Plot the ion overview
 % this script is called from within plotShockOverview
 
-h = sh_figure(6,[12,16]);
+
+%% EIS average spectrogram structure
+
+% time step of eis detectors 
+dTEis = median(diff(EISdpf0.time.epochUnix));
+
+EISspecrec = [];
+EISspecrec.p = EISpsd.data;
+EISspecrec.t = EISpsd.time.epochUnix+dTEis/2;
+EISspecrec.f = Eeis*1e-3;
+EISspecrec.f_label = 'E (keV)';
+
+
+%% Figure
+h = sh_figure(7,[12,16]);
 
 % babs 4sc
 hca = irf_panel(h,'babs');
@@ -38,6 +52,15 @@ irf_plot(hca,Vi)
 ylabel(hca,'$\mathbf{V}_i$ [km/s]','fontsize',15,'interpreter','latex')
 irf_legend(hca,{'$V_x$';'$V_y$';'$V_z$'},[1.02,0.9],'Fontsize',15,'interpreter','latex')
 
+% fi-EIS
+hca = irf_panel(h,'fiEIS');
+iPDistSI = iPDist;
+iPDistSI.data = iPDist.data*1e12;
+irf_spectrogram(hca,EISspecrec,'donotshowcolorbar')
+hca.YScale = 'log';
+sh_cmap(hca,'irf')
+ylabel(hca,'Energy [keV]','fontsize',15,'interpreter','latex')
+
 % fi
 hca = irf_panel(h,'fi');
 iPDistSI = iPDist;
@@ -47,9 +70,9 @@ hca.YScale = 'log';
 sh_cmap(hca,'irf')
 ylabel(hca,'Energy [eV]','fontsize',15,'interpreter','latex')
 hca.YTick = 10.^[1,2,3,4];
-hcb1 = colorbar(hca);
+idPanel = find(hca==h);
+hcb1 = sh_cbar(h(idPanel-1:idPanel));
 ylabel(hcb1,{'$\log{f_i}$ ';'[s$^3$\,m$^{-6}$]'},'fontsize',14,'interpreter','latex')
-
 
 % reduced fi
 hca = irf_panel(h,'redi');
@@ -58,7 +81,6 @@ sh_cmap(hca,'irf')
 ylabel(hca,'$V_n$ [km/s]','fontsize',15,'interpreter','latex')
 hcb2 = colorbar(hca);
 ylabel(hcb2,{'$\log{F_i}$ ';'[s\,m$^{-4}$]'},'fontsize',15,'interpreter','latex')
-
 
 
 irf_zoom(h,'x',tint)
@@ -78,7 +100,7 @@ end
 
 hcb1.LineWidth = 1.3; hcb2.LineWidth = 1.3;
 hca = irf_panel(h,'fi');
-hcb1.Position([2,4]) = hca.Position([2,4]);
+hcb1.Position([2,4]) = hca.Position([2,4]).*[1,2];
 hcb1.Position([1,3]) = [cbl,cbw];
 hca = irf_panel(h,'redi');
 hcb2.Position([2,4]) = hca.Position([2,4]);
