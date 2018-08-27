@@ -57,7 +57,7 @@ irf_spectrogram(hca,f1Dn.specrec('1D_velocity'),'donotshowcolorbar')
 sh_cmap(hca,'irf')
 ylabel(hca,'$V_n$ [km/s]','fontsize',15,'interpreter','latex')
 hcb2 = colorbar(hca);
-ylabel(hcb2,{'$\log{F_i}$ ';'[s$^2$\,m$^{-5}$]'},'fontsize',15,'interpreter','latex')
+ylabel(hcb2,{'$\log{F_i}$ ';'[s\,m$^{-4}$]'},'fontsize',15,'interpreter','latex')
 
 
 

@@ -145,7 +145,7 @@ hcb1 = sh_cbar(h(3:6));
 ylabel(hcb1,{'$\log{f_i}$ ';'[s$^3$\,m$^{-6}$]'},'fontsize',14,'interpreter','latex')
 
 hcb2 = sh_cbar(h(7:9));
-ylabel(hcb2,{'$\log{F_i}$ ';'[s$^2$\,m$^{-5}$]'},'fontsize',15,'interpreter','latex')
+ylabel(hcb2,{'$\log{F_i}$ ';'[s\,m$^{-4}$]'},'fontsize',15,'interpreter','latex')
 
 
 
