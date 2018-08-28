@@ -36,6 +36,7 @@ if ~doLoadData
     thBrV = zeros(N,1);
     thVnV = zeros(N,1);
     accEffV = zeros(N,1);
+    EmaxV = zeros(N,1);
     RV = zeros(N,3);
     sigV = zeros(N,1);
     dstV = zeros(N,1);
@@ -241,6 +242,8 @@ if ~doLoadData
         thVnV(count) = thVn;
         thBrV(count) = thBr;
         accEffV(count) = accEff;
+        % Emax is not perfect for alternating energy table but who cares?
+        EmaxV(count) = max(energy);
         % mean of all four
         RV(count,:) =mean((R.gseR1(:,1:3)+R.gseR2(:,1:3)+R.gseR3(:,1:3)+R.gseR4(:,1:3))/4)/u.RE*1e3;
         % compression factor of models
@@ -274,6 +277,7 @@ thBnV = thBnV(TV~=0);
 thBrV = thBrV(TV~=0);
 thVnV = thVnV(TV~=0);
 accEffV = accEffV(TV~=0,:);
+EmaxV = EmaxV(TV~=0,:);
 RV = RV(TV~=0,:);
 sigV = sigV(TV~=0);
 
@@ -291,7 +295,7 @@ TV = TV(TV~=0);
 
 if saveParameters
     disp('Saving parameters...')
-    save(fileName,'dTV','MaV','VuV','thBnV','thVnV','accEffV','RV','sigV','TV','alphaV','phiV','N','dstV','kpV','ssnV','s107V','thBrV')
+    save(fileName,'dTV','MaV','VuV','thBnV','thVnV','accEffV','EmaxV','RV','sigV','TV','alphaV','phiV','N','dstV','kpV','ssnV','s107V','thBrV')
     disp('saved!')
 end
 
