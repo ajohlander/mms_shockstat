@@ -59,7 +59,9 @@ iPDistSI.data = iPDist.data*1e12;
 irf_spectrogram(hca,EISspecrec,'donotshowcolorbar')
 hca.YScale = 'log';
 sh_cmap(hca,'irf')
-ylabel(hca,'Energy [keV]','fontsize',15,'interpreter','latex')
+ylabel(hca,'[keV]','fontsize',15,'interpreter','latex')
+%ylabel(hca,'')
+hca.YLim(1) = iPDistSI.depend{1}(1,end)*1e-3; % set lower limit to FPI highest energy
 
 % fi
 hca = irf_panel(h,'fi');
@@ -87,6 +89,17 @@ irf_zoom(h,'x',tint)
 irf_plot_axis_align(h)
 sh_panel_span(h,[axu,axu+axh])
 pause(0.01)
+
+% make EIS panel smaller
+idEisPanel = idPanel-1;
+dhf = 0.5; % how much smaller?
+dhh = dhf*h(idEisPanel).Position(4);
+h(idEisPanel).Position(4) = h(idEisPanel).Position(4)-dhh;
+sh_panel_span(h(1:idEisPanel-1),[h(idEisPanel-1).Position(2)-dhh*idEisPanel/(length(h)-1),axu+axh])
+h(idEisPanel).Position(2) = h(idEisPanel-1).Position(2)-h(idEisPanel).Position(4);
+sh_panel_span(h(idEisPanel+1:end),[axu,h(idEisPanel).Position(2)])
+
+pause(0.01)
 for jj = 1:length(h)
     irf_zoom(h(jj),'y',h(jj).YLim)
     h(jj).Position(1) = axl;
@@ -99,8 +112,8 @@ for jj = 1:length(h)
 end
 
 hcb1.LineWidth = 1.3; hcb2.LineWidth = 1.3;
-hca = irf_panel(h,'fi');
-hcb1.Position([2,4]) = hca.Position([2,4]).*[1,2];
+%hca = irf_panel(h,'fi');
+hcb1.Position([2,4]) = [h(idPanel).Position(2),h(idPanel).Position(4)+h(idPanel-1).Position(4)];
 hcb1.Position([1,3]) = [cbl,cbw];
 hca = irf_panel(h,'redi');
 hcb2.Position([2,4]) = hca.Position([2,4]);
