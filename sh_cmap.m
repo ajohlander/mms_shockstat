@@ -39,7 +39,7 @@ else
     cMapMode = args{1};
 end
 
-
+didFindColormap = 1;
 
 %% Set which colors
 switch lower(cMapMode) % Special colormaps
@@ -106,15 +106,21 @@ switch lower(cMapMode) % Special colormaps
             case 'grey'
                 cMiddle = [0.5,0.5,0.5];
             otherwise
-                if(inmap)
-                    error('Unknown color')
-                end
+                didFindColormap = 0;
         end
-        if(inmap)
+        if didFindColormap
             c = [1,1,1;cMiddle;0,0,0];
         end
 end
 
+if ~didFindColormap
+    % try Matlabs own colormaps
+    try
+        eval(['c = ',cMapMode,';'])
+    catch
+        error('Unknown color')
+    end
+end
 
 %% Create colormap
 cN = size(c,1);

@@ -2,8 +2,6 @@
 
 %% Set parameters
 
-u = irf_units;
-
 % If data is read, ask to save it
 if ~doLoadData
     saveParameters = irf_ask('Save parameters? (0=no, 1=yes) [%]>','saveParameters',0);

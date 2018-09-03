@@ -22,8 +22,6 @@ if strcmp(plotType,'ioncomp')
     hpcaMode = irf_ask('HPCA mode (auto/srvy/brst) [%]>','hpcaMode','auto');
 end
 
-u = irf_units;
-
 % normal bs model to use (cannot be slho)
 shModel = 'farris';
 

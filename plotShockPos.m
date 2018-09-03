@@ -18,7 +18,7 @@ hcb = colorbar(hca,'location','northoutside');
 theta=0:pi/20:pi;
 xEarth=sin(theta);yEarth=cos(theta);
 patch(-xEarth,yEarth,'k','edgecolor','k','Parent',hca)
-patch(xEarth,yEarth,textcol,'edgecolor','k','Parent',hca)
+patch(xEarth,yEarth,daycol,'edgecolor','k','Parent',hca)
 plot(hca,[-xEarth,xEarth],[yEarth,yEarth],'k','linewidth',1.5)
 
 hca.XDir = 'reverse';
@@ -93,18 +93,24 @@ hcb.FontSize = 15;
 hcb.Ticks = 0:15:90;
 
 
-%% plot angles
+%% plot bow shock sigma
 
 fig = figure;
 hca = axes(fig);
 
-scatter(alphaV,MaV,200,sigV,'.')
+scatter(alphaV,MaV,300,sigV,'.')
 %hca.YLim = [0,90];
-hca.Color = [1,1,1]*.7;
+
+hca.Color = [1,1,1]*.5;
+fig.Color = figcol;
+hca.XAxis.Color = textcol;
+hca.YAxis.Color = textcol;
+
 hcb = colorbar(hca);
 sh_cmap(hca,'bluered')
+hcb.Color = textcol;
 
-title(hca,'Bow shock model scaling factor','Fontsize',15,'interpreter','latex')
+title(hca,'Bow shock model scaling factor','Fontsize',15,'interpreter','latex','color',textcol)
 
 xlabel(hca,'$\alpha$ [$^{\circ}$]','fontsize',15,'interpreter','latex')
 ylabel(hca,'$\theta_{Bn}$ [$^{\circ}$]','fontsize',15,'interpreter','latex')

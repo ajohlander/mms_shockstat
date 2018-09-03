@@ -2,6 +2,9 @@
 % Asks user what to do
 %
 
+% always do this
+u = irf_units;
+
 %% Select which program to call
 optStr = sprintf(['\nPlease select an option: \n',...
     '1: TBD \n',...

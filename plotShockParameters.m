@@ -1,11 +1,32 @@
 
+EmaxLim = irf_ask('Upper energy limit of FPI in units of solar wind energy: [%]>','EmaxLim',20);
+
+colorMode = irf_ask('Color mode (1:Fancy, 2:Boring): [%]>','colorMode',1);
+
 %% colors for plots
-cmap = 'strangeways';
-axcol = [1,1,1]*.4;
-figcol = [1,1,1]*.2;
-textcol = [1,1,1]*.95;
-col1 = [253,232,159]/255;
-col2 = [211,64,82]/255;
+
+switch colorMode
+    case 1 % darker, cooler
+        cmap = 'strangeways';
+        axcol = [1,1,1]*.4;
+        figcol = [1,1,1]*.2;
+        textcol = [1,1,1]*.95;
+        daycol = [1,1,1]*.95;
+        col1 = [253,232,159]/255;
+        col2 = [211,64,82]/255;
+        bincol = [157,214,166]/255;
+    case 2 % lighter, boring
+        cmap = 'cool';
+        axcol = [1,1,1];
+        figcol = [1,1,1];
+        textcol = [1,1,1]*.05;
+        daycol = [1,1,1];
+        col1 = [1,1,1]*.5;
+        col2 = [211,64,82]/255;
+        bincol = [157,214,166]/255;
+end
+
+
 
 
 %% some bin edges
@@ -13,8 +34,9 @@ dthBin = 10;
 thBinEdges = 0:dthBin:90;
 
 %% approved data indices
-vlim = 500;
-dind = (~isnan(MaV) & VuV<vlim);
+
+EswV = 1/2*u.mp*VuV.^2;
+dind = (~isnan(MaV) & EmaxV>EswV*EmaxLim);
 
 dTV = dTV(dind);
 MaV = MaV(dind);
@@ -52,12 +74,17 @@ plotShockPos
 fig = figure;
 hca = axes(fig);
 
-scatter(hca,thBnV,MaV.*cosd(thVnV),400,'.')
+scatter(hca,thBnV,MaV.*cosd(thVnV),400,col1,'.')
 
 hca.XLim = [0,90];
 hca.YLim(1) = 0;
 
 hca.Box = 'on';
+
+hca.Color = axcol;
+fig.Color = figcol;
+hca.XAxis.Color = textcol;
+hca.YAxis.Color = textcol;
 
 ylabel(hca,'$M_A$','fontsize',15,'interpreter','latex')
 xlabel(hca,'$\theta_{Bn}$ [$^{\circ}$]','fontsize',15,'interpreter','latex')
@@ -118,13 +145,14 @@ idTh = discretize(thBnV,thBinEdges);
 accEffAvg = zeros(1,length(thBinEdges)-1);
 accEffStd = zeros(1,length(thBinEdges)-1);
 
+% upper and lower limits (difference to average, not actual limits)
 accEffErrUp = zeros(1,length(thBinEdges)-1);
 accEffErrDown = zeros(1,length(thBinEdges)-1);
 
 for ii = 1:length(thBinEdges)-1
     % mean and std
     mu =  nanmean(accEffV(idTh==ii));
-    sig = nanstd(accEffV(idTh==ii),1);
+    sig = nanstd(accEffV(idTh==ii));
     
     % after a lot(!) of math
     accEffErrUp(ii) = norminv(beta*normcdf(mu/sig)-normcdf(mu/sig)+1)*sig;
@@ -142,9 +170,11 @@ end
 errorbar(hca,thBinEdges(1:end-1)+dthBin/2,accEffAvg*100,accEffErrDown*100,accEffErrUp*100,'-o','color',col1,'linewidth',2.2)
 xErr = thBinEdges(1:end-1)+dthBin/2;
 
-[smErrX,smUpY] = anjo.smooth_line(xErr,accEffErrUp);
-[~,smDownY] = anjo.smooth_line(xErr,accEffErrDown);
-[~,smAvgY] = anjo.smooth_line(xErr,accEffAvg);
+% make smooth lines of errors and average
+smErrX = linspace(0,90,1e2);
+smUpY = interp1(thBinEdges(1:end-1)+dthBin/2,accEffErrUp,smErrX,'pchip');
+smDownY = interp1(thBinEdges(1:end-1)+dthBin/2,accEffErrDown,smErrX,'pchip');
+smAvgY = interp1(thBinEdges(1:end-1)+dthBin/2,accEffAvg,smErrX,'pchip');
 
 %hfill = fill(hca,[xErr,fliplr(xErr)],([accEffAvg,fliplr(accEffAvg)]+[accEffErrUp,fliplr(accEffErrDown)])*100,col1);
 hfill = fill(hca,[smErrX,fliplr(smErrX)],([smAvgY,fliplr(smAvgY)]+[smUpY,fliplr(smDownY)])*100,col1);
@@ -220,29 +250,34 @@ hcb.LineWidth = 1.2;
 fig = figure;
 hca = axes(fig);
 
-irf_plot([TV,alphaV],'.','markersize',20)
+irf_plot([TV,alphaV],'.','color',col1,'markersize',20)
 hold(hca,'on')
 plot(hca.XLim,[0,0],'k--','linewidth',1.8)
-plot(hca.XLim,45*[1,1],'--','color',[1,1,1]*.4,'linewidth',1.2)
-plot(hca.XLim,-45*[1,1],'--','color',[1,1,1]*.4,'linewidth',1.2)
-plot(hca.XLim,90*[1,1],'--','color',[1,1,1]*.7,'linewidth',1.2)
-plot(hca.XLim,-90*[1,1],'--','color',[1,1,1]*.7,'linewidth',1.2)
+plot(hca.XLim,45*[1,1],'--','color',axcol*.3,'linewidth',1.2)
+plot(hca.XLim,-45*[1,1],'--','color',axcol*.3,'linewidth',1.2)
+plot(hca.XLim,90*[1,1],'--','color',axcol*.7,'linewidth',1.2)
+plot(hca.XLim,-90*[1,1],'--','color',axcol*.7,'linewidth',1.2)
+
+hca.Color = axcol;
+fig.Color = figcol;
+hca.XAxis.Color = textcol;
+hca.YAxis.Color = textcol;
 
 grid(hca,'off')
 hca.YLim = [-1,1]*110;
 
 xlabel(hca,'Time','Fontsize',15,'interpreter','latex')
 ylabel(hca,'$\alpha$ [$^{\circ}$]','Fontsize',15,'interpreter','latex')
+hca.FontSize = 14;
+
 
 %% Histogram of thetaBn
-
-bincol = [157,214,166]/255;
 
 fig = figure;
 hca = axes(fig);
 
 % thBnEdges is defined above
-histogram(hca,thBnV,thBinEdges,'FaceColor',bincol,'edgecolor',textcol);
+histogram(hca,thBnV,thBinEdges,'FaceColor',bincol,'edgecolor',textcol,'linewidth',1.3);
 
 xlabel(hca,'$\theta_{Bn}$','Fontsize',15,'interpreter','latex')
 ylabel(hca,'Number of events','Fontsize',15,'interpreter','latex')
@@ -257,14 +292,12 @@ hca.FontSize = 14;
 
 %% Histogram of Ma
 
-bincol = [157,214,166]/255;
-
 fig = figure;
 hca = axes(fig);
 
 dMaBin = 2;
 MaBinEdges = 0:dMaBin:60;
-histogram(hca,MaV.*cosd(thVnV),MaBinEdges,'FaceColor',bincol,'edgecolor',textcol);
+histogram(hca,MaV.*cosd(thVnV),MaBinEdges,'FaceColor',bincol,'edgecolor',textcol,'linewidth',1.3);
 
 xlabel(hca,'$M_A$','Fontsize',15,'interpreter','latex')
 ylabel(hca,'Number of events','Fontsize',15,'interpreter','latex')
