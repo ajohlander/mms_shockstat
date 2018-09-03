@@ -72,6 +72,10 @@ hca.YTick = 10.^[1,2,3,4];
 idPanel = find(hca==h);
 hcb1 = sh_cbar(h(idPanel));
 ylabel(hcb1,{'$\log{f_i}$ ';'[s$^3$\,m$^{-6}$]'},'fontsize',14,'interpreter','latex')
+% dividing line
+maxETS = irf.ts_scalar(iPDist.time,iPDist.depend{1}(:,end));
+irf_plot(hca,maxETS,'k-','linewidth',0.7)
+grid(hca,'off')
 hca.YLim(1) = 10; % 10 eV limit in plot
 
 % reduced fi
