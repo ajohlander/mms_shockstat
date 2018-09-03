@@ -156,18 +156,23 @@ while tline ~= -1
                     Eeis = 1e3*do.data.mms2_epd_eis_brst_phxtof_proton_t0_energy.data;
             end
             
-            % convert EIS data to PSD
-            mm = 1; % ion mass
-            % energy table for each time step and energy index
-            ETabEis = repmat(Eeis,EISdpf0.length,1);
-            % copy objects
-            c_eval('EISpsd? = EISdpf?;',0:5)
-            % sort of magic conversion :(
-            c_eval('EISpsd?.data = EISdpf?.data/1e12*mm^2*0.53707./ETabEis;',0:5)
-            % mysterious correction factor
-            c_eval('EISpsd?.data = EISpsd?.data*1e-3;',0:5)
-            % average EIS psd from all detectors (same time stamps)
-            EISpsd = (EISpsd0+EISpsd1+EISpsd2+EISpsd3+EISpsd4+EISpsd5)/6;
+            % check if EIS data was read, continue either way
+            if isempty(EISdpf0) % skip
+                plotEIS = 0;% do not show EIS panel
+            else % convert EIS data to PSD
+                plotEIS = 1; % do show EIS panel
+                mm = 1; % ion mass
+                % energy table for each time step and energy index
+                ETabEis = repmat(Eeis,EISdpf0.length,1);
+                % copy objects
+                c_eval('EISpsd? = EISdpf?;',0:5)
+                % sort of magic conversion :(
+                c_eval('EISpsd?.data = EISdpf?.data/1e12*mm^2*0.53707./ETabEis;',0:5)
+                % mysterious correction factor :(
+                c_eval('EISpsd?.data = EISpsd?.data*1e-3;',0:5)
+                % average EIS psd from all detectors (same time stamps)
+                EISpsd = (EISpsd0+EISpsd1+EISpsd2+EISpsd3+EISpsd4+EISpsd5)/6;
+            end
             
         case 'electron'
             % ----- electron specific data -----
@@ -340,6 +345,10 @@ while tline ~= -1
    
     irf_legend(h(1),['$\mathbf{B}_u = [',Bustr,']$\,nT,'],[ll,1.045],'Fontsize',14,'interpreter','latex','horizontalalignment','left')
     irf_legend(h(1),['$N_u = ',Nustr,'$\,cm$^{-3}$, $V_u = ',Vustr,'$\,km/s, $M_A = ',Mastr,'$, $\theta_{Bn} = ',thstr,'^{\circ}$'],[lr,1.045],'Fontsize',14,'interpreter','latex','horizontalalignment','right')
+    
+    % add stamp for time created
+    irf_legend(h(end),['Created: ',datestr(now,29)],[0.98,-0.3],'Fontsize',11,'interpreter','latex','horizontalalignment','left')
+    
     %% save figure
     % give it the time stamp of the start time
     irf_print_fig(h(1),[filePath,fileName(1:end-4)],'png')

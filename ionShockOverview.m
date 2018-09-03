@@ -4,19 +4,19 @@
 
 
 %% EIS average spectrogram structure
-
-% time step of eis detectors 
-dTEis = median(diff(EISdpf0.time.epochUnix));
-
-EISspecrec = [];
-EISspecrec.p = EISpsd.data;
-EISspecrec.t = EISpsd.time.epochUnix+dTEis/2;
-EISspecrec.f = Eeis*1e-3;
-EISspecrec.f_label = 'E (keV)';
-
+if plotEIS 
+    % time step of eis detectors
+    dTEis = median(diff(EISdpf0.time.epochUnix));
+    
+    EISspecrec = [];
+    EISspecrec.p = EISpsd.data;
+    EISspecrec.t = EISpsd.time.epochUnix+dTEis/2;
+    EISspecrec.f = Eeis*1e-3;
+    EISspecrec.f_label = 'E (keV)';
+end
 
 %% Figure
-h = sh_figure(7,[12,16]);
+h = sh_figure(6+plotEIS,[12,16]);
 
 % babs 4sc
 hca = irf_panel(h,'babs');
@@ -52,16 +52,18 @@ irf_plot(hca,Vi)
 ylabel(hca,'$\mathbf{V}_i$ [km/s]','fontsize',15,'interpreter','latex')
 irf_legend(hca,{'$V_x$';'$V_y$';'$V_z$'},[1.02,0.9],'Fontsize',15,'interpreter','latex')
 
-% fi-EIS
-hca = irf_panel(h,'fiEIS');
-iPDistSI = iPDist;
-iPDistSI.data = iPDist.data*1e12;
-irf_spectrogram(hca,EISspecrec,'donotshowcolorbar')
-hca.YScale = 'log';
-sh_cmap(hca,'irf')
-ylabel(hca,'[keV]','fontsize',15,'interpreter','latex')
-%ylabel(hca,'')
-hca.YLim(1) = iPDistSI.depend{1}(1,end)*1e-3; % set lower limit to FPI highest energy
+if plotEIS
+    % fi-EIS
+    hca = irf_panel(h,'fiEIS');
+    iPDistSI = iPDist;
+    iPDistSI.data = iPDist.data*1e12;
+    irf_spectrogram(hca,EISspecrec,'donotshowcolorbar')
+    hca.YScale = 'log';
+    sh_cmap(hca,'irf')
+    ylabel(hca,'[keV]','fontsize',15,'interpreter','latex')
+    %ylabel(hca,'')
+    hca.YLim(1) = iPDistSI.depend{1}(1,end)*1e-3; % set lower limit to FPI highest energy
+end
 
 % fi
 hca = irf_panel(h,'fi');
@@ -73,7 +75,7 @@ sh_cmap(hca,'irf')
 ylabel(hca,'Energy [eV]','fontsize',15,'interpreter','latex')
 hca.YTick = 10.^[1,2,3,4];
 idPanel = find(hca==h);
-hcb1 = sh_cbar(h(idPanel-1:idPanel));
+hcb1 = sh_cbar(h(idPanel-plotEIS:idPanel));
 ylabel(hcb1,{'$\log{f_i}$ ';'[s$^3$\,m$^{-6}$]'},'fontsize',14,'interpreter','latex')
 
 % reduced fi
@@ -90,14 +92,18 @@ irf_plot_axis_align(h)
 sh_panel_span(h,[axu,axu+axh])
 pause(0.01)
 
-% make EIS panel smaller
-idEisPanel = idPanel-1;
-dhf = 0.5; % how much smaller?
-dhh = dhf*h(idEisPanel).Position(4);
-h(idEisPanel).Position(4) = h(idEisPanel).Position(4)-dhh;
-sh_panel_span(h(1:idEisPanel-1),[h(idEisPanel-1).Position(2)-dhh*idEisPanel/(length(h)-1),axu+axh])
-h(idEisPanel).Position(2) = h(idEisPanel-1).Position(2)-h(idEisPanel).Position(4);
-sh_panel_span(h(idEisPanel+1:end),[axu,h(idEisPanel).Position(2)])
+if plotEIS
+    % make EIS panel smaller
+    idEisPanel = idPanel-1;
+    dhf = 0.5; % how much smaller?
+    dhh = dhf*h(idEisPanel).Position(4);
+    h(idEisPanel).Position(4) = h(idEisPanel).Position(4)-dhh;
+    sh_panel_span(h(1:idEisPanel-1),[h(idEisPanel-1).Position(2)-dhh*idEisPanel/(length(h)-1),axu+axh])
+    h(idEisPanel).Position(2) = h(idEisPanel-1).Position(2)-h(idEisPanel).Position(4);
+    sh_panel_span(h(idEisPanel+1:end),[axu,h(idEisPanel).Position(2)])
+    % space out YTicks
+    h(5).YTick = h(5).YTick(1:2:end);
+end
 
 pause(0.01)
 for jj = 1:length(h)
@@ -113,7 +119,11 @@ end
 
 hcb1.LineWidth = 1.3; hcb2.LineWidth = 1.3;
 %hca = irf_panel(h,'fi');
-hcb1.Position([2,4]) = [h(idPanel).Position(2),h(idPanel).Position(4)+h(idPanel-1).Position(4)];
+if plotEIS
+    hcb1.Position([2,4]) = [h(idPanel).Position(2),h(idPanel).Position(4)+h(idPanel-1).Position(4)];
+else
+    hcb1.Position([2,4]) = h(idPanel).Position([2,4]);
+end
 hcb1.Position([1,3]) = [cbl,cbw];
 hca = irf_panel(h,'redi');
 hcb2.Position([2,4]) = hca.Position([2,4]);
