@@ -281,7 +281,7 @@ if ~doLoadData
         if hasEIS; nE = length(Fcomb{1}); else; nE = length(iPDist.depend{1}); end
         
         % number of time steps
-        if hasEIS; nT = length(Fcomb); else; nE = iPDist.length; end
+        if hasEIS; nT = length(Fcomb); else; nT = iPDist.length; end
         
         % total energy flux
         EF = zeros(iPDist.length,1);
