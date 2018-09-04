@@ -167,11 +167,7 @@ if ~doLoadData
         
         
         %% get energy flux of ions with E>10Esw
-        
-        nV = 32;
-        nAz = 32;
-        nEle = 16;
-        
+        % particle mass
         M = u.mp;
         
         % solar wind energy in J
@@ -179,49 +175,45 @@ if ~doLoadData
         
         emat = double(iPDist.energy); % in eV
         
-        dV = zeros(1,nV);
         % total energy flux
         EF = zeros(iPDist.length,1);
         % energetic energy flux
         EFen = zeros(iPDist.length,1);
         for it = 1:iPDist.length
+            disp([num2str(it),'/',num2str(iPDist.length)])
             
-            % 3d data matrix for time index it
-            F3d = double(squeeze(double(iPDist.data(it,:,:,:)))*1e12); % s^3/m^6
+            % 1d data matrix of PSD for time index it (FPI)
+            Fpsd = double(iPDist.convertto('s^3/m^6').omni.data(it,:)); % s^3/m^6
             
-            energy = emat(it,:);
-            v = sqrt(2*energy*u.e/M); % m/s
+            % energy in [J]
+            E = emat(it,:)*u.e;
             
-            % azimuthal angle
-            phi = double(iPDist.depend{2}(it,:)); % in degrees
-            phi = phi*pi/180; % in radians
+            % assumes energy table is the same for all time steps
+            % also assumes energy_delta_plus/minus are the same
+            dE = double(iPDist.ancillary.delta_energy_plus(1,:))*2*u.e; % delta energy [J]
             
-            % elevation angle
-            th = double(iPDist.depend{3}); % polar angle in degrees
-            th = th-90; % elevation angle in degrees
-            th = th*pi/180; % in radians
-            
-            % diffs
-            dV(2:end) = diff(v); dV(1) = dV(2); % quick and dirty
-            dPhi = abs(median(diff(phi))); % constant
-            dTh = abs(median(diff(th))); % constant
-            
-            % 3D matrices for instrumental bin centers
-            TH = repmat(th,nV,1,nAz);       % [phi,th,v]
-            TH = permute(TH,[1,3,2]);       % [v,phi,th]
-            VEL = repmat(v,nAz,1,nEle);     % [phi,v,th]
-            VEL = permute(VEL,[2,1,3]);     % [v,phi,th]
-            DV = repmat(dV,nAz,1,nEle);     % [phi,v,th]
-            DV = permute(DV,[2,1,3]);       % [v,phi,th]
-            E = .5*M*VEL.^2; % energy [J]
-            
-            dE = E.*F3d.*VEL.^2.*cos(TH)*dPhi*dTh.*DV; % [J/m^3]
+            % average energy flux per energy level [J/m^3]
+            dEF = E.*Fpsd.*dE;
             
             % total energy flux
-            EF(it) = sum(sum(sum(dE)));
-            % energetic energy flux
-            EFen(it) = sum(sum(sum(dE(E>10*Esw))));
+            EF(it) = 4*pi*sqrt(2/M^3)*sum(dE.*sqrt(E.^3).*Fpsd);
             
+            % --- energetic energy flux ---
+            % first find last lower bin edge which is less than 10Esw
+            idll = find(E-dE/2<10*Esw,1,'last');
+            % if idll is empty, then probably 10Esw is greater than
+            % instrument limit, maybe deal with?
+            % then get "first" dE of energetic part
+            dEen_first = E(idll)+dE(idll)/2-10*Esw;
+            % array of dEs of energetic part
+            dEen = [dEen_first,dE(idll+1:end)];
+            % array of Es of energetic part
+            Een = E(idll:end);
+            % array of psd of energetic part
+            Fpsden = Fpsd(idll:end);
+            
+            % energetic energy flux
+            EFen(it) = 4*pi*sqrt(2/M^3)*sum(dEen.*sqrt(Een.^3).*Fpsden);
             
             
         end
@@ -241,7 +233,7 @@ if ~doLoadData
         thBrV(count) = thBr;
         accEffV(count) = accEff;
         % Emax is not perfect for alternating energy table but who cares?
-        EmaxV(count) = max(energy);
+        EmaxV(count) = max(E);
         % mean of all four
         RV(count,:) =mean((R.gseR1(:,1:3)+R.gseR2(:,1:3)+R.gseR3(:,1:3)+R.gseR4(:,1:3))/4)/u.RE*1e3;
         % compression factor of models
