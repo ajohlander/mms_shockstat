@@ -1,5 +1,5 @@
 
-EmaxLim = irf_ask('Upper energy limit of FPI in units of solar wind energy: [%]>','EmaxLim',20);
+EmaxLim = irf_ask('Upper energy limit of FPI in units of solar wind energy (0 will ignore): [%]>','EmaxLim',0);
 
 colorMode = irf_ask('Color mode (1:Fancy, 2:Boring): [%]>','colorMode',1);
 
@@ -36,8 +36,13 @@ thBinEdges = 0:dthBin:90;
 %% approved data indices
 
 EswV = 1/2*u.mp*VuV.^2;
-dind = (~isnan(MaV) & EmaxV>EswV*EmaxLim);
+if EmaxLim ~= 0
+    dind = (~isnan(MaV) & EmaxV>EswV*EmaxLim);
+else
+    dind = ~isnan(MaV);
+end
 
+%% Clean data arrays
 dTV = dTV(dind);
 MaV = MaV(dind);
 VuV = VuV(dind);
@@ -48,11 +53,14 @@ accEffV = accEffV(dind);
 EmaxV = EmaxV(dind);
 RV = RV(dind,:);
 sigV = sigV(dind);
+hasEISV = hasEISV(dind);
 
 dstV = dstV(dind);
 kpV = kpV(dind);
 ssnV = ssnV(dind);
 s107V = s107V(dind);
+
+lineNumV = lineNumV(dind);
 
 TV = TV(dind);
 

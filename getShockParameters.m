@@ -14,6 +14,8 @@ else
     saveParameters = 0;
 end
 
+eisMode = irf_ask('EIS mode (auto/srvy/brst) [%]>','eisMode','srvy');
+
 % normal bs model to use (cannot be slho)
 shModel = 'farris';
 
@@ -35,12 +37,14 @@ if ~doLoadData
     thVnV = zeros(N,1);
     accEffV = zeros(N,1);
     EmaxV = zeros(N,1);
+    hasEISV = zeros(N,1);
     RV = zeros(N,3);
     sigV = zeros(N,1);
     dstV = zeros(N,1);
     kpV = zeros(N,1);
     ssnV = zeros(N,1);
     s107V = zeros(N,1);
+    lineNumV = zeros(N,1);
     
     
     %% Read line  
@@ -78,8 +82,9 @@ if ~doLoadData
         tstr = tstr(1:15);
         
         
-        %% read some data
+        %% read data
         
+        % ---------- FPI-DIS ----------
         % read iPDist for MMSic
         try
             iPDist = mms.get_data('PDi_fpi_brst_l2',tint,ic);
@@ -90,12 +95,14 @@ if ~doLoadData
             disp(['error reading PDist for ',tstr,', skipping...'])
             continue;
         end
-        
+        % must have FPI data
         if isempty(iPDist)
             disp(['no FPI data for ',tstr,', skipping...'])
             continue;
         end
         
+        % ---------- SC position ----------
+        % try to read sc position data
         try
             R = mms.get_data('R_gse',tint);
         catch
@@ -104,6 +111,46 @@ if ~doLoadData
         end
         
         
+        % ---------- EPD-EIS ----------
+        % read EIS data, keep going even if there is no data
+        switch eisMode
+            case 'srvy'
+                c_eval('EISdpf! = mms.db_get_ts(''mms?_epd-eis_srvy_l2_phxtof'',''mms?_epd_eis_phxtof_proton_P4_flux_t!'',tint);',1:4,0:5)
+                % assume all energy tables are the same
+                [filepath,filename] = mms.get_filepath('mms2_epd-eis_srvy_l2_phxtof',tint(1));
+                do = dataobj([filepath,filename]);
+                c_eval('Eeis = 1e3*do.data.mms?_epd_eis_phxtof_proton_t0_energy.data;',ic) % in eV
+                c_eval('dEeisMinus = 1e3*do.data.mms?_epd_eis_phxtof_proton_t0_energy_dminus.data;',ic) % in eV
+                c_eval('dEeisPlus = 1e3*do.data.mms?_epd_eis_phxtof_proton_t0_energy_dplus.data;',ic) % in eV
+                
+            case 'brst' % burst is broken?
+                error('EIS burst not finished, energy delta plus/minus missing')
+                c_eval('EISdpf! = mms.db_get_ts(''mms?_epd-eis_brst_l2_phxtof'',''mms?_epd_eis_brst_phxtof_proton_P4_flux_t!'',tint);',1:4,0:5)
+                % assume all energy tables are the same
+                [filepath,filename] = mms.get_filepath('mms2_epd-eis_srvy_l2_phxtof',tint(1));
+                do = dataobj([filepath,filename]);
+                Eeis = 1e3*do.data.mms2_epd_eis_brst_phxtof_proton_t0_energy.data;
+        end
+        % check if EIS data was read, continue either way
+        if isempty(EISdpf0) % skip
+            hasEIS = 0;% do not include EIS in acceff
+        else % convert EIS data to PSD
+            hasEIS = 1;% do include EIS in acceff
+            mm = 1; % ion mass
+            % energy table for each time step and energy index
+            ETabEis = repmat(Eeis,EISdpf0.length,1);
+            % copy objects
+            c_eval('EISpsd? = EISdpf?;',0:5)
+            % sort of magic conversion :(
+            c_eval('EISpsd?.data = EISdpf?.data/1e12*mm^2*0.53707./ETabEis;',0:5)
+            % mysterious correction factor :(
+            c_eval('EISpsd?.data = EISpsd?.data*1e-3;',0:5)
+            % average EIS psd from all detectors (same time stamps)
+            EISpsd = (EISpsd0+EISpsd1+EISpsd2+EISpsd3+EISpsd4+EISpsd5)/6;
+        end        
+        
+                
+                
         %% get model bs normal
         scd = [];
         scd.Bu = zeros(1,3); scd.Vu = zeros(1,3); scd.nu = 0;
@@ -166,6 +213,58 @@ if ~doLoadData
         clear ff
         
         
+        %% Merge FPI and EIS into one data product 
+        % This should really not be done for alternating energy tables
+        
+        % FPI energy matrix
+        emat = double(iPDist.energy); % in eV
+        
+        if hasEIS
+            % initiate matrices (unknown size so use cells)
+            Fcomb = cell(1,EISpsd.length);
+            Ecomb = cell(1,EISpsd.length);
+            dEcombMinus = cell(1,EISpsd.length);
+            dEcombPlus = cell(1,EISpsd.length);
+            
+            
+            % time difference between EIS measurements, assume constant
+            dt = median(diff(EISpsd.time.epochUnix));
+            for it = 1:EISpsd.length
+                disp([num2str(it),'/',num2str(EISpsd.length)])
+                
+                % time of this time step
+                t1 = EISpsd.time(it).epochUnix;
+                % eis psd array for one time step
+                Feis = double(EISpsd.data(it,:));
+                % time indicies of FPI that fall within EIS time
+                idFpi = find(iPDist.time.epochUnix>=t1 & iPDist.time.epochUnix<t1+dt);
+                % average over fpi times
+                Ffpi = nanmean(double(iPDist.convertto('s^3/m^6').omni.data(idFpi,:)));
+                % FPI energy in [eV] (not good if esteptable is used)
+                Efpi = mean(emat(idFpi,:),1);
+                % delta energy of FPI [eV] ()
+                dEfpi = double(iPDist.ancillary.delta_energy_plus(1,:))*2; 
+                
+                
+                % ---- combine data ----
+                % now, use entire energy range of FPI, could be chaged
+                % later
+                % find index of first EIS data point (last lower edge under FPI max E)
+                idEisFirst = find(Eeis-dEeisMinus<Efpi(end)+dEfpi(end)/2,1,'last');
+                % get "first" dE minus of EIS part (can be negative)
+                dEeisMinus_first = Eeis(idEisFirst)-(Efpi(end)+dEfpi(end)/2);
+                % combined dE minus
+                dEcombMinus{it} = [dEfpi/2,dEeisMinus_first,dEeisMinus(idEisFirst+1:end)];
+                % combined dE plus
+                dEcombPlus{it} = [dEfpi/2,dEeisPlus(idEisFirst:end)];
+                % combined E
+                Ecomb{it} = [Efpi,Eeis(idEisFirst:end)];                
+                % combined psd
+                Fcomb{it} = [Ffpi,Feis(idEisFirst:end)];
+                
+            end
+        end
+        
         %% get energy flux of ions with E>10Esw
         % particle mass
         M = u.mp;
@@ -173,24 +272,39 @@ if ~doLoadData
         % solar wind energy in J
         Esw = .5*M*(Vu*1e3)^2;
         
-        emat = double(iPDist.energy); % in eV
+        % number of energy bins
+        if hasEIS; nE = length(Fcomb{1}); else; nE = length(iPDist.depend{1}); end
+        
+        % number of time steps
+        if hasEIS; nT = length(Fcomb); else; nE = iPDist.length; end
         
         % total energy flux
         EF = zeros(iPDist.length,1);
         % energetic energy flux
         EFen = zeros(iPDist.length,1);
-        for it = 1:iPDist.length
-            disp([num2str(it),'/',num2str(iPDist.length)])
+        
+        % ------- time loop :D --------
+        for it = 1:nT
+            disp([num2str(it),'/',num2str(nT)])
             
-            % 1d data matrix of PSD for time index it (FPI)
-            Fpsd = double(iPDist.convertto('s^3/m^6').omni.data(it,:)); % s^3/m^6
+            % 1d data matrix of PSD for time index it [s^3/m^6]
+            if hasEIS
+                Fpsd = Fcomb{it}; 
+            else
+                Fpsd = double(iPDist.convertto('s^3/m^6').omni.data(it,:)); 
+            end
             
             % energy in [J]
-            E = emat(it,:)*u.e;
+            if hasEIS; E = Ecomb{it}*u.e; else; E = emat(it,:)*u.e; end
             
-            % assumes energy table is the same for all time steps
-            % also assumes energy_delta_plus/minus are the same
-            dE = double(iPDist.ancillary.delta_energy_plus(1,:))*2*u.e; % delta energy [J]
+            % eelta energy [J]
+            if hasEIS
+                dE = (dEcombMinus{it}+dEcombPlus{it})*u.e;
+            else
+                % assumes energy table is the same for all time steps
+                % also assumes energy_delta_plus/minus are the same
+                dE = double(iPDist.ancillary.delta_energy_plus(1,:))*2*u.e;
+            end
             
             % average energy flux per energy level [J/m^3]
             dEF = E.*Fpsd.*dE;
@@ -234,6 +348,7 @@ if ~doLoadData
         accEffV(count) = accEff;
         % Emax is not perfect for alternating energy table but who cares?
         EmaxV(count) = max(E);
+        hasEISV(count) = hasEIS;
         % mean of all four
         RV(count,:) =mean((R.gseR1(:,1:3)+R.gseR2(:,1:3)+R.gseR3(:,1:3)+R.gseR4(:,1:3))/4)/u.RE*1e3;
         % compression factor of models
@@ -245,6 +360,8 @@ if ~doLoadData
         kpV(count) = kp;
         ssnV(count) = ssn;
         s107V(count) = s107;
+        
+        lineNumV = lineNum;
         
         disp(['Actually completed one, count = ',num2str(count),' lineNumber = ',num2str(lineNum)])
         count = count+1;
@@ -268,13 +385,14 @@ thBrV = thBrV(TV~=0);
 thVnV = thVnV(TV~=0);
 accEffV = accEffV(TV~=0,:);
 EmaxV = EmaxV(TV~=0,:);
+hasEISV = hasEISV(TV~=0,:);
 RV = RV(TV~=0,:);
 sigV = sigV(TV~=0);
-
 dstV = dstV(TV~=0);
 kpV = kpV(TV~=0);
 ssnV = ssnV(TV~=0);
 s107V = s107V(TV~=0);
+lineNumV = lineNumV(TV~=0);
 
 N = numel(TV(TV~=0));
 
@@ -285,6 +403,6 @@ TV = TV(TV~=0);
 
 if saveParameters
     disp('Saving parameters...')
-    save(fileName,'dTV','MaV','VuV','thBnV','thVnV','accEffV','EmaxV','RV','sigV','TV','N','dstV','kpV','ssnV','s107V','thBrV')
+    save(fileName,'dTV','MaV','VuV','thBnV','thVnV','accEffV','EmaxV','hasEISV','RV','sigV','TV','N','dstV','kpV','ssnV','s107V','thBrV','lineNumV')
     disp('saved!')
 end
