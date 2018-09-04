@@ -131,9 +131,14 @@ if ~doLoadData
                 do = dataobj([filepath,filename]);
                 Eeis = 1e3*do.data.mms2_epd_eis_brst_phxtof_proton_t0_energy.data;
         end
+        % hack to fix bug if tint goes over two days
+        t1str = tint(1).toUtc; t2str = tint(2).toUtc; 
+        
         % check if EIS data was read, continue either way
         if isempty(EISdpf0) % skip
             hasEIS = 0;% do not include EIS in acceff
+        elseif strcmp(t1str(1:10),t2str(1:10)) % day is not the same, fix should be better
+            hasEIS = 0;
         else % convert EIS data to PSD
             hasEIS = 1;% do include EIS in acceff
             mm = 1; % ion mass
