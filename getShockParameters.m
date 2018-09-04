@@ -239,7 +239,7 @@ if ~doLoadData
                 % time indicies of FPI that fall within EIS time
                 idFpi = find(iPDist.time.epochUnix>=t1 & iPDist.time.epochUnix<t1+dt);
                 % average over fpi times
-                Ffpi = nanmean(double(iPDist.convertto('s^3/m^6').omni.data(idFpi,:)));
+                Ffpi = nanmean(double(iPDist.convertto('s^3/m^6').omni.data(idFpi,:)),1);
                 % FPI energy in [eV] (not good if esteptable is used)
                 Efpi = mean(emat(idFpi,:),1);
                 % delta energy of FPI [eV] ()
