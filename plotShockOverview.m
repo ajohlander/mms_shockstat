@@ -145,15 +145,23 @@ while tline ~= -1
                 case 'srvy'
                     c_eval('EISdpf! = mms.db_get_ts(''mms?_epd-eis_srvy_l2_phxtof'',''mms?_epd_eis_phxtof_proton_P4_flux_t!'',tint);',1:4,0:5)
                     % assume all energy tables are the same
-                    [filepath,filename] = mms.get_filepath('mms2_epd-eis_srvy_l2_phxtof',tint(1));
-                    do = dataobj([filepath,filename]);
-                    Eeis = 1e3*do.data.mms2_epd_eis_phxtof_proton_t0_energy.data; % in eV                  
+                    try
+                        [filepath,filename] = mms.get_filepath('mms2_epd-eis_srvy_l2_phxtof',tint(1));
+                        do = dataobj([filepath,filename]);
+                        Eeis = 1e3*do.data.mms2_epd_eis_phxtof_proton_t0_energy.data; % in eV
+                    catch
+                        disp('error reading EIS data, continuing... ')
+                    end
                 case 'brst'
                     c_eval('EISdpf! = mms.db_get_ts(''mms?_epd-eis_brst_l2_phxtof'',''mms?_epd_eis_brst_phxtof_proton_P4_flux_t!'',tint);',1:4,0:5)
                     % assume all energy tables are the same
-                    [filepath,filename] = mms.get_filepath('mms2_epd-eis_srvy_l2_phxtof',tint(1));
-                    do = dataobj([filepath,filename]);
-                    Eeis = 1e3*do.data.mms2_epd_eis_brst_phxtof_proton_t0_energy.data;
+                    try
+                        [filepath,filename] = mms.get_filepath('mms2_epd-eis_srvy_l2_phxtof',tint(1));
+                        do = dataobj([filepath,filename]);
+                        Eeis = 1e3*do.data.mms2_epd_eis_brst_phxtof_proton_t0_energy.data;
+                    catch
+                        disp('error reading EIS data, continuing... ')
+                    end
             end
             
             % hack to fix bug if tint goes over two days

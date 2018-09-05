@@ -117,11 +117,15 @@ if ~doLoadData
             case 'srvy'
                 c_eval('EISdpf! = mms.db_get_ts(''mms?_epd-eis_srvy_l2_phxtof'',''mms?_epd_eis_phxtof_proton_P4_flux_t!'',tint);',1:4,0:5)
                 % assume all energy tables are the same
-                [filepath,filename] = mms.get_filepath('mms2_epd-eis_srvy_l2_phxtof',tint(1));
-                do = dataobj([filepath,filename]);
-                c_eval('Eeis = 1e3*do.data.mms?_epd_eis_phxtof_proton_t0_energy.data;',ic) % in eV
-                c_eval('dEeisMinus = 1e3*do.data.mms?_epd_eis_phxtof_proton_t0_energy_dminus.data;',ic) % in eV
-                c_eval('dEeisPlus = 1e3*do.data.mms?_epd_eis_phxtof_proton_t0_energy_dplus.data;',ic) % in eV
+                try
+                    [filepath,filename] = mms.get_filepath('mms2_epd-eis_srvy_l2_phxtof',tint(1));
+                    do = dataobj([filepath,filename]);
+                    c_eval('Eeis = 1e3*do.data.mms?_epd_eis_phxtof_proton_t0_energy.data;',ic) % in eV
+                    c_eval('dEeisMinus = 1e3*do.data.mms?_epd_eis_phxtof_proton_t0_energy_dminus.data;',ic) % in eV
+                    c_eval('dEeisPlus = 1e3*do.data.mms?_epd_eis_phxtof_proton_t0_energy_dplus.data;',ic) % in eV
+                catch
+                    disp('error reading EIS data, continuing... ')
+                end
                 
             case 'brst' % burst is broken?
                 error('EIS burst not finished, energy delta plus/minus missing')
