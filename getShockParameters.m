@@ -366,7 +366,7 @@ if ~doLoadData
         ssnV(count) = ssn;
         s107V(count) = s107;
         
-        lineNumV = lineNum;
+        lineNumV(count) = lineNum;
         
         disp(['Actually completed one, count = ',num2str(count),' lineNumber = ',num2str(lineNum)])
         count = count+1;
