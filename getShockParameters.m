@@ -137,7 +137,7 @@ if ~doLoadData
         % check if EIS data was read, continue either way
         if isempty(EISdpf0) % skip
             hasEIS = 0;% do not include EIS in acceff
-        elseif strcmp(t1str(1:10),t2str(1:10)) % day is not the same, fix should be better
+        elseif ~strcmp(t1str(1:10),t2str(1:10)) % day is not the same, fix should be better
             hasEIS = 0;
         else % convert EIS data to PSD
             hasEIS = 1;% do include EIS in acceff
