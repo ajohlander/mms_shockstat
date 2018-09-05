@@ -156,9 +156,14 @@ while tline ~= -1
                     Eeis = 1e3*do.data.mms2_epd_eis_brst_phxtof_proton_t0_energy.data;
             end
             
+            % hack to fix bug if tint goes over two days
+            t1str = tint(1).toUtc; t2str = tint(2).toUtc;
+        
             % check if EIS data was read, continue either way
             if isempty(EISdpf0) % skip
                 plotEIS = 0;% do not show EIS panel
+            elseif ~strcmp(t1str(1:10),t2str(1:10)) % day is not the same, fix should be better
+                plotEIS = 0;
             else % convert EIS data to PSD
                 plotEIS = 1; % do show EIS panel
                 mm = 1; % ion mass
