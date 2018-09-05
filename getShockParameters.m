@@ -274,7 +274,7 @@ if ~doLoadData
         % particle mass
         M = u.mp;
         
-        % solar wind energy in J
+        % solar wind energy in [J]
         Esw = .5*M*(Vu*1e3)^2;
         
         % number of energy bins
@@ -284,9 +284,9 @@ if ~doLoadData
         if hasEIS; nT = length(Fcomb); else; nT = iPDist.length; end
         
         % total energy flux
-        EF = zeros(iPDist.length,1);
+        EF = zeros(nT,1);
         % energetic energy flux
-        EFen = zeros(iPDist.length,1);
+        EFen = zeros(nT,1);
         
         % ------- time loop :D --------
         for it = 1:nT
@@ -314,7 +314,7 @@ if ~doLoadData
             % average energy flux per energy level [J/m^3]
             dEF = E.*Fpsd.*dE;
             
-            % total energy flux
+            % total energy flux [J]
             EF(it) = 4*pi*sqrt(2/M^3)*sum(dE.*sqrt(E.^3).*Fpsd);
             
             % --- energetic energy flux ---
