@@ -54,11 +54,14 @@ EmaxV = EmaxV(dind);
 RV = RV(dind,:);
 sigV = sigV(dind);
 hasEISV = hasEISV(dind);
+% convert to boolean
+hasEISV = (hasEISV==1);
 
 dstV = dstV(dind);
 kpV = kpV(dind);
 ssnV = ssnV(dind);
 s107V = s107V(dind);
+aeV = aeV(dind);
 
 lineNumV = lineNumV(dind);
 
@@ -106,10 +109,10 @@ fig = figure;
 hca = axes(fig);
 
 % plot events with Ma as color
-scatter(hca,thBnV,accEffV*100,400,MaV.*cosd(thVnV),'.')
-%scatter(hca,thBnV,accEffV*100,200,[1,1,1]*.2,'.')
-%scatter(hca,thBnV(VuV<vlim),accEffV(VuV<vlim)*100,400,VuV(VuV<vlim),'.')
 hold(hca,'on')
+scatter(hca,thBnV(hasEISV),accEffV(hasEISV)*100,60,MaV(hasEISV).*cosd(thVnV(hasEISV)),'o','MarkerFaceColor','flat')
+foo = scatter(hca,thBnV(~hasEISV),accEffV(~hasEISV)*100,60,MaV(~hasEISV).*cosd(thVnV(~hasEISV)),'x','linewidth',3);
+
 hca.XLim = [0,90];
 hca.YLim(1) = 0;
 plot(hca,45*[1,1],hca.YLim,'--','color',textcol,'linewidth',1.2)
@@ -191,7 +194,8 @@ hfill.FaceAlpha = .5;
 %uistack(hfill,'bottom');
 
 hca.XLim = [0,90];
-hca.YLim = [0,15];
+%hca.YLim = [0,15];
+hca.YLim(1) = 0;
 
 uistack(hsc,'top');
 

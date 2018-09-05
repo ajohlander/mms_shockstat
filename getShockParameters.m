@@ -44,6 +44,7 @@ if ~doLoadData
     kpV = zeros(N,1);
     ssnV = zeros(N,1);
     s107V = zeros(N,1);
+    aeV = zeros(N,1);
     lineNumV = zeros(N,1);
     
     
@@ -172,7 +173,7 @@ if ~doLoadData
         %% try to read omni data
         
         ff = irf_get_data(tint,'bx,by,bz,Ma,v,n','omni_min');
-        ff2 = irf_get_data(tint+[-1,1]*3.6e3,'dst,kp,ssn,f10.7','omni2');
+        ff2 = irf_get_data(tint+[-1,1]*3.6e3,'dst,kp,ssn,f10.7,ae','omni2');
         
         if ~isempty(ff)
             Bu = nanmean(ff(:,2:4),1);
@@ -187,6 +188,7 @@ if ~doLoadData
             kp = nanmean(ff2(:,3));
             ssn = nanmean(ff2(:,4));
             s107 = nanmean(ff2(:,5));
+            ae = nanmean(ff2(:,6));
             
             
             if thBn>90
@@ -216,6 +218,7 @@ if ~doLoadData
             kp = nan;
             ssn = nan;
             s107 = nan;
+            ae = nan;
         end
         
         %for good measures, remove old ff
@@ -369,6 +372,7 @@ if ~doLoadData
         kpV(count) = kp;
         ssnV(count) = ssn;
         s107V(count) = s107;
+        aeV(count) = ae;
         
         lineNumV(count) = lineNum;
         
@@ -401,6 +405,7 @@ dstV = dstV(TV~=0);
 kpV = kpV(TV~=0);
 ssnV = ssnV(TV~=0);
 s107V = s107V(TV~=0);
+aeV = aeV(TV~=0);
 lineNumV = lineNumV(TV~=0);
 
 N = numel(TV(TV~=0));
@@ -412,6 +417,6 @@ TV = TV(TV~=0);
 
 if saveParameters
     disp('Saving parameters...')
-    save(fileName,'dTV','MaV','VuV','thBnV','thVnV','accEffV','EmaxV','hasEISV','RV','sigV','TV','N','dstV','kpV','ssnV','s107V','thBrV','lineNumV')
+    save(fileName,'dTV','MaV','VuV','thBnV','thVnV','accEffV','EmaxV','hasEISV','RV','sigV','TV','N','dstV','kpV','ssnV','s107V','ae','thBrV','lineNumV')
     disp('saved!')
 end
