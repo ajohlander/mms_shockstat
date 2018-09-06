@@ -27,25 +27,28 @@ N = 1000;
 if ~doLoadData
     disp('Getting shock parameters')
     
-    %TV = irf.time_array('2000-01-01T00:00:00Z',zeros(1,N));
-    TV = zeros(N,1);
-    dTV = zeros(N,1);
-    MaV = zeros(N,1);
-    VuV = zeros(N,1);
-    thBnV = zeros(N,1);
-    thBrV = zeros(N,1);
-    thVnV = zeros(N,1);
-    accEffV = zeros(N,1);
-    EmaxV = zeros(N,1);
-    hasEISV = zeros(N,1);
-    RV = zeros(N,3);
-    sigV = zeros(N,1);
-    dstV = zeros(N,1);
-    kpV = zeros(N,1);
-    ssnV = zeros(N,1);
-    s107V = zeros(N,1);
-    aeV = zeros(N,1);
-    lineNumV = zeros(N,1);
+    TV = zeros(N,1); % start time
+    dTV = zeros(N,1); % interval duration
+    MaV = zeros(N,1); % Alfven Mach number
+    MfV = zeros(N,1); % magnetosonic/fast Mach number
+    VuV = zeros(N,1); % upstream speed
+    thBnV = zeros(N,1); % shock angle
+    thBrV = zeros(N,1); % magnetic field/radial angle
+    thVnV = zeros(N,1); % flow incidence angle
+    betaiV = zeros(N,1); % ion plasma beta
+    accEffV = zeros(N,1); % acceleraton efficiency
+    accEffFpiV = zeros(N,1); % acceleraton efficiency (only FPI)
+    accEffAltV = zeros(N,1); % acceleraton efficiency (alternative)
+    EmaxV = zeros(N,1); % maximum energy of FPI-DIS
+    hasEISV = zeros(N,1); % boolean if EIS exists or not
+    RV = zeros(N,3); % sc position
+    sigV = zeros(N,1); % bow shock compression factor
+    dstV = zeros(N,1); % DST index
+    kpV = zeros(N,1); % Kp index
+    ssnV = zeros(N,1); % sunspot number
+    s107V = zeros(N,1); % F10.7 index
+    aeV = zeros(N,1); % AE index
+    lineNumV = zeros(N,1); % line number in text file
     
     
     %% Read line  
@@ -172,16 +175,49 @@ if ~doLoadData
         
         %% try to read omni data
         
-        ff = irf_get_data(tint,'bx,by,bz,Ma,v,n','omni_min');
+        ff = irf_get_data(tint,'bx,by,bz,Ma,v,n,T','omni_min');
         ff2 = irf_get_data(tint+[-1,1]*3.6e3,'dst,kp,ssn,f10.7,ae','omni2');
         
         if ~isempty(ff)
             Bu = nanmean(ff(:,2:4),1);
             if isnan(Bu); Bu = nan(1,3); end
-            Ma = nanmean(ff(:,5));
-            Vu = nanmean(ff(:,6));
-            Nu = nanmean(ff(:,7));
+            Ma = nanmean(ff(:,5)); % Alfven Mach number 
+            Vu = nanmean(ff(:,6)); % speed [km/s]
+            Nu = nanmean(ff(:,7)); % density [/cc]
+            Tu = nanmean(ff(:,8))/u.e*u.kB; % temperature [eV]
+            
+            % calculate shock angle
             thBn = acosd(dot(Bu,nvec)/(norm(Bu)));
+            if thBn>90
+                thBn = 180-thBn;
+            end
+            
+            % calculate sw incidence angle
+            % guess the solar wind is in x direction (~4 deg wrong)
+            thVn = acosd(nvec(1));
+            if thVn>90
+                thVn = 180-thVn;
+            end
+            
+            % calculate B to radial angle
+            thBr = acosd(Bu(1)/norm(Bu));
+            if thBr>90
+                thBr = 180-thBr;
+            end
+            
+            % ion beta
+            betai = Nu*1e6*Tu*u.e/(norm(Bu*1e-9)^2/(2*u.mu0));
+            
+            % calculate fast Mach number
+            vA = Vu/Ma*1e3; % Alfven speed [m/s]
+            % assume ion and electron temperatures are equal
+            cs = sqrt(4*Tu*u.e/u.mp); % sound speed [m/s]
+            % magnetosonic speed perp to B
+            cms = sqrt(cs^2+vA^2);
+            % magnetosonic group speed along normal
+            vms = sqrt(cms^2/2+sqrt(cms^4/4-vA^2*cs^2*cosd(thBn)^2));
+            % fast Mach number of shock (not solar wind)
+            Mf = Vu/vms*1e3*cosd(thVn); 
             
             % other info
             dst = nanmean(ff2(:,2));
@@ -190,21 +226,6 @@ if ~doLoadData
             s107 = nanmean(ff2(:,5));
             ae = nanmean(ff2(:,6));
             
-            
-            if thBn>90
-                thBn = 180-thBn;
-            end
-            % guess the solar wind is in x direction (~4 deg wrong)
-            thVn = acosd(nvec(1));
-            if thVn>90
-                thVn = 180-thVn;
-            end
-            
-            thBr = acosd(Bu(1)/norm(Bu));
-            if thBr>90
-                thBr = 180-thBr;
-            end
-            
         else
             disp('failed to read omni data, moving on with plot...')
             thBn = nan;
@@ -212,6 +233,7 @@ if ~doLoadData
             Bu = nan(1,3);
             Nu = nan;
             Vu = nan;
+            Tu = nan;
                         
             % other info
             dst = nan;
@@ -294,6 +316,8 @@ if ~doLoadData
         EF = zeros(nT,1);
         % energetic energy flux
         EFen = zeros(nT,1);
+        % energetic energy flux using only FPI
+        EFenFpi = zeros(nT,1);
         
         % ------- time loop :D --------
         for it = 1:nT
@@ -333,31 +357,43 @@ if ~doLoadData
             dEen_first = E(idll)+dE(idll)/2-10*Esw;
             % array of dEs of energetic part
             dEen = [dEen_first,dE(idll+1:end)];
+            % array of dEs of energetic part using only FPI (assume nE=32)
+            dEenFpi = [dEen_first,dE(idll+1:32)];
             % array of Es of energetic part
             Een = E(idll:end);
+            % array of Es of energetic part using only FPI (assume nE=32)
+            EenFpi = E(idll:32);
             % array of psd of energetic part
             Fpsden = Fpsd(idll:end);
+            % array of psd of energetic part using only FPI (assume nE=32)
+            FpsdenFpi = Fpsd(idll:32);
             
             % energetic energy flux
             EFen(it) = 4*pi*sqrt(2/M^3)*sum(dEen.*sqrt(Een.^3).*Fpsden);
-            
+            % energetic energy flux using only FPI
+            EFenFpi(it) = 4*pi*sqrt(2/M^3)*sum(dEenFpi.*sqrt(EenFpi.^3).*FpsdenFpi);
             
         end
         % 2 alternatives, not sure which is best
-        % accEff = mean(EFen)/mean(EF);
         accEff = mean(EFen)/(Nu*Esw*1e6);
+        accEffAlt = mean(EFen)/mean(EF);
+        accEffFpi = mean(EFenFpi)/(Nu*Esw*1e6);
         
         
         %% set values
         % fill arrays
         TV(count) = tint(1).epochUnix;
         dTV(count) = diff(tint.epochUnix);
-        MaV(count) = Ma;
+        MaV(count) = Ma*cosd(thVn); % of shock (not solar wind)
+        MfV(count) = Mf; % of shock (not solar wind)
         VuV(count) = Vu;
         thBnV(count) = thBn;
         thVnV(count) = thVn;
+        betaiV(count) = betai;
         thBrV(count) = thBr;
         accEffV(count) = accEff;
+        accEffAltV(count) = accEffAlt;
+        accEffFpiV(count) = accEffFpi;
         % Emax is not perfect for alternating energy table but who cares?
         EmaxV(count) = max(E);
         hasEISV(count) = hasEIS;
@@ -392,11 +428,15 @@ end
 %% Clean arrays
 dTV = dTV(TV~=0);
 MaV = MaV(TV~=0);
+MfV = MfV(TV~=0);
 VuV = VuV(TV~=0);
 thBnV = thBnV(TV~=0);
 thBrV = thBrV(TV~=0);
 thVnV = thVnV(TV~=0);
+betaiV = betaiV(TV~=0);
 accEffV = accEffV(TV~=0,:);
+accEffAltV = accEffAltV(TV~=0,:);
+accEffFpiV = accEffFpiV(TV~=0,:);
 EmaxV = EmaxV(TV~=0,:);
 hasEISV = hasEISV(TV~=0,:);
 RV = RV(TV~=0,:);

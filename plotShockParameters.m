@@ -85,7 +85,7 @@ plotShockPos
 fig = figure;
 hca = axes(fig);
 
-scatter(hca,thBnV,MaV.*cosd(thVnV),400,col1,'.')
+scatter(hca,thBnV,MaV,400,col1,'.')
 
 hca.XLim = [0,90];
 hca.YLim(1) = 0;
@@ -110,8 +110,8 @@ hca = axes(fig);
 
 % plot events with Ma as color
 hold(hca,'on')
-scatter(hca,thBnV(hasEISV),accEffV(hasEISV)*100,60,MaV(hasEISV).*cosd(thVnV(hasEISV)),'o','MarkerFaceColor','flat')
-foo = scatter(hca,thBnV(~hasEISV),accEffV(~hasEISV)*100,60,MaV(~hasEISV).*cosd(thVnV(~hasEISV)),'x','linewidth',3);
+scatter(hca,thBnV(hasEISV),accEffV(hasEISV)*100,60,MaV(hasEISV),'o','MarkerFaceColor','flat')
+foo = scatter(hca,thBnV(~hasEISV),accEffV(~hasEISV)*100,60,MaV(~hasEISV),'x','linewidth',3);
 
 hca.XLim = [0,90];
 hca.YLim(1) = 0;
@@ -225,7 +225,7 @@ fig = figure;
 hca = axes(fig);
 
 % plot events with Ma as color
-scatter(hca,phiV,accEffV*100,400,MaV.*cosd(thVnV),'.')
+scatter(hca,phiV,accEffV*100,400,MaV,'.')
 hold(hca,'on')
 hca.XLim = [0,90];
 hca.YLim(1) = 0;
@@ -309,7 +309,7 @@ hca = axes(fig);
 
 dMaBin = 2;
 MaBinEdges = 0:dMaBin:60;
-histogram(hca,MaV.*cosd(thVnV),MaBinEdges,'FaceColor',bincol,'edgecolor',textcol,'linewidth',1.3);
+histogram(hca,MaV,MaBinEdges,'FaceColor',bincol,'edgecolor',textcol,'linewidth',1.3);
 
 xlabel(hca,'$M_A$','Fontsize',15,'interpreter','latex')
 ylabel(hca,'Number of events','Fontsize',15,'interpreter','latex')
