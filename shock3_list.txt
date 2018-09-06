@@ -69,7 +69,6 @@
 2017-12-23/11:31:03 - 2017-12-23/11:34:43, 110.0, dturner(EVA), Quasi-perp bow shock crossing
 2017-12-24/01:39:53 - 2017-12-24/01:42:43, 100.0, pgangkai(EVA), SLAMS/bow shock crossings
 2017-12-24/01:43:23 - 2017-12-24/01:44:43,  80.0, pgangkai(EVA), periodic |B| increase with decreasing amplitude
-2017-12-24/01:43:23 - 2017-12-24/01:44:43,  80.0, pgangkai(EVA), periodic |B| increase with decreasing amplitude
 2017-12-24/02:00:23 - 2017-12-24/02:05:53, 100.0, pgangkai(EVA),  Magnetic field fluctuations in the foreshock region
 2017-12-26/04:53:53 - 2017-12-26/04:56:33, 100.0, pgangkai(EVA), possible multiple shock crossings
 2017-12-26/04:57:53 - 2017-12-26/04:58:53, 100.0, pgangkai(EVA), possible shock crossing with whistler waves
