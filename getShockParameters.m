@@ -457,6 +457,6 @@ TV = TV(TV~=0);
 
 if saveParameters
     disp('Saving parameters...')
-    save(fileName,'dTV','MaV','VuV','thBnV','thVnV','accEffV','EmaxV','hasEISV','RV','sigV','TV','N','dstV','kpV','ssnV','s107V','ae','thBrV','lineNumV')
+    save(fileName,'dTV','MaV','MfV','VuV','thBnV','thBrV','thVnV','betaiV','accEffV','accEffAltV','accEffFpiV','EmaxV','hasEISV','RV','sigV','TV','N','dstV','kpV','ssnV','s107V','aeV','lineNumV')
     disp('saved!')
 end

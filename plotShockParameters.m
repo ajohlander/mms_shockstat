@@ -14,6 +14,7 @@ switch colorMode
         daycol = [1,1,1]*.95;
         col1 = [253,232,159]/255;
         col2 = [211,64,82]/255;
+        col3 = [53,151,103]/255;
         bincol = [157,214,166]/255;
     case 2 % lighter, boring
         cmap = 'cool';
@@ -23,15 +24,23 @@ switch colorMode
         daycol = [1,1,1];
         col1 = [1,1,1]*.5;
         col2 = [211,64,82]/255;
+        col3 = [53,151,103]/255;
         bincol = [157,214,166]/255;
 end
 
+colmat = [col1;col2;col3];
 
 
 
 %% some bin edges
 dthBin = 10;
 thBinEdges = 0:dthBin:90;
+
+% mach number
+% dMBin = 4;
+% MBinEdges = 1:dMBin:16;
+
+MBinEdges = [1,6,10,100];
 
 %% approved data indices
 
@@ -45,11 +54,15 @@ end
 %% Clean data arrays
 dTV = dTV(dind);
 MaV = MaV(dind);
+MfV = MfV(dind);
 VuV = VuV(dind);
 thBnV = thBnV(dind);
 thBrV = thBrV(dind);
 thVnV = thVnV(dind);
+betaiV = betaiV(dind);
 accEffV = accEffV(dind);
+accEffAltV = accEffAltV(dind);
+accEffFpiV = accEffFpiV(dind);
 EmaxV = EmaxV(dind);
 RV = RV(dind,:);
 sigV = sigV(dind);
@@ -111,7 +124,8 @@ hca = axes(fig);
 % plot events with Ma as color
 hold(hca,'on')
 scatter(hca,thBnV(hasEISV),accEffV(hasEISV)*100,60,MaV(hasEISV),'o','MarkerFaceColor','flat')
-foo = scatter(hca,thBnV(~hasEISV),accEffV(~hasEISV)*100,60,MaV(~hasEISV),'x','linewidth',3);
+scatter(hca,thBnV(~hasEISV),accEffV(~hasEISV)*100,60,MaV(~hasEISV),'o','MarkerFaceColor','flat')
+%foo = scatter(hca,thBnV(~hasEISV),accEffV(~hasEISV)*100,60,MaV(~hasEISV),'x','linewidth',3);
 
 hca.XLim = [0,90];
 hca.YLim(1) = 0;
@@ -134,7 +148,7 @@ ylabel(hca,'Acceleration efficiency [$\%$]','Fontsize',15,'interpreter','latex')
 xlabel(hca,'$\theta_{Bn}$ [$^{\circ}$]','Fontsize',15,'interpreter','latex')
 ylabel(hcb,'$M_A$','Fontsize',15,'interpreter','latex')
 
-title(hca,'Energy flux of ions with $E>10E_{sw}$ measured by MMS-FPI','Fontsize',15,'interpreter','latex','color',textcol)
+%title(hca,'Energy flux of ions with $E>10E_{sw}$ measured by MMS-FPI','Fontsize',15,'interpreter','latex','color',textcol)
 hleg = irf_legend(hca,['$N = ',num2str(Nevents),'$'],[0.98,0.98],'Fontsize',15,'interpreter','latex','color',textcol);
 hleg.BackgroundColor = hca.Color;
 
@@ -172,11 +186,12 @@ for ii = 1:length(thBinEdges)-1
     accEffAvg(ii) = mu;
     accEffStd(ii) = sig;
     
-    % clean arrays
-    accEffErrUp(isnan(accEffErrUp)) = 0;
-    accEffErrDown(isnan(accEffErrDown)) = 0;
     
 end
+
+% clean arrays
+accEffErrUp(isnan(accEffErrUp)) = 0;
+accEffErrDown(isnan(accEffErrDown)) = 0;
 
 errorbar(hca,thBinEdges(1:end-1)+dthBin/2,accEffAvg*100,accEffErrDown*100,accEffErrUp*100,'-o','color',col1,'linewidth',2.2)
 xErr = thBinEdges(1:end-1)+dthBin/2;
@@ -211,7 +226,7 @@ fig.Color = figcol;
 hca.XAxis.Color = textcol;
 hca.YAxis.Color = textcol;
 
-title(hca,'Energy flux of ions with $E>10E_{sw}$ measured by MMS-FPI','Fontsize',15,'interpreter','latex','color',textcol)
+%title(hca,'Energy flux of ions with $E>10E_{sw}$ measured by MMS-FPI','Fontsize',15,'interpreter','latex','color',textcol)
 hleg = irf_legend(hca,['$N = ',num2str(Nevents),'$'],[0.98,0.98],'Fontsize',15,'interpreter','latex','color',textcol);
 irf_legend(hca,[num2str(beta*100),'\% significance'],[0.98,0.92],'Fontsize',15,'interpreter','latex','color',textcol);
 hleg.BackgroundColor = hca.Color;
@@ -219,6 +234,105 @@ hleg.BackgroundColor = hca.Color;
 hca.LineWidth = 1.2;
 hca.FontSize = 14;
 
+
+%% 2D histogram of acceff of thBn-Ma/Mf parameter space
+% sort of hopeful should fix
+
+% lower resolution of thBn
+dthBin2 = 18;
+thBinEdges2 = 0:dthBin2:90;
+
+idTh = discretize(thBnV,thBinEdges2);
+idM = discretize(MaV,MBinEdges);
+
+accEffAvg2D = zeros(length(thBinEdges2)-1,length(MBinEdges)-1);
+accEffStd2D = zeros(length(thBinEdges2)-1,length(MBinEdges)-1);
+accEffErrUp2D = zeros(length(thBinEdges2)-1,length(MBinEdges)-1);
+accEffErrDown2D = zeros(length(thBinEdges2)-1,length(MBinEdges)-1);
+
+for ii = 1:length(thBinEdges2)-1
+    for jj = 1:length(MBinEdges)-1
+        
+        % mean and std
+        mu =  nanmean(accEffV(idTh==ii & idM==jj));
+        sig = nanstd(accEffV(idTh==ii & idM==jj));
+        
+        % after a lot(!) of math
+        accEffErrUp2D(ii,jj) = norminv(beta*normcdf(mu/sig)-normcdf(mu/sig)+1)*sig;
+        accEffErrDown2D(ii,jj) = norminv(1-beta*normcdf(mu/sig))*sig;
+        
+        accEffAvg2D(ii,jj) = mu;
+        accEffStd2D(ii,jj) = sig;
+       
+    end
+end
+
+% clean arrays
+accEffErrUp(isnan(accEffErrUp)) = 0;
+accEffErrDown(isnan(accEffErrDown)) = 0;
+
+xoffs = [-1,0,1,2];
+
+%
+fig = figure;
+hca = axes(fig);
+hold(hca,'on')
+
+
+
+for jj = 1:size(accEffAvg2D,2)
+    hsc = scatter(hca,thBnV(idM==jj),accEffV(idM==jj)*100,60,colmat(jj,:),'o','MarkerFaceColor','flat');
+end
+
+
+for jj = 1:size(accEffAvg2D,2)
+    errorbar(hca,thBinEdges2(1:end-1)+dthBin2/2+xoffs(jj),accEffAvg2D(:,jj)*100,accEffErrDown2D(:,jj)*100,accEffErrUp2D(:,jj)*100,'linewidth',3,'color',colmat(jj,:))
+end
+
+
+
+
+%plot(hca,45*[1,1],hca.YLim,'--','color',textcol,'linewidth',1.2)
+
+
+legStr = cell(1,size(accEffAvg2D,2));
+for jj = 1:size(accEffAvg2D,2)
+    if jj == 1
+        legStr{jj} = ['$M_A{<}',num2str(MBinEdges(jj+1)),'$, \hspace{.5cm} $N = ',num2str(numel(find(idM==jj))),'$'];
+    elseif jj == size(accEffAvg2D,2)
+        legStr{jj} = ['$M_A{>}',num2str(MBinEdges(jj)),'$, \hspace{.5cm} $N = ',num2str(numel(find(idM==jj))),'$'];
+    else
+        legStr{jj} = ['$',num2str(MBinEdges(jj)),'{<}M_A{<}',num2str(MBinEdges(jj+1)),'$, \hspace{.5cm} $N = ',num2str(numel(find(idM==jj))),'$'];
+        
+    end
+end
+
+hl = legend(hca,legStr);
+hl.Interpreter = 'latex';
+hl.FontSize = 15;
+hl.Color = figcol;
+hl.TextColor = textcol;
+
+
+hca.Box = 'on';
+
+hca.XLim = [0,90];
+%hca.YLim = [0,15];
+hca.YLim(1) = 0;
+
+ylabel(hca,'Acceleration efficiency [$\%$]','Fontsize',15,'interpreter','latex')
+xlabel(hca,'$\theta_{Bn}$ [$^{\circ}$]','Fontsize',15,'interpreter','latex')
+
+hca.Color = axcol;
+fig.Color = figcol;
+hca.XAxis.Color = textcol;
+hca.YAxis.Color = textcol;
+
+%irf_legend(hca,[num2str(beta*100),'\% significance'],[0.98,0.92],'Fontsize',15,'interpreter','latex','color',textcol);
+%hl.BackgroundColor = hca.Color;
+
+hca.LineWidth = 1.2;
+hca.FontSize = 14;
 
 %% Plot acceleration efficiency as a function of angle to sun-earth line
 fig = figure;
