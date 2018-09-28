@@ -43,6 +43,7 @@ if ~doLoadData
     kpV = zeros(N,1);
     ssnV = zeros(N,1);
     s107V = zeros(N,1);
+    lineNumberV = zeros(N,1);
     
     
     %% Read line  
@@ -295,7 +296,7 @@ TV = TV(TV~=0);
 
 if saveParameters
     disp('Saving parameters...')
-    save(fileName,'dTV','MaV','VuV','thBnV','thVnV','accEffV','EmaxV','RV','sigV','TV','alphaV','phiV','N','dstV','kpV','ssnV','s107V','thBrV')
+    save(fileName,'dTV','MaV','VuV','thBnV','thVnV','accEffV','EmaxV','RV','sigV','TV','N','dstV','kpV','ssnV','s107V','thBrV')
     disp('saved!')
 end
 
@@ -313,6 +314,7 @@ dthBin = 10;
 thBinEdges = 0:dthBin:90;
 
 %% approved data indices
+vlim = 500;
 dind = (~isnan(MaV) & VuV<vlim);
 
 dTV = dTV(dind);
@@ -321,7 +323,8 @@ VuV = VuV(dind);
 thBnV = thBnV(dind);
 thBrV = thBrV(dind);
 thVnV = thVnV(dind);
-accEffV = accEffV(dind,:);
+accEffV = accEffV(dind);
+EmaxV = EmaxV(dind);
 RV = RV(dind,:);
 sigV = sigV(dind);
 
@@ -350,7 +353,7 @@ plotShockPos
 fig = figure;
 hca = axes(fig);
 
-scatter(hca,thBnV(dind),MaV(dind).*cosd(thVnV(dind)),400,'.')
+scatter(hca,thBnV,MaV.*cosd(thVnV),400,'.')
 
 hca.XLim = [0,90];
 hca.YLim(1) = 0;
@@ -367,8 +370,6 @@ hca.FontSize = 14;
 %% Plot acceleration efficiency as a function of shock angle
 fig = figure;
 hca = axes(fig);
-
-vlim = 450;
 
 % plot events with Ma as color
 scatter(hca,thBnV,accEffV*100,400,MaV.*cosd(thVnV),'.')
@@ -409,12 +410,12 @@ hcb.LineWidth = 1.2;
 fig = figure;
 hca = axes(fig);
 hold(hca,'on')
-hsc = scatter(hca,thBrV,accEffV*100,200,col2,'.');
+hsc = scatter(hca,thBnV,accEffV*100,200,col2,'.');
 
 % set significance
 beta = .95;
 
-idTh = discretize(thBrV,thBinEdges);
+idTh = discretize(thBnV,thBinEdges);
 accEffAvg = zeros(1,length(thBinEdges)-1);
 accEffStd = zeros(1,length(thBinEdges)-1);
 
@@ -462,7 +463,7 @@ plot(hca,45*[1,1],hca.YLim,'--','color',textcol,'linewidth',1.2)
 hca.Box = 'on';
 
 ylabel(hca,'Acceleration efficiency [$\%$]','Fontsize',15,'interpreter','latex')
-xlabel(hca,'$\theta_{Br}$ [$^{\circ}$]','Fontsize',15,'interpreter','latex')
+xlabel(hca,'$\theta_{Bn}$ [$^{\circ}$]','Fontsize',15,'interpreter','latex')
 
 hca.Color = axcol;
 fig.Color = figcol;

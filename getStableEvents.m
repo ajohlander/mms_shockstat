@@ -23,9 +23,9 @@ magAbsLim = irf_ask('Maximum deviation limit for |B| (in nT) [%]>','magAbsLim',2
 magAbsBool = zeros(1,N);
 
 % B direction
-magDegStdLim = irf_ask('Standard deviation limit for B direction (in deg) [%]>','magDegStdLim',10);
+magDegStdLim = irf_ask('Standard deviation limit for B direction (in deg) [%]>','magDegStdLim',8);
 magDegStdBool = zeros(1,N);
-magDegLim = irf_ask('Maximum deviation limit for B direction (in deg) [%]>','magDegLim',30);
+magDegLim = irf_ask('Maximum deviation limit for B direction (in deg) [%]>','magDegLim',25);
 magDegBool = zeros(1,N);
 
 % |V|
