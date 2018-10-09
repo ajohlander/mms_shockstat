@@ -16,8 +16,8 @@ end
 
 eisMode = irf_ask('EIS mode (auto/srvy/brst) [%]>','eisMode','srvy');
 
-% normal bs model to use (cannot be slho)
-shModel = 'farris';
+% normal bs models to use (see irf_shock_normal for explanation)
+shModel = {'farris','slho','per','fa4o','fan4o','foun'};
 
 % number of events (should be more than actual events)
 N = 1000;
@@ -27,28 +27,41 @@ N = 1000;
 if ~doLoadData
     disp('Getting shock parameters')
     
+    % single values
     TV = zeros(N,1); % start time
     dTV = zeros(N,1); % interval duration
-    MaV = zeros(N,1); % Alfven Mach number
-    MfV = zeros(N,1); % magnetosonic/fast Mach number
     VuV = zeros(N,1); % upstream speed
-    thBnV = zeros(N,1); % shock angle
     thBrV = zeros(N,1); % magnetic field/radial angle
-    thVnV = zeros(N,1); % flow incidence angle
     betaiV = zeros(N,1); % ion plasma beta
     accEffV = zeros(N,1); % acceleraton efficiency
     accEffFpiV = zeros(N,1); % acceleraton efficiency (only FPI)
     accEffAltV = zeros(N,1); % acceleraton efficiency (alternative)
-    EmaxV = zeros(N,1); % maximum energy of FPI-DIS
+    EmaxV = zeros(N,1); % maximum energy used [eV]
+    EfpiMaxV = zeros(N,1); % maximum energy of FPI-DIS [eV]
     hasEISV = zeros(N,1); % boolean if EIS exists or not
     RV = zeros(N,3); % sc position
-    sigV = zeros(N,1); % bow shock compression factor
     dstV = zeros(N,1); % DST index
     kpV = zeros(N,1); % Kp index
     ssnV = zeros(N,1); % sunspot number
     s107V = zeros(N,1); % F10.7 index
     aeV = zeros(N,1); % AE index
     lineNumV = zeros(N,1); % line number in text file
+    
+    % structures (depend on shock model)
+    nvecV = [];
+    MaV = []; % Alfven Mach number
+    MfV = []; % magnetosonic/fast Mach number
+    thBnV = []; % shock angle
+    thVnV = []; % flow incidence angle
+    % loop through shModel array
+    for jj = 1:length(shModel)
+        nvecV.(shModel{jj}) = zeros(N,3); % shock normal vector
+        MaV.(shModel{jj}) = zeros(N,1); % Alfven Mach number
+        MfV.(shModel{jj}) = zeros(N,1); % magnetosonic/fast Mach number
+        thBnV.(shModel{jj}) = zeros(N,1); % shock angle
+        thVnV.(shModel{jj}) = zeros(N,1); % flow incidence angle
+        sigV.(shModel{jj}) = zeros(N,1); % bow shock compression factor
+    end
     
     
     %% Read line  
@@ -161,42 +174,56 @@ if ~doLoadData
             % average EIS psd from all detectors (same time stamps)
             EISpsd = (EISpsd0+EISpsd1+EISpsd2+EISpsd3+EISpsd4+EISpsd5)/6;
         end        
+         
         
+        %% try to read omni data
                 
-                
-        %% get model bs normal
+        % initialize empty data structure for irf_shock_normal
         scd = [];
         scd.Bu = zeros(1,3); scd.Vu = zeros(1,3); scd.nu = 0;
         scd.Bd = zeros(1,3); scd.Vd = zeros(1,3); scd.nd = 0;
         scd.R = R;
-        nst = irf_shock_normal(scd);
-        nvec = nst.n.(shModel);
         
-        
-        %% try to read omni data
-        
-        ff = irf_get_data(tint,'bx,by,bz,Ma,v,n,T','omni_min');
+        ff = irf_get_data(tint,'bx,by,bz,Ma,vx,vy,vz,n,T','omni_min');
         ff2 = irf_get_data(tint+[-1,1]*3.6e3,'dst,kp,ssn,f10.7,ae','omni2');
         
         if ~isempty(ff)
             Bu = nanmean(ff(:,2:4),1);
             if isnan(Bu); Bu = nan(1,3); end
             Ma = nanmean(ff(:,5)); % Alfven Mach number 
-            Vu = nanmean(ff(:,6)); % speed [km/s]
-            Nu = nanmean(ff(:,7)); % density [/cc]
-            Tu = nanmean(ff(:,8))/u.e*u.kB; % temperature [eV]
+            Vu = nanmean(ff(:,6:8),1); % velocity [km/s]
+            if isnan(Vu); Vu = nan(1,3); end
+            Nu = nanmean(ff(:,9)); % density [/cc]
+            Tu = nanmean(ff(:,10))/u.e*u.kB; % temperature [eV]
+            
+            % put real values in structure
+            scd.Bu = Bu; scd.Vu = Vu; scd.nu = Nu;
+            % get model bs normals
+            nst = irf_shock_normal(scd);
+            % nvec is a structure with fields defined by shModel
+            nvec = [];
+            for jj = 1:length(shModel)
+                nvec.(shModel{jj}) = nst.n.(shModel{jj});
+            end
             
             % calculate shock angle
-            thBn = acosd(dot(Bu,nvec)/(norm(Bu)));
-            if thBn>90
-                thBn = 180-thBn;
+            % thBn is a structure with fields defined by shModel
+            thBn = [];
+            for jj = 1:length(shModel)
+                thBn.(shModel{jj}) = acosd(dot(Bu,nvec.(shModel{jj}))/(norm(Bu)));
+                if thBn.(shModel{jj})>90
+                    thBn.(shModel{jj}) = 180-thBn.(shModel{jj});
+                end
             end
             
             % calculate sw incidence angle
-            % guess the solar wind is in x direction (~4 deg wrong)
-            thVn = acosd(nvec(1));
-            if thVn>90
-                thVn = 180-thVn;
+            % thVn is a structure with fields defined by shModel
+            thVn = [];
+            for jj = 1:length(shModel)
+                thVn.(shModel{jj}) = acosd(dot(Vu,nvec.(shModel{jj}))/(norm(Vu)));
+                if thVn.(shModel{jj})>90
+                    thVn.(shModel{jj}) = 180-thVn.(shModel{jj});
+                end
             end
             
             % calculate B to radial angle
@@ -209,15 +236,21 @@ if ~doLoadData
             betai = Nu*1e6*Tu*u.e/(norm(Bu*1e-9)^2/(2*u.mu0));
             
             % calculate fast Mach number
-            vA = Vu/Ma*1e3; % Alfven speed [m/s]
+            vA = norm(Vu)/Ma*1e3; % Alfven speed [m/s]
             % assume ion and electron temperatures are equal
             cs = sqrt(4*Tu*u.e/u.mp); % sound speed [m/s]
             % magnetosonic speed perp to B
             cms = sqrt(cs^2+vA^2);
-            % magnetosonic group speed along normal
-            vms = sqrt(cms^2/2+sqrt(cms^4/4-vA^2*cs^2*cosd(thBn)^2));
-            % fast Mach number of shock (not solar wind)
-            Mf = Vu/vms*1e3*cosd(thVn); 
+            
+            % loop through shModel array
+            vms = [];
+            Mf = [];
+            for jj = 1:length(shModel)
+                % magnetosonic group speed along normal
+                vms.(shModel{jj}) = sqrt(cms^2/2+sqrt(cms^4/4-vA^2*cs^2*cosd(thBn.(shModel{jj}))^2));
+                % fast Mach number of stationary shock (not solar wind)
+                Mf.(shModel{jj}) = dot(Vu,nvec.(shModel{jj}))/vms.(shModel{jj})*1e3;
+            end
             
             % other info
             dst = nanmean(ff2(:,2));
@@ -232,7 +265,7 @@ if ~doLoadData
             Ma = nan;
             Bu = nan(1,3);
             Nu = nan;
-            Vu = nan;
+            Vu = nan(1,3);
             Tu = nan;
                         
             % other info
@@ -260,7 +293,6 @@ if ~doLoadData
             dEcombMinus = cell(1,EISpsd.length);
             dEcombPlus = cell(1,EISpsd.length);
             
-            
             % time difference between EIS measurements, assume constant
             dt = median(diff(EISpsd.time.epochUnix));
             for it = 1:EISpsd.length
@@ -278,7 +310,6 @@ if ~doLoadData
                 Efpi = mean(emat(idFpi,:),1);
                 % delta energy of FPI [eV] ()
                 dEfpi = double(iPDist.ancillary.delta_energy_plus(1,:))*2; 
-                
                 
                 % ---- combine data ----
                 % now, use entire energy range of FPI, could be chaged
@@ -299,12 +330,15 @@ if ~doLoadData
             end
         end
         
+        % record FPI max energy 
+        EfpiMaxV(count) = max(Efpi)/u.e;
+        
         %% get energy flux of ions with E>10Esw
         % particle mass
         M = u.mp;
         
         % solar wind energy in [J]
-        Esw = .5*M*(Vu*1e3)^2;
+        Esw = .5*M*(norm(Vu)*1e3)^2;
         
         % number of energy bins
         if hasEIS; nE = length(Fcomb{1}); else; nE = length(iPDist.depend{1}); end
@@ -380,35 +414,38 @@ if ~doLoadData
         accEffFpi = mean(EFenFpi)/(Nu*Esw*1e6);
         
         
-        %% set values
-        % fill arrays
+        %% set values (fill arrays)
+        % single values
         TV(count) = tint(1).epochUnix;
         dTV(count) = diff(tint.epochUnix);
-        MaV(count) = Ma*cosd(thVn); % of shock (not solar wind)
-        MfV(count) = Mf; % of shock (not solar wind)
-        VuV(count) = Vu;
-        thBnV(count) = thBn;
-        thVnV(count) = thVn;
+        VuV(count) = norm(Vu);
         betaiV(count) = betai;
         thBrV(count) = thBr;
         accEffV(count) = accEff;
         accEffAltV(count) = accEffAlt;
         accEffFpiV(count) = accEffFpi;
         % Emax is not perfect for alternating energy table but who cares?
-        EmaxV(count) = max(E);
+        EmaxV(count) = max(E)/u.e;
         hasEISV(count) = hasEIS;
         % mean of all four
         RV(count,:) =mean((R.gseR1(:,1:3)+R.gseR2(:,1:3)+R.gseR3(:,1:3)+R.gseR4(:,1:3))/4)/u.RE*1e3;
-        % compression factor of models
-        sigV(count) = nst.info.sig.(shModel);
         % dst index
-        sigV(count) = nst.info.sig.(shModel);
-        
         dstV(count) = dst;
         kpV(count) = kp;
         ssnV(count) = ssn;
         s107V(count) = s107;
         aeV(count) = ae;
+        
+        % structures
+        for jj = 1:length(shModel)
+            nvecV.(shModel{jj})(count,:) = nvec.(shModel{jj});
+            MaV.(shModel{jj})(count) = Ma*cosd(thVn.(shModel{jj})); % of shock (not solar wind)
+            MfV.(shModel{jj})(count) = Mf.(shModel{jj}); % of shock (not solar wind)
+            thBnV.(shModel{jj})(count) = thBn.(shModel{jj});
+            thVnV.(shModel{jj})(count) = thVn.(shModel{jj});
+            % compression factor of models
+            sigV.(shModel{jj})(count) = nst.info.sig.(shModel{jj});
+        end
         
         lineNumV(count) = lineNum;
         
@@ -426,21 +463,20 @@ if ~doLoadData
 end
 
 %% Clean arrays
+% single values
 dTV = dTV(TV~=0);
-MaV = MaV(TV~=0);
-MfV = MfV(TV~=0);
+
 VuV = VuV(TV~=0);
-thBnV = thBnV(TV~=0);
+
 thBrV = thBrV(TV~=0);
-thVnV = thVnV(TV~=0);
 betaiV = betaiV(TV~=0);
 accEffV = accEffV(TV~=0,:);
 accEffAltV = accEffAltV(TV~=0,:);
 accEffFpiV = accEffFpiV(TV~=0,:);
 EmaxV = EmaxV(TV~=0,:);
+EfpiMaxV = EfpiMaxV(TV~=0,:);
 hasEISV = hasEISV(TV~=0,:);
 RV = RV(TV~=0,:);
-sigV = sigV(TV~=0);
 dstV = dstV(TV~=0);
 kpV = kpV(TV~=0);
 ssnV = ssnV(TV~=0);
@@ -448,8 +484,20 @@ s107V = s107V(TV~=0);
 aeV = aeV(TV~=0);
 lineNumV = lineNumV(TV~=0);
 
+% structures
+for jj = 1:length(shModel)
+    nvecV.(shModel{jj}) = nvecV.(shModel{jj})(TV~=0,:);
+    MaV.(shModel{jj}) = MaV.(shModel{jj})(TV~=0);
+    MfV.(shModel{jj}) = MfV.(shModel{jj})(TV~=0);
+    thVnV.(shModel{jj}) = thVnV.(shModel{jj})(TV~=0);
+    thBnV.(shModel{jj}) = thBnV.(shModel{jj})(TV~=0);
+    sigV.(shModel{jj}) = sigV.(shModel{jj})(TV~=0);
+end
+
+% now N is number of events
 N = numel(TV(TV~=0));
 
+% finally clean time array
 TV = TV(TV~=0);
 
 
@@ -457,6 +505,6 @@ TV = TV(TV~=0);
 
 if saveParameters
     disp('Saving parameters...')
-    save(fileName,'dTV','MaV','MfV','VuV','thBnV','thBrV','thVnV','betaiV','accEffV','accEffAltV','accEffFpiV','EmaxV','hasEISV','RV','sigV','TV','N','dstV','kpV','ssnV','s107V','aeV','lineNumV')
+    save(fileName,'dTV','MaV','MfV','VuV','thBnV','thBrV','thVnV','betaiV','accEffV','accEffAltV','accEffFpiV','EmaxV','EfpiMaxV','hasEISV','RV','sigV','TV','N','dstV','kpV','ssnV','s107V','aeV','lineNumV','nvecV')
     disp('saved!')
 end

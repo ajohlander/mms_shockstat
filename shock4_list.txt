@@ -21,13 +21,11 @@
 2017-10-16/01:30:53 - 2017-10-16/01:36:03,  90.0, svines(EVA), Bow shock 
 2017-10-18/01:09:13 - 2017-10-18/01:13:43, 125.0, svines(EVA), Quasi-||, low Mach number Bow shock, foreshock and foreshock bubble
 2017-10-18/07:16:23 - 2017-10-18/07:18:53, 135.0, svines(EVA), Quasi-perp bow shock 
-2017-10-18/07:34:03 - 2017-10-18/07:36:13,  85.0, svines(EVA), Foreshock with interesting ion beams 
 2017-10-18/09:32:33 - 2017-10-18/09:35:13, 125.0, svines(EVA), Bow shock, quasi-||
 2017-10-18/12:46:13 - 2017-10-18/12:51:03, 120.0, svines(EVA), Bow shock, quasi-perp 
 2017-10-19/00:56:03 - 2017-10-19/00:57:53, 120.0, svines(EVA), Bow shock, quasi-perp, lower Mach number 
 2017-10-20/23:09:33 - 2017-10-20/23:11:13, 120.0, svines(EVA), Quasi-|| bow shock with foreshock, SLAMS, localized electron heating 
 2017-10-20/23:11:13 - 2017-10-20/23:15:13, 115.0, svines(EVA), Quasi-|| bow shock? with foreshock, SLAMS 
-2017-10-21/21:26:13 - 2017-10-21/21:29:03, 110.0, svines(EVA), Quasi-|| shock and foreshock, lower mach (~8) CHECK THIS
 2017-10-21/21:29:03 - 2017-10-21/21:32:03, 110.0, svines(EVA), Quasi-|| bow shock and foreshock, more SLAMS? 
 2017-10-21/21:40:33 - 2017-10-21/21:43:13, 112.0, svines(EVA), Quasi-|| bow shock with foreshock energetic ions, low Mach (~5 and below) 
 2017-10-21/21:48:43 - 2017-10-21/21:51:03,  98.0, svines(EVA), Quasi-perp bow shock, lower mack, some energetic particle enhancements 
@@ -84,13 +82,12 @@
 2017-12-14/21:19:13 - 2017-12-14/21:20:03, 125.0, aretino(EVA),  SW fast waves/shocklet with ion heating
 2017-12-14/21:28:23 - 2017-12-14/21:31:13, 145.0, aretino(EVA),  SW shocklets with large J high and electron and ion heating
 2017-12-14/22:05:43 - 2017-12-14/22:10:13, 125.0, aretino(EVA),  Quasi-perp shock with reflected/heated ions and strong E/B fluctuations
-2017-12-14/23:20:03 - 2017-12-14/23:30:33, 125.0, aretino(EVA),  Turbulent quasi-par shock, turbulent current sheets
 2017-12-17/19:18:43 - 2017-12-17/19:21:33, 120.0, lavanov(EVA), Qperp bow shock  accelerated ions in front.
 2017-12-18/14:12:33 - 2017-12-18/14:20:43,  75.0, dturner(EVA), Large amplitude ULF waves in the quasi-parallel foreshock
 2017-12-21/07:49:33 - 2017-12-21/07:55:53, 150.0, dturner(EVA), Field reversals, magnetic nulls, and Vz and Vy reversals near quasi-parallel bow shock
 2017-12-21/07:57:43 - 2017-12-21/08:00:03, 125.0, dturner(EVA), Quasi-parallel bow shock crossings (multiple)
 2017-12-21/08:00:03 - 2017-12-21/08:12:03, 125.0, dturner(EVA), Quasi-parallel bow shock crossings (multiple) and/or shocklet/SLAMS
-2017-12-21/08:14:13 - 2017-12-21/08:20:33, 125.0, dturner(EVA), Shocklet/SLAMS in ion foreshock
+2017-12-21/08:16:23 - 2017-12-21/08:20:33, 125.0, dturner(EVA), Shocklet/SLAMS in ion foreshock
 2017-12-21/08:40:53 - 2017-12-21/08:49:03, 125.0, dturner(EVA), Isolated shocklet/SLAMS and steepened ULF waves in the ion foreshock
 2017-12-21/08:57:03 - 2017-12-21/09:01:13, 125.0, dturner(EVA), Shocklet/SLAMS in the ion foreshock
 2017-12-23/10:44:13 - 2017-12-23/10:45:23, 120.0, dturner(EVA), Quasi-perp bow shock crossing
@@ -283,8 +280,18 @@
 # Removed by overview plots
 2017-10-18/07:36:13 - 2017-10-18/07:39:03, 135.0, svines(EVA), Quasi-perp bow shock with interesting higher-energy ion beam
 2017-10-21/21:03:43 - 2017-10-21/21:07:33,  96.0, svines(EVA), Series of bow shock/partial bow shocks, quasi-perp mainly, lower Mach (~5) 
-
+2017-12-14/23:20:03 - 2017-12-14/23:30:33, 125.0, aretino(EVA),  Turbulent quasi-par shock, turbulent current sheets
+2017-10-21/21:26:13 - 2017-10-21/21:29:03, 110.0, svines(EVA), Quasi-|| shock and foreshock, lower mach (~8)
 
 # Notshock
 2017-11-20/07:38:03 - 2017-11-20/07:39:33, 105.0, hhiroshi(EVA), foreshock ion beams with possible SLAMS
+2017-10-18/07:34:03 - 2017-10-18/07:36:13,  85.0, svines(EVA), Foreshock with interesting ion beams 
+
+
+# copied lines to check
+
+
+
+
+
 
