@@ -8,7 +8,7 @@ h = gobjects(1,3);
 %% xy
 hca = subplot(1,3,1:2);
 
-scatter(hca,RV(~isnan(MaV),1),RV(~isnan(MaV),2),200,thBnV(~isnan(MaV)),'.')
+scatter(hca,RV(:,1),RV(:,2),200,thBnV1,'.')
 axis(hca,'equal')
 hold(hca,'on')
 
@@ -34,7 +34,7 @@ h(1) = hca;
 
 %% xz
 hca = subplot(2,3,3);
-scatter(hca,RV(~isnan(MaV),1),RV(~isnan(MaV),3),200,thBnV(~isnan(MaV)),'.')
+scatter(hca,RV(:,1),RV(:,3),200,thBnV1,'.')
 axis(hca,'equal')
 hold(hca,'on')
 
@@ -56,7 +56,7 @@ h(2) = hca;
 %
 %% yz
 hca = subplot(2,3,6);
-scatter(hca,RV(~isnan(MaV),2),RV(~isnan(MaV),3),200,thBnV(~isnan(MaV)),'.')
+scatter(hca,RV(:,2),RV(:,3),200,thBnV1,'.')
 axis(hca,'equal')
 hold(hca,'on')
 
@@ -98,7 +98,7 @@ hcb.Ticks = 0:15:90;
 fig = figure;
 hca = axes(fig);
 
-scatter(alphaV,MaV,300,sigV,'.')
+scatter(alphaV,MaV1,300,sigV1,'.')
 %hca.YLim = [0,90];
 
 hca.Color = [1,1,1]*.5;
@@ -113,11 +113,11 @@ hcb.Color = textcol;
 title(hca,'Bow shock model scaling factor','Fontsize',15,'interpreter','latex','color',textcol)
 
 xlabel(hca,'$\alpha$ [$^{\circ}$]','fontsize',15,'interpreter','latex')
-ylabel(hca,'$\theta_{Bn}$ [$^{\circ}$]','fontsize',15,'interpreter','latex')
+ylabel(hca,'$M_A$','fontsize',15,'interpreter','latex')
 ylabel(hcb,'$\sigma$','fontsize',17,'interpreter','latex')
 
 hca.Box = 'on';
 hca.LineWidth = 1.2;
 hcb.LineWidth = 1.2;
 hca.FontSize = 14;
-hca.CLim = 1+[-1,1]*diff(hca.CLim)/2;
+hca.CLim = 1+[-1,1]*max(abs(1-sigV1));
