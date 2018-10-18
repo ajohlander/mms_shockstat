@@ -294,10 +294,11 @@ if ~doLoadData
             dEcombMinus = cell(1,EISpsd.length);
             dEcombPlus = cell(1,EISpsd.length);
             
+            FfpiMat = double(iPDist.convertto('s^3/m^6').omni.data);
+            
             % time difference between EIS measurements, assume constant
             dt = median(diff(EISpsd.time.epochUnix));
             for it = 1:EISpsd.length
-                disp([num2str(it),'/',num2str(EISpsd.length)])
                 
                 % time of this time step
                 t1 = EISpsd.time(it).epochUnix;
@@ -306,7 +307,7 @@ if ~doLoadData
                 % time indicies of FPI that fall within EIS time
                 idFpi = find(iPDist.time.epochUnix>=t1 & iPDist.time.epochUnix<t1+dt);
                 % average over fpi times
-                Ffpi = nanmean(double(iPDist.convertto('s^3/m^6').omni.data(idFpi,:)),1);
+                Ffpi = nanmean(FfpiMat,1);
                 % FPI energy in [eV] (not good if esteptable is used)
                 Efpi = mean(emat(idFpi,:),1);
                 % delta energy of FPI [eV] ()
@@ -358,7 +359,6 @@ if ~doLoadData
         
         % ------- time loop :D --------
         for it = 1:nT
-            disp([num2str(it),'/',num2str(nT)])
             
             % 1d data matrix of PSD for time index it [s^3/m^6]
             if hasEIS
