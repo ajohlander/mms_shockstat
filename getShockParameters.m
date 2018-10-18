@@ -250,7 +250,7 @@ if ~doLoadData
                 % magnetosonic group speed along normal
                 vms.(shModel{jj}) = sqrt(cms^2/2+sqrt(cms^4/4-vA^2*cs^2*cosd(thBn.(shModel{jj}))^2));
                 % fast Mach number of stationary shock (not solar wind)
-                Mf.(shModel{jj}) = dot(Vu,nvec.(shModel{jj}))/vms.(shModel{jj})*1e3;
+                Mf.(shModel{jj}) = dot(-Vu,nvec.(shModel{jj}))/vms.(shModel{jj})*1e3;
             end
             
             % other info
