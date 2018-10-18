@@ -36,6 +36,7 @@ if ~doLoadData
     accEffV = zeros(N,1); % acceleraton efficiency
     accEffFpiV = zeros(N,1); % acceleraton efficiency (only FPI)
     accEffAltV = zeros(N,1); % acceleraton efficiency (alternative)
+    accEffAltFpiV = zeros(N,1); % acceleraton efficiency (alternative, only FPI)
     EmaxV = zeros(N,1); % maximum energy used [eV]
     EfpiMaxV = zeros(N,1); % maximum energy of FPI-DIS [eV]
     hasEISV = zeros(N,1); % boolean if EIS exists or not
@@ -348,10 +349,12 @@ if ~doLoadData
         
         % total energy flux
         EF = zeros(nT,1);
-        % energetic energy flux
+        % energetic energy density
         EFen = zeros(nT,1);
-        % energetic energy flux using only FPI
+        % energetic energy density using only FPI
         EFenFpi = zeros(nT,1);
+        % total ion energy density using only FPI
+        EFFpi = zeros(nT,1);
         
         % ------- time loop :D --------
         for it = 1:nT
@@ -379,10 +382,10 @@ if ~doLoadData
             % average energy flux per energy level [J/m^3]
             dEF = E.*Fpsd.*dE;
             
-            % total energy flux [J]
+            % total energy density [J/m^3]
             EF(it) = 4*pi*sqrt(2/M^3)*sum(dE.*sqrt(E.^3).*Fpsd);
             
-            % --- energetic energy flux ---
+            % --- energetic energy density ---
             % first find last lower bin edge which is less than 10Esw
             idll = find(E-dE/2<10*Esw,1,'last');
             % if idll is empty, then probably 10Esw is greater than
@@ -393,26 +396,34 @@ if ~doLoadData
             dEen = [dEen_first,dE(idll+1:end)];
             % array of dEs of energetic part using only FPI (assume nE=32)
             dEenFpi = [dEen_first,dE(idll+1:32)];
+            % array of dEs using only FPI (assume nE=32)
+            dEFpi = dE(1:32);
             % array of Es of energetic part
             Een = E(idll:end);
             % array of Es of energetic part using only FPI (assume nE=32)
             EenFpi = E(idll:32);
+            % array of Es using only FPI (assume nE=32)
+            EFpi = E(1:32);
             % array of psd of energetic part
             Fpsden = Fpsd(idll:end);
             % array of psd of energetic part using only FPI (assume nE=32)
             FpsdenFpi = Fpsd(idll:32);
+            % array of psd using only FPI (assume nE=32)
+            FpsdFpi = Fpsd(1:32);
             
-            % energetic energy flux
+            % energetic energy density
             EFen(it) = 4*pi*sqrt(2/M^3)*sum(dEen.*sqrt(Een.^3).*Fpsden);
-            % energetic energy flux using only FPI
+            % energetic energy density using only FPI
             EFenFpi(it) = 4*pi*sqrt(2/M^3)*sum(dEenFpi.*sqrt(EenFpi.^3).*FpsdenFpi);
+            % total ion energy density using only FPI
+            EFFpi(it) = 4*pi*sqrt(2/M^3)*sum(dEFpi.*sqrt(EFpi.^3).*FpsdFpi);
             
         end
-        % 2 alternatives, not sure which is best
-        accEff = mean(EFen)/(Nu*Esw*1e6);
-        accEffAlt = mean(EFen)/mean(EF);
-        accEffFpi = mean(EFenFpi)/(Nu*Esw*1e6);
-        
+        % 2 ways, the alternative way is not really correct
+        accEff = mean(EFen)/mean(EF);
+        accEffAlt = mean(EFen)/(Nu*Esw*1e6);
+        accEffFpi = mean(EFenFpi)/mean(EFFpi);
+        accEffAltFpi = mean(EFenFpi)/(Nu*Esw*1e6);
         
         %% set values (fill arrays)
         % single values
@@ -424,6 +435,7 @@ if ~doLoadData
         accEffV(count) = accEff;
         accEffAltV(count) = accEffAlt;
         accEffFpiV(count) = accEffFpi;
+        accEffAltFpiV(count) = accEffAltFpi;
         % Emax is not perfect for alternating energy table but who cares?
         EmaxV(count) = max(E)/u.e;
         hasEISV(count) = hasEIS;
@@ -473,6 +485,7 @@ betaiV = betaiV(TV~=0);
 accEffV = accEffV(TV~=0,:);
 accEffAltV = accEffAltV(TV~=0,:);
 accEffFpiV = accEffFpiV(TV~=0,:);
+accEffAltFpiV = accEffAltFpiV(TV~=0,:);
 EmaxV = EmaxV(TV~=0,:);
 EfpiMaxV = EfpiMaxV(TV~=0,:);
 hasEISV = hasEISV(TV~=0,:);
@@ -505,6 +518,6 @@ TV = TV(TV~=0);
 
 if saveParameters
     disp('Saving parameters...')
-    save(fileName,'dTV','MaV','MfV','VuV','thBnV','thBrV','thVnV','betaiV','accEffV','accEffAltV','accEffFpiV','EmaxV','EfpiMaxV','hasEISV','RV','sigV','TV','N','dstV','kpV','ssnV','s107V','aeV','lineNumV','nvecV')
+    save(fileName,'dTV','MaV','MfV','VuV','thBnV','thBrV','thVnV','betaiV','accEffV','accEffAltV','accEffFpiV','accEffAltFpiV','EmaxV','EfpiMaxV','hasEISV','RV','sigV','TV','N','dstV','kpV','ssnV','s107V','aeV','lineNumV','nvecV','shModel')
     disp('saved!')
 end
