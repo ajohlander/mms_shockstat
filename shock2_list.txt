@@ -94,9 +94,7 @@
 2017-12-23/11:31:03 - 2017-12-23/11:34:43, 110.0, dturner(EVA), Quasi-perp bow shock crossing
 2017-12-24/01:39:53 - 2017-12-24/01:42:43, 100.0, pgangkai(EVA), SLAMS/bow shock crossings
 2017-12-24/01:43:23 - 2017-12-24/01:44:43,  80.0, pgangkai(EVA), periodic |B| increase with decreasing amplitude
-2017-12-24/01:43:23 - 2017-12-24/01:44:43,  80.0, pgangkai(EVA), periodic |B| increase with decreasing amplitude
 2017-12-24/01:57:33 - 2017-12-24/01:58:43, 125.0, pgangkai(EVA), Quasi-perpendicular shock with nice overshoot and whistler waves in the foreshock region
-2017-12-24/01:59:43 - 2017-12-24/02:00:13,  99.0, pgangkai(EVA), wave activities in the solar wind
 2017-12-24/02:00:23 - 2017-12-24/02:05:53, 100.0, pgangkai(EVA),  Magnetic field fluctuations in the foreshock region
 2017-12-26/04:53:53 - 2017-12-26/04:56:33, 100.0, pgangkai(EVA), possible multiple shock crossings
 2017-12-26/04:57:53 - 2017-12-26/04:58:53, 100.0, pgangkai(EVA), possible shock crossing with whistler waves
@@ -282,6 +280,7 @@
 2017-10-21/21:03:43 - 2017-10-21/21:07:33,  96.0, svines(EVA), Series of bow shock/partial bow shocks, quasi-perp mainly, lower Mach (~5) 
 2017-12-14/23:20:03 - 2017-12-14/23:30:33, 125.0, aretino(EVA),  Turbulent quasi-par shock, turbulent current sheets
 2017-10-21/21:26:13 - 2017-10-21/21:29:03, 110.0, svines(EVA), Quasi-|| shock and foreshock, lower mach (~8)
+2017-12-24/01:59:43 - 2017-12-24/02:00:13,  99.0, pgangkai(EVA), wave activities in the solar wind
 
 # Notshock
 2017-11-20/07:38:03 - 2017-11-20/07:39:33, 105.0, hhiroshi(EVA), foreshock ion beams with possible SLAMS
@@ -289,7 +288,7 @@
 
 
 # copied lines to check
-
+2017-12-24/01:43:23 - 2017-12-24/01:44:43,  80.0, pgangkai(EVA), periodic |B| increase with decreasing amplitude
 
 
 
