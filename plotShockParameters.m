@@ -3,6 +3,14 @@ EmaxLim = irf_ask('Upper energy limit of FPI in units of solar wind energy (0 wi
 
 colorMode = irf_ask('Color mode (1:Fancy, 2:Boring): [%]>','colorMode',1);
 
+% PLACEHOLDER, SHOULD BE INCLUDED IN SAVED FILE!
+shModel = {'farris','slho','per','fa4o','fan4o','foun'};
+
+fprintf('\n')
+for jj = 1:length(shModel); fprintf([num2str(jj),': ',shModel{jj},'\n']); end
+modelInd = irf_ask('Which shock model: [%]>','modelInd',1);
+
+
 %% colors for plots
 
 switch colorMode
@@ -35,6 +43,7 @@ colmat = [col1;col2;col3];
 %% some bin edges
 dthBin = 10;
 thBinEdges = 0:dthBin:90;
+deltathBin = median(diff(thBinEdges))*pi/180;
 
 % mach number
 % dMBin = 4;
@@ -44,43 +53,55 @@ MBinEdges = [1,6,10,100];
 
 %% approved data indices
 
-EswV = 1/2*u.mp*VuV.^2;
-if EmaxLim ~= 0
-    dind = (~isnan(MaV) & EmaxV>EswV*EmaxLim);
-else
-    dind = ~isnan(MaV);
-end
+% EswV = 1/2*u.mp*VuV.^2;
+% if EmaxLim ~= 0
+%     dind = (~isnan(MaV) & EmaxV>EswV*EmaxLim);
+% else
+%     dind = ~isnan(MaV);
+% end
+
+% alternatively only use FPI from before Jan 2018
+tEnd = irf.time_array('2017-12-31T23:59:59');
+dind = (~isnan(MaV.farris) & TV<tEnd.epochUnix);
+
+% all
+%dind = 1:N;
+
+% redefine N
+N = numel(dind);
 
 %% Clean data arrays
+% single values
+TV = TV(dind);
 dTV = dTV(dind);
-MaV = MaV(dind);
-MfV = MfV(dind);
 VuV = VuV(dind);
-thBnV = thBnV(dind);
 thBrV = thBrV(dind);
-thVnV = thVnV(dind);
 betaiV = betaiV(dind);
 accEffV = accEffV(dind);
 accEffAltV = accEffAltV(dind);
 accEffFpiV = accEffFpiV(dind);
 EmaxV = EmaxV(dind);
 RV = RV(dind,:);
-sigV = sigV(dind);
 hasEISV = hasEISV(dind);
 % convert to boolean
 hasEISV = (hasEISV==1);
-
 dstV = dstV(dind);
 kpV = kpV(dind);
 ssnV = ssnV(dind);
 s107V = s107V(dind);
 aeV = aeV(dind);
-
 lineNumV = lineNumV(dind);
 
-TV = TV(dind);
+for jj = 1:length(shModel)
+    nvecV.(shModel{jj}) = nvecV.(shModel{jj})(dind,:);
+    MaV.(shModel{jj}) = MaV.(shModel{jj})(dind);
+    MfV.(shModel{jj}) = MfV.(shModel{jj})(dind);
+    thBnV.(shModel{jj}) = thBnV.(shModel{jj})(dind);
+    thVnV.(shModel{jj}) = thVnV.(shModel{jj})(dind);
+    sigV.(shModel{jj}) = sigV.(shModel{jj})(dind);
+end
 
-Nevents = numel(dind);
+Nevents = numel(find(dind));
 
 % angle between earth-sun line and sc position in xy plane
 [alphaV,~] = cart2pol(RV(:,1),RV(:,2),RV(:,3));
@@ -90,15 +111,31 @@ alphaV = alphaV*180/pi; % degrees
 [phiV,~] = cart2pol(RV(:,1),sqrt(RV(:,2).^2+RV(:,3).^2));
 phiV = phiV*180/pi; % degrees
 
+%% Which acceleration efficiency to be used?
+
+accEffVused = accEffFpiV;
+
+%% Which shock model to be used?
+
+thBnV1 = thBnV.(shModel{modelInd});
+thVnV1 = thVnV.(shModel{modelInd});
+MaV1 = MaV.(shModel{modelInd});
+MfV1 = MfV.(shModel{modelInd});
+nvecV1 = nvecV.(shModel{modelInd});
+sigV1 = sigV.(shModel{modelInd});
+
 
 %% Plot simple position
 plotShockPos
+
+%% compare shock models
+plotModelComp
 
 %% plot parameter space
 fig = figure;
 hca = axes(fig);
 
-scatter(hca,thBnV,MaV,400,col1,'.')
+scatter(hca,thBnV1,MaV1,400,col1,'.')
 
 hca.XLim = [0,90];
 hca.YLim(1) = 0;
@@ -123,9 +160,9 @@ hca = axes(fig);
 
 % plot events with Ma as color
 hold(hca,'on')
-scatter(hca,thBnV(hasEISV),accEffV(hasEISV)*100,60,MaV(hasEISV),'o','MarkerFaceColor','flat')
-scatter(hca,thBnV(~hasEISV),accEffV(~hasEISV)*100,60,MaV(~hasEISV),'o','MarkerFaceColor','flat')
-%foo = scatter(hca,thBnV(~hasEISV),accEffV(~hasEISV)*100,60,MaV(~hasEISV),'x','linewidth',3);
+scatter(hca,thBnV1(hasEISV),accEffVused(hasEISV)*100,60,MaV1(hasEISV),'o','MarkerFaceColor','flat')
+%scatter(hca,thBnV(~hasEISV),accEffV(~hasEISV)*100,60,MaV(~hasEISV),'o','MarkerFaceColor','flat')
+foo = scatter(hca,thBnV1(~hasEISV),accEffVused(~hasEISV)*100,60,MaV1(~hasEISV),'x','linewidth',3);
 
 hca.XLim = [0,90];
 hca.YLim(1) = 0;
@@ -161,12 +198,12 @@ hcb.LineWidth = 1.2;
 fig = figure;
 hca = axes(fig);
 hold(hca,'on')
-hsc = scatter(hca,thBnV,accEffV*100,200,col2,'.');
+hsc = scatter(hca,thBnV1,accEffVused*100,200,col2,'.');
 
 % set significance
-beta = .95;
+beta = .90;
 
-idTh = discretize(thBnV,thBinEdges);
+idTh = discretize(thBnV1,thBinEdges);
 accEffAvg = zeros(1,length(thBinEdges)-1);
 accEffStd = zeros(1,length(thBinEdges)-1);
 
@@ -176,8 +213,8 @@ accEffErrDown = zeros(1,length(thBinEdges)-1);
 
 for ii = 1:length(thBinEdges)-1
     % mean and std
-    mu =  nanmean(accEffV(idTh==ii));
-    sig = nanstd(accEffV(idTh==ii));
+    mu =  nanmean(accEffVused(idTh==ii));
+    sig = nanstd(accEffVused(idTh==ii));
     
     % after a lot(!) of math
     accEffErrUp(ii) = norminv(beta*normcdf(mu/sig)-normcdf(mu/sig)+1)*sig;
@@ -242,8 +279,8 @@ hca.FontSize = 14;
 dthBin2 = 18;
 thBinEdges2 = 0:dthBin2:90;
 
-idTh = discretize(thBnV,thBinEdges2);
-idM = discretize(MaV,MBinEdges);
+idTh = discretize(thBnV1,thBinEdges2);
+idM = discretize(MaV1,MBinEdges);
 
 accEffAvg2D = zeros(length(thBinEdges2)-1,length(MBinEdges)-1);
 accEffStd2D = zeros(length(thBinEdges2)-1,length(MBinEdges)-1);
@@ -254,8 +291,8 @@ for ii = 1:length(thBinEdges2)-1
     for jj = 1:length(MBinEdges)-1
         
         % mean and std
-        mu =  nanmean(accEffV(idTh==ii & idM==jj));
-        sig = nanstd(accEffV(idTh==ii & idM==jj));
+        mu =  nanmean(accEffVused(idTh==ii & idM==jj));
+        sig = nanstd(accEffVused(idTh==ii & idM==jj));
         
         % after a lot(!) of math
         accEffErrUp2D(ii,jj) = norminv(beta*normcdf(mu/sig)-normcdf(mu/sig)+1)*sig;
@@ -281,7 +318,7 @@ hold(hca,'on')
 
 
 for jj = 1:size(accEffAvg2D,2)
-    hsc = scatter(hca,thBnV(idM==jj),accEffV(idM==jj)*100,60,colmat(jj,:),'o','MarkerFaceColor','flat');
+    hsc = scatter(hca,thBnV1(idM==jj),accEffVused(idM==jj)*100,60,colmat(jj,:),'o','MarkerFaceColor','flat');
 end
 
 
@@ -339,7 +376,7 @@ fig = figure;
 hca = axes(fig);
 
 % plot events with Ma as color
-scatter(hca,phiV,accEffV*100,400,MaV,'.')
+scatter(hca,phiV,accEffVused*100,400,MaV1,'.')
 hold(hca,'on')
 hca.XLim = [0,90];
 hca.YLim(1) = 0;
@@ -403,7 +440,13 @@ fig = figure;
 hca = axes(fig);
 
 % thBnEdges is defined above
-histogram(hca,thBnV,thBinEdges,'FaceColor',bincol,'edgecolor',textcol,'linewidth',1.3);
+thhist = histogram(hca,thBnV1,thBinEdges,'FaceColor',bincol,'edgecolor',textcol,'linewidth',1.3);
+
+% "analytical"
+than = linspace(0,90,1e3);
+hold(hca,'on')
+%plot(than,sind(than)*N*deltathBin,'linewidth',2,'color',col2)
+plot(sort([thBinEdges,thBinEdges(1:end-1)]),[0,sind(sort([thBinEdges,thBinEdges(1:end-2)]+deltathBin*180/pi/2))]*N*deltathBin,'linewidth',2,'color',col2)
 
 xlabel(hca,'$\theta_{Bn}$','Fontsize',15,'interpreter','latex')
 ylabel(hca,'Number of events','Fontsize',15,'interpreter','latex')
@@ -423,7 +466,7 @@ hca = axes(fig);
 
 dMaBin = 2;
 MaBinEdges = 0:dMaBin:60;
-histogram(hca,MaV,MaBinEdges,'FaceColor',bincol,'edgecolor',textcol,'linewidth',1.3);
+histogram(hca,MaV1,MaBinEdges,'FaceColor',bincol,'edgecolor',textcol,'linewidth',1.3);
 
 xlabel(hca,'$M_A$','Fontsize',15,'interpreter','latex')
 ylabel(hca,'Number of events','Fontsize',15,'interpreter','latex')
