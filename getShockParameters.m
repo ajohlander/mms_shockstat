@@ -391,10 +391,6 @@ if ~doLoadData
 
                 % array of Es of energetic part
                 Een = E(idll:end);
-                % array of Es of energetic part using only FPI (assume nE=32)
-                EenFpi = E(idll:32);
-                % array of Es using only FPI (assume nE=32)
-                EFpi = E(1:32);
                 % array of psd of energetic part
                 Fpsden = Fpsd(idll:end);
                 
@@ -432,7 +428,7 @@ if ~doLoadData
             % if idll is empty, then probably 10Esw is greater than
             % instrument limit, maybe deal with?
             % then get "first" dE of energetic part
-            dEen_first = EFpi(idll)+dE(idll)/2-10*Esw;
+            dEen_first = EFpi(idll)+dEFpi(idll)/2-10*Esw;
             
             
             % array of dEs of energetic part using only FPI (assume nE=32)
@@ -440,6 +436,9 @@ if ~doLoadData
             
             % array of psd of energetic part using only FPI (assume nE=32)
             FpsdenFpi = FpsdFpi(idll:end);
+            
+            % array of Es of energetic part using only FPI 
+            EenFpi = EFpi(idll:end);
             
             % energetic energy density using only FPI
             EFenFpi(it) = 4*pi*sqrt(2/M^3)*sum(dEenFpi.*sqrt(EenFpi.^3).*FpsdenFpi);
