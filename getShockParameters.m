@@ -278,7 +278,7 @@ if ~doLoadData
         end
         
         %for good measures, remove old ff
-        clear ff
+        %clear ff
         
         
         %% Merge FPI and EIS into one data product 
@@ -332,8 +332,8 @@ if ~doLoadData
             end
         end
         
-        % record FPI max energy 
-        EfpiMaxV(count) = max(Efpi)/u.e;
+        % record FPI max energy [eV]
+        EfpiMaxV(count) = max(Efpi);
         
         %% get energy flux of ions with E>10Esw
         % particle mass
@@ -343,83 +343,112 @@ if ~doLoadData
         Esw = .5*M*(norm(Vu)*1e3)^2;
         
         % number of energy bins
-        if hasEIS; nE = length(Fcomb{1}); else; nE = length(iPDist.depend{1}); end
+        if hasEIS; nEEis = length(Fcomb{1}); else; nEEis = 0; end
+        nEFpi = length(iPDist.depend{1});
         
         % number of time steps
-        if hasEIS; nT = length(Fcomb); else; nT = iPDist.length; end
+        if hasEIS; nTEis = length(Fcomb); else; nTEis = 0; end
+        nTFpi = iPDist.length;
         
         % total energy flux
-        EF = zeros(nT,1);
+        EF = zeros(nTEis,1);
         % energetic energy density
-        EFen = zeros(nT,1);
+        EFen = zeros(nTEis,1);
         % energetic energy density using only FPI
-        EFenFpi = zeros(nT,1);
+        EFenFpi = zeros(nTFpi,1);
         % total ion energy density using only FPI
-        EFFpi = zeros(nT,1);
+        EFFpi = zeros(nTFpi,1);
         
         % ------- time loop :D --------
-        for it = 1:nT
-            disp([''])
+        % For FPI+EIS
+        if hasEIS
+            for it = 1:nTEis
+              
+                % 1d data matrix of PSD for time index it [s^3/m^6]
+                Fpsd = Fcomb{it};
+                
+                % energy in [J]
+                E = Ecomb{it}*u.e;
+                
+                % delta energy [J]
+                dE = (dEcombMinus{it}+dEcombPlus{it})*u.e;
+                
+                % average energy flux per energy level [J/m^3]
+                %dEF = E.*Fpsd.*dE;
+                
+                % total energy density [J/m^3]
+                EF(it) = 4*pi*sqrt(2/M^3)*sum(dE.*sqrt(E.^3).*Fpsd);
+                
+                % --- energetic energy density ---
+                % first find last lower bin edge which is less than 10Esw
+                idll = find(E-dE/2<10*Esw,1,'last');
+                % if idll is empty, then probably 10Esw is greater than
+                % instrument limit, maybe deal with?
+                % then get "first" dE of energetic part
+                dEen_first = E(idll)+dE(idll)/2-10*Esw;
+                % array of dEs of energetic part
+                dEen = [dEen_first,dE(idll+1:end)];
+
+                % array of Es of energetic part
+                Een = E(idll:end);
+                % array of Es of energetic part using only FPI (assume nE=32)
+                EenFpi = E(idll:32);
+                % array of Es using only FPI (assume nE=32)
+                EFpi = E(1:32);
+                % array of psd of energetic part
+                Fpsden = Fpsd(idll:end);
+                
+                % energetic energy density
+                EFen(it) = 4*pi*sqrt(2/M^3)*sum(dEen.*sqrt(Een.^3).*Fpsden);
+
+            end
+        end
+        
+        % For FPI only
+        for it = 1:nTFpi
             
             % 1d data matrix of PSD for time index it [s^3/m^6]
-            if hasEIS
-                Fpsd = Fcomb{it}; 
-            else
-                Fpsd = FfpiMat(it,:); 
-            end
+            FpsdFpi = FfpiMat(it,:);
             
             % energy in [J]
-            if hasEIS; E = Ecomb{it}*u.e; else; E = emat(it,:)*u.e; end
+            EFpi = emat(it,:)*u.e;
             
-            % eelta energy [J]
-            if hasEIS
-                dE = (dEcombMinus{it}+dEcombPlus{it})*u.e;
-            else
-                % assumes energy table is the same for all time steps
-                % also assumes energy_delta_plus/minus are the same
-                dE = double(iPDist.ancillary.delta_energy_plus(1,:))*2*u.e;
-            end
+            % delta energy [J]
+            % assumes energy table is the same for all time steps
+            % also assumes energy_delta_plus/minus are the same
+            dEFpi = double(iPDist.ancillary.delta_energy_plus(1,:))*2*u.e;
             
-            % average energy flux per energy level [J/m^3]
-            dEF = E.*Fpsd.*dE;
+            % average energy density per energy level [J/m^3]
+            %dEF = E.*Fpsd.*dE;
             
             % total energy density [J/m^3]
-            EF(it) = 4*pi*sqrt(2/M^3)*sum(dE.*sqrt(E.^3).*Fpsd);
+            EF(it) = 4*pi*sqrt(2/M^3)*sum(dEFpi.*sqrt(EFpi.^3).*FpsdFpi);
+            
+
             
             % --- energetic energy density ---
             % first find last lower bin edge which is less than 10Esw
-            idll = find(E-dE/2<10*Esw,1,'last');
+            idll = find(EFpi-dEFpi/2<10*Esw,1,'last');
             % if idll is empty, then probably 10Esw is greater than
             % instrument limit, maybe deal with?
             % then get "first" dE of energetic part
-            dEen_first = E(idll)+dE(idll)/2-10*Esw;
-            % array of dEs of energetic part
-            dEen = [dEen_first,dE(idll+1:end)];
-            % array of dEs of energetic part using only FPI (assume nE=32)
-            dEenFpi = [dEen_first,dE(idll+1:32)];
-            % array of dEs using only FPI (assume nE=32)
-            dEFpi = dE(1:32);
-            % array of Es of energetic part
-            Een = E(idll:end);
-            % array of Es of energetic part using only FPI (assume nE=32)
-            EenFpi = E(idll:32);
-            % array of Es using only FPI (assume nE=32)
-            EFpi = E(1:32);
-            % array of psd of energetic part
-            Fpsden = Fpsd(idll:end);
-            % array of psd of energetic part using only FPI (assume nE=32)
-            FpsdenFpi = Fpsd(idll:32);
-            % array of psd using only FPI (assume nE=32)
-            FpsdFpi = Fpsd(1:32);
+            dEen_first = EFpi(idll)+dE(idll)/2-10*Esw;
             
-            % energetic energy density
-            EFen(it) = 4*pi*sqrt(2/M^3)*sum(dEen.*sqrt(Een.^3).*Fpsden);
+            
+            % array of dEs of energetic part using only FPI (assume nE=32)
+            dEenFpi = [dEen_first,dEFpi(idll+1:end)];
+            
+            % array of psd of energetic part using only FPI (assume nE=32)
+            FpsdenFpi = FpsdFpi(idll:end);
+            
             % energetic energy density using only FPI
             EFenFpi(it) = 4*pi*sqrt(2/M^3)*sum(dEenFpi.*sqrt(EenFpi.^3).*FpsdenFpi);
             % total ion energy density using only FPI
             EFFpi(it) = 4*pi*sqrt(2/M^3)*sum(dEFpi.*sqrt(EFpi.^3).*FpsdFpi);
             
+            
         end
+        
         % 2 ways, the alternative way is not really correct
         accEff = mean(EFen)/mean(EF);
         accEffAlt = mean(EFen)/(Nu*Esw*1e6);
@@ -438,6 +467,7 @@ if ~doLoadData
         accEffFpiV(count) = accEffFpi;
         accEffAltFpiV(count) = accEffAltFpi;
         % Emax is not perfect for alternating energy table but who cares?
+        % E max including EIS [eV]
         EmaxV(count) = max(E)/u.e;
         hasEISV(count) = hasEIS;
         % mean of all four
