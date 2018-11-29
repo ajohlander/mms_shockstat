@@ -31,8 +31,10 @@ if ~doLoadData
     TV = zeros(N,1); % start time
     dTV = zeros(N,1); % interval duration
     VuV = zeros(N,1); % upstream speed
+    BuV = zeros(N,3); % upstream magnetic field vector
     thBrV = zeros(N,1); % magnetic field/radial angle
     betaiV = zeros(N,1); % ion plasma beta
+    TiV = zeros(N,1); % upstream ion temperature
     accEffV = zeros(N,1); % acceleraton efficiency
     accEffFpiV = zeros(N,1); % acceleraton efficiency (only FPI)
     accEffAltV = zeros(N,1); % acceleraton efficiency (alternative)
@@ -47,6 +49,8 @@ if ~doLoadData
     s107V = zeros(N,1); % F10.7 index
     aeV = zeros(N,1); % AE index
     lineNumV = zeros(N,1); % line number in text file
+    imfIdV = zeros(N,1); % spacecraft index for B data omni
+    swIdV = zeros(N,1); % spacecraft index for ion data omni
     
     % structures (depend on shock model)
     nvecV = [];
@@ -185,7 +189,7 @@ if ~doLoadData
         scd.Bd = zeros(1,3); scd.Vd = zeros(1,3); scd.nd = 0;
         scd.R = R;
         
-        ff = irf_get_data(tint,'bx,by,bz,Ma,vx,vy,vz,n,T','omni_min');
+        ff = irf_get_data(tint,'bx,by,bz,Ma,vx,vy,vz,n,T,imfid,swid','omni_min');
         ff2 = irf_get_data(tint+[-1,1]*3.6e3,'dst,kp,ssn,f10.7,ae','omni2');
         
         if ~isempty(ff)
@@ -196,6 +200,9 @@ if ~doLoadData
             if isnan(Vu); Vu = nan(1,3); end
             Nu = nanmean(ff(:,9)); % density [/cc]
             Tu = nanmean(ff(:,10))/u.e*u.kB; % temperature [eV]
+            imfId = nanmean(ff(:,11)); % not integers mean that sc switches
+            swId = nanmean(ff(:,12)); 
+            
             
             % put real values in structure
             scd.Bu = Bu; scd.Vu = Vu; scd.nu = Nu;
@@ -268,6 +275,8 @@ if ~doLoadData
             Nu = nan;
             Vu = nan(1,3);
             Tu = nan;
+            imfId = nan;
+            swId = nan;
                         
             % other info
             dst = nan;
@@ -417,11 +426,6 @@ if ~doLoadData
             % average energy density per energy level [J/m^3]
             %dEF = E.*Fpsd.*dE;
             
-            % total energy density [J/m^3]
-            EF(it) = 4*pi*sqrt(2/M^3)*sum(dEFpi.*sqrt(EFpi.^3).*FpsdFpi);
-            
-
-            
             % --- energetic energy density ---
             % first find last lower bin edge which is less than 10Esw
             idll = find(EFpi-dEFpi/2<10*Esw,1,'last');
@@ -459,6 +463,7 @@ if ~doLoadData
         TV(count) = tint(1).epochUnix;
         dTV(count) = diff(tint.epochUnix);
         VuV(count) = norm(Vu);
+        BuV(count,:) = Bu;
         betaiV(count) = betai;
         thBrV(count) = thBr;
         accEffV(count) = accEff;
@@ -477,6 +482,8 @@ if ~doLoadData
         ssnV(count) = ssn;
         s107V(count) = s107;
         aeV(count) = ae;
+        imfIdV(count) = imfId;
+        swIdV(count) = swId;
         
         % structures
         for jj = 1:length(shModel)
@@ -509,6 +516,7 @@ end
 dTV = dTV(TV~=0);
 
 VuV = VuV(TV~=0);
+BuV = BuV(TV~=0,:);
 
 thBrV = thBrV(TV~=0);
 betaiV = betaiV(TV~=0);
@@ -526,6 +534,8 @@ ssnV = ssnV(TV~=0);
 s107V = s107V(TV~=0);
 aeV = aeV(TV~=0);
 lineNumV = lineNumV(TV~=0);
+swIdV = swIdV(TV~=0);
+imfIdV = imfIdV(TV~=0);
 
 % structures
 for jj = 1:length(shModel)
@@ -548,6 +558,6 @@ TV = TV(TV~=0);
 
 if saveParameters
     disp('Saving parameters...')
-    save(fileName,'dTV','MaV','MfV','VuV','thBnV','thBrV','thVnV','betaiV','accEffV','accEffAltV','accEffFpiV','accEffAltFpiV','EmaxV','EfpiMaxV','hasEISV','RV','sigV','TV','N','dstV','kpV','ssnV','s107V','aeV','lineNumV','nvecV','shModel')
+    save(fileName,'dTV','MaV','MfV','VuV','BuV','thBnV','thBrV','thVnV','betaiV','accEffV','accEffAltV','accEffFpiV','accEffAltFpiV','EmaxV','EfpiMaxV','hasEISV','RV','sigV','TV','N','dstV','kpV','ssnV','s107V','aeV','lineNumV','nvecV','shModel','imfIdV','swIdV')
     disp('saved!')
 end
