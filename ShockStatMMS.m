@@ -78,6 +78,7 @@ end
 
 if doLoadData
     
+    % Select data file
     dataFileArr = dir('*.mat');
     
     if isempty(dataFileArr)
@@ -97,6 +98,41 @@ if doLoadData
         
         load(dataFileArr(dataFileInd).name)
     end
+    
+    %% colors for plots
+    colorMode = irf_ask('Color mode (1:Fancy, 2:Boring): [%]>','colorMode',2);
+    
+    switch colorMode
+        case 1 % darker, cooler
+            cmap = 'strangeways';
+            axcol = [1,1,1]*.4;
+            figcol = [1,1,1]*.2;
+            textcol = [1,1,1]*.95;
+            daycol = [1,1,1]*.95;
+            col1 = [253,232,159]/255;
+            col2 = [211,64,82]/255;
+            col3 = [53,151,103]/255;
+            bincol = [157,214,166]/255;
+            daysidecol = textcol;
+        case 2 % lighter, boring
+            cmap = 'strangeways';
+            axcol = [1,1,1];
+            figcol = [1,1,1];
+            textcol = [1,1,1]*.05;
+            daycol = [1,1,1];
+            col1 = [1,1,1]*.5;
+            col2 = [211,64,82]/255;
+            col3 = [53,151,103]/255;
+            % bincol = [157,214,166]/255;
+            bincol = [100,100,100]/255;
+            daysidecol = [1,1,1];
+    end
+    
+    colmat = [col1;col2;col3];
+    
+    
+    
+    
 end
 
 
