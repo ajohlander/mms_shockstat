@@ -32,6 +32,7 @@ if ~doLoadData
     dTV = zeros(N,1); % interval duration
     VuV = zeros(N,1); % upstream speed
     BuV = zeros(N,3); % upstream magnetic field vector
+    NuV = zeros(N,1); % upstream number density
     thBrV = zeros(N,1); % magnetic field/radial angle
     betaiV = zeros(N,1); % ion plasma beta
     TiV = zeros(N,1); % upstream ion temperature
@@ -464,6 +465,7 @@ if ~doLoadData
         dTV(count) = diff(tint.epochUnix);
         VuV(count) = norm(Vu);
         BuV(count,:) = Bu;
+        NuV(count,:) = Nu;
         betaiV(count) = betai;
         thBrV(count) = thBr;
         accEffV(count) = accEff;
@@ -517,6 +519,7 @@ dTV = dTV(TV~=0);
 
 VuV = VuV(TV~=0);
 BuV = BuV(TV~=0,:);
+NuV = NuV(TV~=0,:);
 
 thBrV = thBrV(TV~=0);
 betaiV = betaiV(TV~=0);
@@ -558,6 +561,6 @@ TV = TV(TV~=0);
 
 if saveParameters
     disp('Saving parameters...')
-    save(fileName,'dTV','MaV','MfV','VuV','BuV','thBnV','thBrV','thVnV','betaiV','accEffV','accEffAltV','accEffFpiV','accEffAltFpiV','EmaxV','EfpiMaxV','hasEISV','RV','sigV','TV','N','dstV','kpV','ssnV','s107V','aeV','lineNumV','nvecV','shModel','imfIdV','swIdV')
+    save(fileName,'dTV','MaV','MfV','VuV','BuV','NuV','thBnV','thBrV','thVnV','betaiV','accEffV','accEffAltV','accEffFpiV','accEffAltFpiV','EmaxV','EfpiMaxV','hasEISV','RV','sigV','TV','N','dstV','kpV','ssnV','s107V','aeV','lineNumV','nvecV','shModel','imfIdV','swIdV')
     disp('saved!')
 end
