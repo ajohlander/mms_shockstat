@@ -107,9 +107,7 @@
 2018-01-10/00:55:53 - 2018-01-10/00:57:23, 110.0, lavanov(EVA),  Qpar bow shock crossing
 2018-01-12/19:58:13 - 2018-01-12/20:09:33,  90.0, lavanov(EVA), Long Qpar bow shock crossing with turbulent magnetoshetah downstream 
 2018-01-18/11:49:43 - 2018-01-18/11:52:03, 102.0, jburch(EVA), Bow shock with whistlers
-2018-01-26/08:22:43 - 2018-01-26/08:25:03, 135.0, dturner(EVA), Series of foreshock transients (HFAs, FBs, and/or SLAMS) and quasi-parallel bow shock activity
 2018-01-26/08:25:03 - 2018-01-26/08:27:13, 150.0, dturner(EVA), Intense current sheet during series of foreshock transients (HFAs, FBs, and/or SLAMS) and quasi-parallel bow shock activity
-2018-01-26/08:27:13 - 2018-01-26/08:29:33, 135.0, dturner(EVA), Series of foreshock transients (HFAs, FBs, and/or SLAMS) and quasi-parallel bow shock activity
 2018-01-29/03:35:13 - 2018-01-29/03:40:23,  90.0, nahmadi(EVA), Bow Shock crossing w/HFAs
 2018-02-01/14:03:43 - 2018-02-01/14:06:03,  75.0, nahmadi(EVA), Bow Shock crossing
 2018-02-01/14:21:53 - 2018-02-01/14:23:13,  75.0, nahmadi(EVA), Bow Shock crossing 
@@ -271,6 +269,8 @@
 2017-12-14/23:20:03 - 2017-12-14/23:30:33, 125.0, aretino(EVA),  Turbulent quasi-par shock, turbulent current sheets
 2017-10-21/21:26:13 - 2017-10-21/21:29:03, 110.0, svines(EVA), Quasi-|| shock and foreshock, lower mach (~8)
 2017-12-24/01:59:43 - 2017-12-24/02:00:13,  99.0, pgangkai(EVA), wave activities in the solar wind
+2018-01-26/08:22:43 - 2018-01-26/08:25:03, 135.0, dturner(EVA), Series of foreshock transients (HFAs, FBs, and/or SLAMS) and quasi-parallel bow shock activity
+2018-01-26/08:27:13 - 2018-01-26/08:29:33, 135.0, dturner(EVA), Series of foreshock transients (HFAs, FBs, and/or SLAMS) and quasi-parallel bow shock activity
 
 # Notshock
 2017-11-20/07:38:03 - 2017-11-20/07:39:33, 105.0, hhiroshi(EVA), foreshock ion beams with possible SLAMS
