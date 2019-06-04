@@ -62,7 +62,7 @@ hca.XLim = [-10,25];
 theta=0:pi/20:pi;
 xEarth=sin(theta);yEarth=cos(theta);
 patch(-xEarth,yEarth,'k','edgecolor','k','Parent',hca)
-patch(xEarth,yEarth,textcol,'edgecolor','k','Parent',hca)
+patch(xEarth,yEarth,daysidecol,'edgecolor','k','Parent',hca)
 plot(hca,[-xEarth,xEarth],[yEarth,yEarth],'k','linewidth',1.5)
 
 hca.XDir = 'reverse';

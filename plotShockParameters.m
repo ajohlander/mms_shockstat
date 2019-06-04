@@ -1,7 +1,8 @@
 
-EmaxLim = irf_ask('Upper energy limit of FPI in units of solar wind energy (0 will ignore): [%]>','EmaxLim',0);
 
-colorMode = irf_ask('Color mode (1:Fancy, 2:Boring): [%]>','colorMode',1);
+instrumentMode = irf_ask('Use EIS or only FPI? (1:FPI, 2:EIS): [%]>','instrumentMode',1);
+
+EmaxFac = irf_ask('Emax must be at least this much greater than Esw: [%]>','EmaxFac',20);
 
 % PLACEHOLDER, SHOULD BE INCLUDED IN SAVED FILE!
 shModel = {'farris','slho','per','fa4o','fan4o','foun'};
@@ -9,36 +10,6 @@ shModel = {'farris','slho','per','fa4o','fan4o','foun'};
 fprintf('\n')
 for jj = 1:length(shModel); fprintf([num2str(jj),': ',shModel{jj},'\n']); end
 modelInd = irf_ask('Which shock model: [%]>','modelInd',1);
-
-
-%% colors for plots
-
-switch colorMode
-    case 1 % darker, cooler
-        cmap = 'strangeways';
-        axcol = [1,1,1]*.4;
-        figcol = [1,1,1]*.2;
-        textcol = [1,1,1]*.95;
-        daycol = [1,1,1]*.95;
-        col1 = [253,232,159]/255;
-        col2 = [211,64,82]/255;
-        col3 = [53,151,103]/255;
-        bincol = [157,214,166]/255;
-    case 2 % lighter, boring
-        cmap = 'cool';
-        axcol = [1,1,1];
-        figcol = [1,1,1];
-        textcol = [1,1,1]*.05;
-        daycol = [1,1,1];
-        col1 = [1,1,1]*.5;
-        col2 = [211,64,82]/255;
-        col3 = [53,151,103]/255;
-        bincol = [157,214,166]/255;
-end
-
-colmat = [col1;col2;col3];
-
-
 
 %% some bin edges
 dthBin = 10;
@@ -53,34 +24,29 @@ MBinEdges = [1,6,10,100];
 
 %% approved data indices
 
-% EswV = 1/2*u.mp*VuV.^2;
-% if EmaxLim ~= 0
-%     dind = (~isnan(MaV) & EmaxV>EswV*EmaxLim);
-% else
-%     dind = ~isnan(MaV);
-% end
-
-% alternatively only use FPI from before Jan 2018
-tEnd = irf.time_array('2017-12-31T23:59:59');
-dind = (~isnan(MaV.farris) & TV<tEnd.epochUnix);
+% now theres an error in EfpiMaxV (should be corrected when data is rerun)
+dind = find((EfpiMaxV)./(.5*u.mp*(VuV*1e3).^2/u.e)>EmaxFac);
 
 % all
 %dind = 1:N;
 
 % redefine N
-N = numel(dind);
+N = numel(find(dind));
 
 %% Clean data arrays
 % single values
 TV = TV(dind);
 dTV = dTV(dind);
 VuV = VuV(dind);
+BuV = BuV(dind,:);
+NuV = NuV(dind,:);
 thBrV = thBrV(dind);
 betaiV = betaiV(dind);
 accEffV = accEffV(dind);
 accEffAltV = accEffAltV(dind);
 accEffFpiV = accEffFpiV(dind);
 EmaxV = EmaxV(dind);
+EfpiMaxV = EfpiMaxV(dind);
 RV = RV(dind,:);
 hasEISV = hasEISV(dind);
 % convert to boolean
@@ -91,6 +57,8 @@ ssnV = ssnV(dind);
 s107V = s107V(dind);
 aeV = aeV(dind);
 lineNumV = lineNumV(dind);
+swIdV = swIdV(dind);
+imfIdV = imfIdV(dind);
 
 for jj = 1:length(shModel)
     nvecV.(shModel{jj}) = nvecV.(shModel{jj})(dind,:);
@@ -113,7 +81,7 @@ phiV = phiV*180/pi; % degrees
 
 %% Which acceleration efficiency to be used?
 
-accEffVused = accEffFpiV;
+accEffV1 = accEffFpiV;
 
 %% Which shock model to be used?
 
@@ -152,6 +120,7 @@ xlabel(hca,'$\theta_{Bn}$ [$^{\circ}$]','fontsize',15,'interpreter','latex')
 
 hca.LineWidth = 1.2;
 hca.FontSize = 14;
+fig.InvertHardcopy = 'off';
 
 
 %% Plot acceleration efficiency as a function of shock angle
@@ -160,9 +129,11 @@ hca = axes(fig);
 
 % plot events with Ma as color
 hold(hca,'on')
-scatter(hca,thBnV1(hasEISV),accEffVused(hasEISV)*100,60,MaV1(hasEISV),'o','MarkerFaceColor','flat')
-%scatter(hca,thBnV(~hasEISV),accEffV(~hasEISV)*100,60,MaV(~hasEISV),'o','MarkerFaceColor','flat')
-foo = scatter(hca,thBnV1(~hasEISV),accEffVused(~hasEISV)*100,60,MaV1(~hasEISV),'x','linewidth',3);
+%scatter(hca,thBnV1(hasEISV),accEffV1(hasEISV)*100,60,MaV1(hasEISV),'o','MarkerFaceColor','flat')
+%scatter(hca,thBnV1(~hasEISV),accEffV1(~hasEISV)*100,60,MaV1(~hasEISV),'x','linewidth',3);
+
+scatter(hca,thBnV1,accEffV1*100,60,MaV1,'o','MarkerFaceColor','flat')
+
 
 hca.XLim = [0,90];
 hca.YLim(1) = 0;
@@ -177,7 +148,7 @@ hca.YAxis.Color = textcol;
 
 hcb = colorbar(hca);
 hcb.Color = textcol;
-hca.CLim = [3,20];
+hca.CLim = [5,20];
 
 hca.Box = 'on';
 
@@ -192,13 +163,13 @@ hleg.BackgroundColor = hca.Color;
 hca.LineWidth = 1.2;
 hca.FontSize = 14;
 hcb.LineWidth = 1.2;
-
+fig.InvertHardcopy = 'off';
 
 %% same as above but with avg with proper Baysian limits
 fig = figure;
 hca = axes(fig);
 hold(hca,'on')
-hsc = scatter(hca,thBnV1,accEffVused*100,200,col2,'.');
+hsc = scatter(hca,thBnV1,accEffV1*100,200,col2,'.');
 
 % set significance
 beta = .90;
@@ -213,8 +184,8 @@ accEffErrDown = zeros(1,length(thBinEdges)-1);
 
 for ii = 1:length(thBinEdges)-1
     % mean and std
-    mu =  nanmean(accEffVused(idTh==ii));
-    sig = nanstd(accEffVused(idTh==ii));
+    mu =  nanmean(accEffV1(idTh==ii));
+    sig = nanstd(accEffV1(idTh==ii));
     
     % after a lot(!) of math
     accEffErrUp(ii) = norminv(beta*normcdf(mu/sig)-normcdf(mu/sig)+1)*sig;
@@ -231,6 +202,7 @@ accEffErrUp(isnan(accEffErrUp)) = 0;
 accEffErrDown(isnan(accEffErrDown)) = 0;
 
 errorbar(hca,thBinEdges(1:end-1)+dthBin/2,accEffAvg*100,accEffErrDown*100,accEffErrUp*100,'-o','color',col1,'linewidth',2.2)
+accEffAvg(isnan(accEffAvg)) = 0;
 xErr = thBinEdges(1:end-1)+dthBin/2;
 
 % make smooth lines of errors and average
@@ -239,8 +211,8 @@ smUpY = interp1(thBinEdges(1:end-1)+dthBin/2,accEffErrUp,smErrX,'pchip');
 smDownY = interp1(thBinEdges(1:end-1)+dthBin/2,accEffErrDown,smErrX,'pchip');
 smAvgY = interp1(thBinEdges(1:end-1)+dthBin/2,accEffAvg,smErrX,'pchip');
 
-%hfill = fill(hca,[xErr,fliplr(xErr)],([accEffAvg,fliplr(accEffAvg)]+[accEffErrUp,fliplr(accEffErrDown)])*100,col1);
-hfill = fill(hca,[smErrX,fliplr(smErrX)],([smAvgY,fliplr(smAvgY)]+[smUpY,fliplr(smDownY)])*100,col1);
+hfill = fill(hca,[xErr,fliplr(xErr)],([accEffAvg,fliplr(accEffAvg)]+[accEffErrUp,fliplr(accEffErrDown)])*100,col1);
+% hfill = fill(hca,[smErrX,fliplr(smErrX)],([smAvgY,fliplr(smAvgY)]+[smUpY,fliplr(smDownY)])*100,col1);
 hfill.EdgeColor = 'none';
 hfill.FaceAlpha = .5;
 %uistack(hfill,'bottom');
@@ -270,10 +242,84 @@ hleg.BackgroundColor = hca.Color;
 
 hca.LineWidth = 1.2;
 hca.FontSize = 14;
+fig.InvertHardcopy = 'off';
+
+%% Mach number dependence between 20 and 40 deg
+
+fig = figure;
+hca = axes(fig);
+hold(hca,'on')
+hsc = scatter(hca,MaV1(thBnV1>20 & thBnV1<40),accEffV1(thBnV1>20 & thBnV1<40)*100,200,col2,'.');
+fig.InvertHardcopy = 'off';
 
 
-%% 2D histogram of acceff of thBn-Ma/Mf parameter space
-% sort of hopeful should fix
+%% scatter with errorbars of acceff of thBn-various parameter space
+
+% lower resolution of thBn
+dthBin2 = 18;
+thBinEdges2 = 0:dthBin2:90;
+% Ma
+MaBinEdges2 = [0,6,10,100];
+% Mf
+MfBinEdges2 = [0,5,7,100];
+% phi
+phiBinEdges2 = [0,30,60,120];
+
+
+% Ma
+fig = figure;
+hca = axes(fig);
+hold(hca,'on')
+% do the plot
+plot_acceff_dep(hca,thBnV1,thBinEdges2,accEffV1,MaV1,MaBinEdges2,colmat,'M_A','','line')
+% fix stuff
+hca.Color = axcol;
+fig.Color = figcol;
+hca.XAxis.Color = textcol;
+hca.YAxis.Color = textcol;
+fig.InvertHardcopy = 'off';
+
+% Mf
+fig = figure;
+hca = axes(fig);
+hold(hca,'on')
+% do the plot
+plot_acceff_dep(hca,thBnV1,thBinEdges2,accEffV1,MfV1,MfBinEdges2,colmat,'M_f','','line')
+% fix stuff
+hca.Color = axcol;
+fig.Color = figcol;
+hca.XAxis.Color = textcol;
+hca.YAxis.Color = textcol;
+fig.InvertHardcopy = 'off';
+
+% phi
+fig = figure;
+hca = axes(fig);
+hold(hca,'on')
+% do the plot
+plot_acceff_dep(hca,thBnV1,thBinEdges2,accEffV1,phiV,[0,60,110],colmat,'\phi','$^{\circ}$','line')
+% fix stuff
+hca.Color = axcol;
+fig.Color = figcol;
+hca.XAxis.Color = textcol;
+hca.YAxis.Color = textcol;
+fig.InvertHardcopy = 'off';
+
+
+% thBr
+fig = figure;
+hca = axes(fig);
+hold(hca,'on')
+% do the plot
+plot_acceff_dep(hca,thBnV1,thBinEdges2,accEffV1,thBrV,[0,45,90],colmat,'\theta_{Br}','$^{\circ}$','line')
+% fix stuff
+hca.Color = axcol;
+fig.Color = figcol;
+hca.XAxis.Color = textcol;
+hca.YAxis.Color = textcol;
+fig.InvertHardcopy = 'off';
+
+%%
 
 % lower resolution of thBn
 dthBin2 = 18;
@@ -291,8 +337,8 @@ for ii = 1:length(thBinEdges2)-1
     for jj = 1:length(MBinEdges)-1
         
         % mean and std
-        mu =  nanmean(accEffVused(idTh==ii & idM==jj));
-        sig = nanstd(accEffVused(idTh==ii & idM==jj));
+        mu =  nanmean(accEffV1(idTh==ii & idM==jj));
+        sig = nanstd(accEffV1(idTh==ii & idM==jj));
         
         % after a lot(!) of math
         accEffErrUp2D(ii,jj) = norminv(beta*normcdf(mu/sig)-normcdf(mu/sig)+1)*sig;
@@ -318,18 +364,13 @@ hold(hca,'on')
 
 
 for jj = 1:size(accEffAvg2D,2)
-    hsc = scatter(hca,thBnV1(idM==jj),accEffVused(idM==jj)*100,60,colmat(jj,:),'o','MarkerFaceColor','flat');
+    hsc = scatter(hca,thBnV1(idM==jj),accEffV1(idM==jj)*100,60,colmat(jj,:),'o','MarkerFaceColor','flat');
 end
 
 
 for jj = 1:size(accEffAvg2D,2)
     errorbar(hca,thBinEdges2(1:end-1)+dthBin2/2+xoffs(jj),accEffAvg2D(:,jj)*100,accEffErrDown2D(:,jj)*100,accEffErrUp2D(:,jj)*100,'linewidth',3,'color',colmat(jj,:))
 end
-
-
-
-
-%plot(hca,45*[1,1],hca.YLim,'--','color',textcol,'linewidth',1.2)
 
 
 legStr = cell(1,size(accEffAvg2D,2));
@@ -350,7 +391,6 @@ hl.FontSize = 15;
 hl.Color = figcol;
 hl.TextColor = textcol;
 
-
 hca.Box = 'on';
 
 hca.XLim = [0,90];
@@ -370,13 +410,14 @@ hca.YAxis.Color = textcol;
 
 hca.LineWidth = 1.2;
 hca.FontSize = 14;
+fig.InvertHardcopy = 'off';
 
 %% Plot acceleration efficiency as a function of angle to sun-earth line
 fig = figure;
 hca = axes(fig);
 
 % plot events with Ma as color
-scatter(hca,phiV,accEffVused*100,400,MaV1,'.')
+scatter(hca,phiV,accEffV1*100,400,thBnV1,'.')
 hold(hca,'on')
 hca.XLim = [0,90];
 hca.YLim(1) = 0;
@@ -390,13 +431,13 @@ hca.YAxis.Color = textcol;
 
 hcb = colorbar(hca);
 hcb.Color = textcol;
-hca.CLim = [0,20];
+hca.CLim = [0,90];
 
 hca.Box = 'on';
 
 ylabel(hca,'Acceleration efficiency [$\%$]','Fontsize',15,'interpreter','latex')
 xlabel(hca,'$\alpha$ [$^{\circ}$]','Fontsize',15,'interpreter','latex')
-ylabel(hcb,'$M_A$','Fontsize',15,'interpreter','latex')
+ylabel(hcb,'$\theta_{Bn}$','Fontsize',15,'interpreter','latex')
 
 title(hca,'Energy flux of ions with $E>10E_{sw}$ measured by MMS-FPI','Fontsize',15,'interpreter','latex','color',textcol)
 hleg = irf_legend(hca,['$N = ',num2str(Nevents),'$'],[0.98,0.98],'Fontsize',15,'interpreter','latex','color',textcol);
@@ -405,7 +446,7 @@ hleg.BackgroundColor = hca.Color;
 hca.LineWidth = 1.2;
 hca.FontSize = 14;
 hcb.LineWidth = 1.2;
-
+fig.InvertHardcopy = 'off';
 
 
 %% plot time
@@ -432,6 +473,7 @@ hca.YLim = [-1,1]*110;
 xlabel(hca,'Time','Fontsize',15,'interpreter','latex')
 ylabel(hca,'$\alpha$ [$^{\circ}$]','Fontsize',15,'interpreter','latex')
 hca.FontSize = 14;
+fig.InvertHardcopy = 'off';
 
 
 %% Histogram of thetaBn
@@ -448,6 +490,9 @@ hold(hca,'on')
 %plot(than,sind(than)*N*deltathBin,'linewidth',2,'color',col2)
 plot(sort([thBinEdges,thBinEdges(1:end-1)]),[0,sind(sort([thBinEdges,thBinEdges(1:end-2)]+deltathBin*180/pi/2))]*N*deltathBin,'linewidth',2,'color',col2)
 
+hca.XLim = [0,90];
+hca.YLim = [0,1.1*max(thhist.Values)];
+
 xlabel(hca,'$\theta_{Bn}$','Fontsize',15,'interpreter','latex')
 ylabel(hca,'Number of events','Fontsize',15,'interpreter','latex')
 
@@ -458,25 +503,38 @@ hca.YAxis.Color = textcol;
 
 hca.LineWidth = 1.2;
 hca.FontSize = 14;
+fig.InvertHardcopy = 'off';
 
-%% Histogram of Ma
+%% Histogram of Ma & Mf
 
 fig = figure;
 hca = axes(fig);
 
 dMaBin = 2;
 MaBinEdges = 0:dMaBin:60;
-histogram(hca,MaV1,MaBinEdges,'FaceColor',bincol,'edgecolor',textcol,'linewidth',1.3);
+Mahist = histogram(hca,MaV1,MaBinEdges,'FaceColor',bincol,'edgecolor',textcol,'linewidth',1.3);
+hold(hca,'on')
+Mfhist = histogram(hca,MfV1,MaBinEdges,'FaceColor',col2,'edgecolor',textcol,'linewidth',1.3);
 
 xlabel(hca,'$M_A$','Fontsize',15,'interpreter','latex')
 ylabel(hca,'Number of events','Fontsize',15,'interpreter','latex')
+
+hca.XLim = [0,20];
+hca.YLim = [0,1.1*max(Mfhist.Values)];
+
 
 hca.Color = axcol;
 fig.Color = figcol;
 hca.XAxis.Color = textcol;
 hca.YAxis.Color = textcol;
 
-hca.LineWidth = 1.2;
-hca.FontSize = 14;
+hleg = legend(hca,'Alfv\''en Mach','Magnetosonic Mach');
+hleg.Interpreter = 'latex';
+hleg.FontSize = 15;
+
+hca.LineWidth = 1.3;
+hca.FontSize = 15;
+fig.InvertHardcopy = 'off';
+hca.Position = [.1,.1,.85,.85];
 
 

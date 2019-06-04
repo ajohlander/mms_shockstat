@@ -8,7 +8,7 @@ h = gobjects(1,3);
 %% xy
 hca = subplot(1,3,1:2);
 
-scatter(hca,RV(:,1),RV(:,2),200,thBnV1,'.')
+scatter(hca,RV(:,1),RV(:,2),400,thBnV1,'.')
 axis(hca,'equal')
 hold(hca,'on')
 
@@ -34,7 +34,7 @@ h(1) = hca;
 
 %% xz
 hca = subplot(2,3,3);
-scatter(hca,RV(:,1),RV(:,3),200,thBnV1,'.')
+scatter(hca,RV(:,1),RV(:,3),400,thBnV1,'.')
 axis(hca,'equal')
 hold(hca,'on')
 
@@ -42,7 +42,7 @@ hold(hca,'on')
 theta=0:pi/20:pi;
 xEarth=sin(theta);yEarth=cos(theta);
 patch(-xEarth,yEarth,'k','edgecolor','k','Parent',hca)
-patch(xEarth,yEarth,textcol,'edgecolor','k','Parent',hca)
+patch(xEarth,yEarth,daysidecol,'edgecolor','k','Parent',hca)
 plot(hca,[-xEarth,xEarth],[yEarth,yEarth],'k','linewidth',1.5)
 
 hca.XDir = 'reverse';
@@ -56,14 +56,14 @@ h(2) = hca;
 %
 %% yz
 hca = subplot(2,3,6);
-scatter(hca,RV(:,2),RV(:,3),200,thBnV1,'.')
+scatter(hca,RV(:,2),RV(:,3),400,thBnV1,'.')
 axis(hca,'equal')
 hold(hca,'on')
 
 % Plot Earth
 theta=0:pi/20:pi;
 xEarth=sin(theta);yEarth=cos(theta);
-patch([-xEarth,xEarth],[yEarth,fliplr(yEarth)],textcol,'edgecolor','k','Parent',hca)
+patch([-xEarth,xEarth],[yEarth,fliplr(yEarth)],daysidecol,'edgecolor','k','Parent',hca)
 plot(hca,[-xEarth,xEarth],[yEarth,fliplr(yEarth)],'k','linewidth',1.5)
 
 xlabel(hca,'$Y_{GSE}$ [$R_E$]','fontsize',15,'interpreter','latex')
@@ -91,7 +91,7 @@ fig.Color=figcol;
 hcb.Color = textcol;
 hcb.FontSize = 15;
 hcb.Ticks = 0:15:90;
-
+fig.InvertHardcopy = 'off';
 
 %% plot bow shock sigma
 
