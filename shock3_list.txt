@@ -30,21 +30,15 @@
 2017-10-30/04:38:03 - 2017-10-30/04:40:23,  90.0, lavanov(EVA), Q-perp bow shock 
 2017-10-30/05:08:13 - 2017-10-30/05:10:33,  80.0, lavanov(EVA), Q-perp bow shock, enhanced nuber density in t he sheath, ion dispersion 
 2017-10-30/06:08:23 - 2017-10-30/06:11:23, 110.0, lavanov(EVA), Qperp bow shock ion dispersion
-2017-10-30/08:29:13 - 2017-10-30/08:30:53,  70.0, lavanov(EVA), Periodic bow shock crossings, with possible HFA 
 2017-10-30/08:34:03 - 2017-10-30/08:35:03, 110.0, lavanov(EVA), Bow shock crossing withstarnge Bz reversal 
 2017-11-02/04:26:23 - 2017-11-02/04:27:33,  99.0, lavanov(EVA), Strong Qperp bow shock, significant current, ion dispersion nsignature prior to abrupt magnetic field change. Steady state SW
-2017-11-05/01:05:53 - 2017-11-05/01:10:03,  80.0, lavanov(EVA), Qpar Bow shock
-2017-11-10/21:25:43 - 2017-11-10/21:27:13,  75.0, seriksson(EVA),  Bow shock
-2017-11-10/21:32:13 - 2017-11-10/21:33:43,  75.0, seriksson(EVA),  Bow shock
 2017-11-13/17:02:43 - 2017-11-13/17:05:03, 130.0, hhiroshi(EVA), quasi-parallel shock with wave activity
 2017-11-16/12:34:23 - 2017-11-16/12:36:53, 119.0, rtorbert(EVA),  BS Xing; 
 2017-11-16/12:39:03 - 2017-11-16/12:41:03, 132.0, rtorbert(EVA),  BS Xing.
-2017-11-17/12:28:43 - 2017-11-17/12:34:03, 119.8, rtorbert(EVA),  Partial BS with foreshock ions
 2017-11-17/13:03:33 - 2017-11-17/13:05:13, 122.0, rtorbert(EVA),  in and out BS, seems Q-Par
 2017-11-17/13:06:53 - 2017-11-17/13:09:03, 132.6, rtorbert(EVA),  BS xings, some foreshock
 2017-11-22/05:22:03 - 2017-11-22/05:29:53, 100.0, hbreuillard(EVA),  Quasi-parallel shock with energetic ions
 2017-11-22/05:32:43 - 2017-11-22/05:39:43, 120.0, hbreuillard(EVA),  Quasi-parallel shock crossing
-2017-11-23/04:47:33 - 2017-11-23/04:49:13,  95.0, hhiroshi(EVA), quasi-perpendicular shock downstream
 2017-11-23/05:01:23 - 2017-11-23/05:03:33,  95.0, hhiroshi(EVA), quasi-parallel shocks with possible SLAMS
 2017-11-23/05:03:33 - 2017-11-23/05:06:13, 115.0, hhiroshi(EVA), quasi-parallel shocks with large diffB
 2017-11-23/05:06:13 - 2017-11-23/05:08:13,  95.0, hhiroshi(EVA), quasi-parallel shocks with possible SLAMS
@@ -276,6 +270,8 @@
 2017-12-12/21:02:53 - 2017-12-12/21:03:33, 100.0, aretino(EVA),  Upstream steepened waves with large J 
 2017-12-14/21:19:13 - 2017-12-14/21:20:03, 125.0, aretino(EVA),  SW fast waves/shocklet with ion heating
 2017-10-06/22:56:33 - 2017-10-06/22:58:13, 125.0, seriksson(EVA), Bow shock B fluctuations  
+2017-11-17/12:28:43 - 2017-11-17/12:34:03, 119.8, rtorbert(EVA),  Partial BS with foreshock ions
+2017-11-23/04:47:33 - 2017-11-23/04:49:13,  95.0, hhiroshi(EVA), quasi-perpendicular shock downstream
 
 # copied lines to check
 2017-12-24/01:43:23 - 2017-12-24/01:44:43,  80.0, pgangkai(EVA), periodic |B| increase with decreasing amplitude
@@ -283,4 +279,7 @@
 
 % no burst data
 2017-10-15/03:29:33 - 2017-10-15/03:31:43,  75.0, svines(EVA), Series of 4 bow shocks, context
-
+2017-10-30/08:29:13 - 2017-10-30/08:30:53,  70.0, lavanov(EVA), Periodic bow shock crossings, with possible HFA 
+2017-11-05/01:05:53 - 2017-11-05/01:10:03,  80.0, lavanov(EVA), Qpar Bow shock
+2017-11-10/21:25:43 - 2017-11-10/21:27:13,  75.0, seriksson(EVA),  Bow shock
+2017-11-10/21:32:13 - 2017-11-10/21:33:43,  75.0, seriksson(EVA),  Bow shock
