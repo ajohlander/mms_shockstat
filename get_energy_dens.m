@@ -2,7 +2,7 @@ function [U0,U1,U2,U3] = get_energy_dens(EV,dEV,fV,VuV,Elims)
 % GET_ENERGY_DENS Get energy density of whole and parts of distribution
 %
 %   
-%   All inputs (except VuV) and outputs are in SI units
+%   PSD is in SI, velocity in km/s, energy in eV
 %   Can and should be improved by splitting energy bins
 
 
@@ -25,8 +25,8 @@ U3 = zeros(N,1);
 
 for ii = 1:N
     Esw = EswV(ii);
-    Etemp = EV(ii,:);
-    dEtemp = dEV(ii,:);
+    Etemp = EV(ii,:)*u.e;
+    dEtemp = dEV(ii,:)*u.e;
     ftemp = fV(ii,:);
     % get total energy density
     U0(ii) = Ufun(Etemp,dEtemp,ftemp);
