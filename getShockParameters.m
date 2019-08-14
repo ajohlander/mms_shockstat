@@ -14,7 +14,7 @@ else
     saveParameters = 0;
 end
 
-eisMode = irf_ask('EIS mode (auto/srvy/brst) [%]>','eisMode','srvy');
+eisMode = irf_ask('EIS mode (auto/srvy/brst/none) [%]>','eisMode','none');
 
 % normal bs models to use (see irf_shock_normal for explanation)
 shModel = {'farris','slho','per','fa4o','fan4o','foun'};
@@ -51,6 +51,10 @@ if ~doLoadData
     % single values
     TV = zeros(N,1); % start time
     dTV = zeros(N,1); % interval duration
+    TuV = zeros(N,1); % start time of upstream interval
+    dTuV = zeros(N,1); % upstream interval duration
+    TdV = zeros(N,1); % start time of downstream interval
+    dTdV = zeros(N,1); % downstream interval duration
     VuV = zeros(N,3); % upstream velocity
     VuLV = zeros(N,3); % local upstream velocity
     VdV = zeros(N,3); % downstream velocity
@@ -63,10 +67,6 @@ if ~doLoadData
     thBrV = zeros(N,1); % magnetic field/radial angle
     betaiV = zeros(N,1); % ion plasma beta
     TiV = zeros(N,1); % upstream ion temperature
-    %accEffV = zeros(N,1); % acceleraton efficiency
-    %accEffFpiV = zeros(N,1); % acceleraton efficiency (only FPI)
-    %accEffAltV = zeros(N,1); % acceleraton efficiency (alternative)
-    %accEffAltFpiV = zeros(N,1); % acceleraton efficiency (alternative, only FPI)
     fV = zeros(N,32); % spherical mean of ion psd (only FPI)
     EV = zeros(N,32);
     dEV = zeros(N,32);
@@ -190,6 +190,10 @@ if ~doLoadData
                 [filepath,filename] = mms.get_filepath('mms2_epd-eis_srvy_l2_phxtof',tint(1));
                 do = dataobj([filepath,filename]);
                 Eeis = 1e3*do.data.mms2_epd_eis_brst_phxtof_proton_t0_energy.data;
+            
+            case 'none'
+                % do not read any data
+                EISdpf0 = [];
         end
         % hack to fix bug if tint goes over two days
         t1str = tint(1).toUtc; t2str = tint(2).toUtc; 
@@ -325,8 +329,6 @@ if ~doLoadData
             ae = nan;
         end
         
-        %for good measures, remove old ff
-        %clear ff
         
         %% Get local up- and downstream parameters
         
@@ -340,187 +342,35 @@ if ~doLoadData
         VdL = nanmean(Vi.tlim(tintd).data);
         
         
-        %% Merge FPI and EIS into one data product 
-        % This should really not be done for alternating energy tables
+        %% get psd of downstream ions
         
-        iPDistDown = iPDist.tlim(tintd); % get tintd somehow
-        nTFpi = iPDistDown.length;
+        % downstream distribution
+        iPDistDown = iPDist.tlim(tintd); 
         
         % FPI energy matrix
         emat = double(iPDistDown.energy); % in eV
-        
-        FfpiMat = double(iPDistDown.convertto('s^3/m^6').omni.data);
-        
-        % ----- ignore EIS for now --------
-        hasEIS = 0;
-        
-        if hasEIS
-            % initiate matrices (unknown size so use cells)
-            Fcomb = cell(1,EISpsd.length);
-            Ecomb = cell(1,EISpsd.length);
-            dEcombMinus = cell(1,EISpsd.length);
-            dEcombPlus = cell(1,EISpsd.length);
-            
-            % time difference between EIS measurements, assume constant
-            dt = median(diff(EISpsd.time.epochUnix));
-            for it = 1:EISpsd.length
-                
-                % time of this time step
-                t1 = EISpsd.time(it).epochUnix;
-                % eis psd array for one time step
-                Feis = double(EISpsd.data(it,:));
-                % time indicies of FPI that fall within EIS time
-                idFpi = find(iPDist.time.epochUnix>=t1 & iPDist.time.epochUnix<t1+dt);
-                % average over fpi times
-                Ffpi = nanmean(FfpiMat(idFpi,:),1);
-                % FPI energy in [eV] (not good if esteptable is used)
-                Efpi = mean(emat(idFpi,:),1);
-                % delta energy of FPI [eV] ()
-                dEfpi = double(iPDist.ancillary.delta_energy_plus(1,:))*2; 
-                
-                % ---- combine data ----
-                % now, use entire energy range of FPI, could be chaged
-                % later
-                % find index of first EIS data point (last lower edge under FPI max E)
-                idEisFirst = find(Eeis-dEeisMinus<Efpi(end)+dEfpi(end)/2,1,'last');
-                % get "first" dE minus of EIS part (can be negative)
-                dEeisMinus_first = Eeis(idEisFirst)-(Efpi(end)+dEfpi(end)/2);
-                % combined dE minus
-                dEcombMinus{it} = [dEfpi/2,dEeisMinus_first,dEeisMinus(idEisFirst+1:end)];
-                % combined dE plus
-                dEcombPlus{it} = [dEfpi/2,dEeisPlus(idEisFirst:end)];
-                % combined E
-                Ecomb{it} = [Efpi,Eeis(idEisFirst:end)];                
-                % combined psd
-                Fcomb{it} = [Ffpi,Feis(idEisFirst:end)];
-                
-            end
-        end
-        
-
-        
-        %% get energy flux of ions with E>10Esw
-        % particle mass
-        M = u.mp;
-        
-        % solar wind energy in [J]
-        Esw = .5*M*(norm(Vu)*1e3)^2;
-        
-        % number of energy bins
-        if hasEIS; nEEis = length(Fcomb{1}); else; nEEis = 0; end
-        nEFpi = length(iPDist.depend{1});
-        
-        % number of time steps
-        if hasEIS; nTEis = length(Fcomb); else; nTEis = 0; end
-
-        
-        % total energy flux
-        EF = zeros(nTEis,1);
-        % energetic energy density
-        EFen = zeros(nTEis,1);
-        % energetic energy density using only FPI
-        EFenFpi = zeros(nTFpi,1);
-        % total ion energy density using only FPI
-        EFFpi = zeros(nTFpi,1);
-        
-        % ------- time loop :D --------
-        % For FPI+EIS
-        if hasEIS
-            for it = 1:nTEis
-              
-                % 1d data matrix of PSD for time index it [s^3/m^6]
-                Fpsd = Fcomb{it};
-                
-                % energy in [J]
-                E = Ecomb{it}*u.e;
-                
-                % delta energy [J]
-                dE = (dEcombMinus{it}+dEcombPlus{it})*u.e;
-                
-                % average energy flux per energy level [J/m^3]
-                %dEF = E.*Fpsd.*dE;
-                
-                % total energy density [J/m^3]
-                EF(it) = 4*pi*sqrt(2/M^3)*sum(dE.*sqrt(E.^3).*Fpsd);
-                
-                % --- energetic energy density ---
-                % first find last lower bin edge which is less than 10Esw
-                idll = find(E-dE/2<10*Esw,1,'last');
-                % if idll is empty, then probably 10Esw is greater than
-                % instrument limit, maybe deal with?
-                % then get "first" dE of energetic part
-                dEen_first = E(idll)+dE(idll)/2-10*Esw;
-                % array of dEs of energetic part
-                dEen = [dEen_first,dE(idll+1:end)];
-
-                % array of Es of energetic part
-                Een = E(idll:end);
-                % array of psd of energetic part
-                Fpsden = Fpsd(idll:end);
-                
-                % energetic energy density
-                EFen(it) = 4*pi*sqrt(2/M^3)*sum(dEen.*sqrt(Een.^3).*Fpsden);
-
-            end
-        end
-        
-        % For FPI only
-        for it = 1:nTFpi
-            
-            % 1d data matrix of PSD for time index it [s^3/m^6]
-            FpsdFpi = FfpiMat(it,:);
-            
-            % energy in [J]
-            EFpi = emat(it,:)*u.e;
-            
-            % delta energy [J]
-            % assumes energy table is the same for all time steps
-            % also assumes energy_delta_plus/minus are the same
-            dEFpi = double(iPDist.ancillary.delta_energy_plus(1,:))*2*u.e;
-            
-            % average energy density per energy level [J/m^3]
-            %dEF = E.*Fpsd.*dE;
-            
-            
-%             % --- energetic energy density ---
-%             % first find last lower bin edge which is less than 10Esw
-%             idll = find(EFpi-dEFpi/2<10*Esw,1,'last');
-%             % if idll is empty, then probably 10Esw is greater than
-%             % instrument limit, maybe deal with?
-%             % then get "first" dE of energetic part
-%             dEen_first = EFpi(idll)+dEFpi(idll)/2-10*Esw;
-%             
-%             
-%             % array of dEs of energetic part using only FPI (assume nE=32)
-%             dEenFpi = [dEen_first,dEFpi(idll+1:end)];
-%             
-%             % array of psd of energetic part using only FPI (assume nE=32)
-%             FpsdenFpi = FpsdFpi(idll:end);
-%
-%             % array of Es of energetic part using only FPI
-%             EenFpi = EFpi(idll:end);
-%
-%             % energetic energy density using only FPI
-%             EFenFpi(it) = 4*pi*sqrt(2/M^3)*sum(dEenFpi.*sqrt(EenFpi.^3).*FpsdenFpi);
-%             % total ion energy density using only FPI
-%             EFFpi(it) = 4*pi*sqrt(2/M^3)*sum(dEFpi.*sqrt(EFpi.^3).*FpsdFpi);
-%
-
-        end
+        % energy in [eV] (assumes all energy tables are the same as the first one)
+        EFpi = emat(1,:);
+        % delta energy of FPI [eV]
+        dEFpi = double(iPDist.ancillary.delta_energy_plus(1,:))*2;
         
         % record FPI max energy [eV]
-        EfpiMaxV(count) = max(EFpi);
+        EfpiMaxV(count) = EFpi(end)+dEFpi(end)/2;
         
-        %         % 2 ways, the alternative way is not really correct
-        %         accEff = mean(EFen)/mean(EF);
-        %         accEffAlt = mean(EFen)/(Nu*Esw*1e6);
-        %         accEffFpi = mean(EFenFpi)/mean(EFFpi);
-        %         accEffAltFpi = mean(EFenFpi)/(Nu*Esw*1e6);
+        % get the psd from fpi in SI units
+        FfpiMat = double(iPDistDown.convertto('s^3/m^6').omni.data);
+        % just save the average downstream distruibution
+        FpsdFpi = mean(FfpiMat);
         
+
         %% set values (fill arrays)
         % single values
         TV(count) = tint(1).epochUnix;
         dTV(count) = diff(tint.epochUnix);
+        TuV(count) = tintu(1).epochUnix;
+        dTuV(count) = diff(tintu.epochUnix);
+        TdV(count) = tintd(1).epochUnix;
+        dTdV(count) = diff(tintd.epochUnix);
         VuV(count,:) = Vu;
         VuLV(count,:) = VuL;
         VdV(count,:) = VdL;
@@ -532,19 +382,12 @@ if ~doLoadData
         NdV(count) = NdL;
         betaiV(count) = betai;
         thBrV(count) = thBr;
-%         accEffV(count) = accEff;
-%         accEffAltV(count) = accEffAlt;
-%         accEffFpiV(count) = accEffFpi;
-%         accEffAltFpiV(count) = accEffAltFpi;
-        % Emax is not perfect for alternating energy table but who cares?
-        % E max including EIS [eV]
         fV(count,:) = FpsdFpi;
         EV(count,:) = EFpi;
         dEV(count,:) = dEFpi;
-        %EmaxV(count) = max(E)/u.e;
-        hasEISV(count) = hasEIS;
+        % hasEISV(count) = hasEIS;
         % mean of all four
-        RV(count,:) =mean((R.gseR1(:,1:3)+R.gseR2(:,1:3)+R.gseR3(:,1:3)+R.gseR4(:,1:3))/4)/u.RE*1e3;
+        RV(count,:) = mean((R.gseR1(:,1:3)+R.gseR2(:,1:3)+R.gseR3(:,1:3)+R.gseR4(:,1:3))/4)/u.RE*1e3;
         % dst index
         dstV(count) = dst;
         kpV(count) = kp;
@@ -583,6 +426,10 @@ end
 %% Clean arrays
 % single values
 dTV = dTV(TV~=0);
+TuV = TuV(TV~=0);
+dTuV = dTuV(TV~=0);
+TdV = TdV(TV~=0);
+dTdV = dTdV(TV~=0);
 
 VuV = VuV(TV~=0,:);
 VdV = VdV(TV~=0,:);
@@ -593,14 +440,8 @@ BdV = BdV(TV~=0,:);
 NuV = NuV(TV~=0,:);
 NuLV = NuLV(TV~=0,:);
 NdV = NdV(TV~=0,:);
-
 thBrV = thBrV(TV~=0);
 betaiV = betaiV(TV~=0);
-%accEffV = accEffV(TV~=0,:);
-%accEffAltV = accEffAltV(TV~=0,:);
-%accEffFpiV = accEffFpiV(TV~=0,:);
-%accEffAltFpiV = accEffAltFpiV(TV~=0,:);
-%EmaxV = EmaxV(TV~=0,:);
 fV = fV(TV~=0,:);
 EV = EV(TV~=0,:);
 dEV = dEV(TV~=0,:);
@@ -637,7 +478,6 @@ TV = TV(TV~=0);
 
 if saveParameters
     disp('Saving parameters...')
-    %save(fileName,'dTV','MaV','MfV','VuV','BuV','NuV','thBnV','thBrV','thVnV','betaiV','accEffV','accEffAltV','accEffFpiV','accEffAltFpiV','EmaxV','EfpiMaxV','hasEISV','RV','sigV','TV','N','dstV','kpV','ssnV','s107V','aeV','lineNumV','nvecV','shModel','imfIdV','swIdV')
-    save(fileName,'dTV','MaV','MfV','VuV','VuLV','VdV','BuV','BuLV','BdV','NuV','NuLV','NdV','thBnV','thBrV','thVnV','betaiV','EV','dEV','fV','EfpiMaxV','hasEISV','RV','sigV','TV','N','dstV','kpV','ssnV','s107V','aeV','lineNumV','nvecV','shModel','imfIdV','swIdV')
+    save(fileName,'dTV','TuV','dTuV','TdV','dTdV','MaV','MfV','VuV','VuLV','VdV','BuV','BuLV','BdV','NuV','NuLV','NdV','thBnV','thBrV','thVnV','betaiV','EV','dEV','fV','EfpiMaxV','hasEISV','RV','sigV','TV','N','dstV','kpV','ssnV','s107V','aeV','lineNumV','nvecV','shModel','imfIdV','swIdV')
     disp('saved!')
 end
