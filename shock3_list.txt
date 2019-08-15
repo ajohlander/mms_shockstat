@@ -152,32 +152,10 @@
 2018-03-26/07:33:03 - 2018-03-26/07:36:43, 110.0, plindqvist(EVA), Qperp bow shock
 2018-03-27/11:08:23 - 2018-03-27/11:12:03, 100.0, plindqvist(EVA), Qperp bow shock
 2018-03-27/11:16:33 - 2018-03-27/11:21:13,  80.0, plindqvist(EVA), Bow shocks
-2018-03-27/11:23:43 - 2018-03-27/11:26:33,  70.0, plindqvist(EVA), Bow shock
-2018-03-27/11:27:03 - 2018-03-27/11:29:23,  70.0, plindqvist(EVA), Bow shock
 2018-04-01/01:20:23 - 2018-04-01/01:22:53, 100.0, plindqvist(EVA), Qpar bow shock
 2018-04-02/02:29:23 - 2018-04-02/02:32:03,  80.0, icohen(EVA), Quasiparallel BS crossing; weak/moderate currents
-2018-04-02/02:47:23 - 2018-04-02/02:53:23,  95.0, icohen(EVA), Well-developed SLAMS
-2018-04-02/03:10:03 - 2018-04-02/03:14:43,  75.0, icohen(EVA), Quasiparallel BS crossing
-2018-04-02/03:24:53 - 2018-04-02/03:29:53,  75.0, icohen(EVA), Extended quasiparallel BS crossings; moderate currents
-2018-04-02/03:29:53 - 2018-04-02/03:34:53,  75.0, icohen(EVA), Extended BS crossings; moderate currents
-2018-04-02/04:11:33 - 2018-04-02/04:14:53,  65.0, icohen(EVA), Extended quasiparallel BS crossing
-2018-04-02/04:17:43 - 2018-04-02/04:20:43,  65.0, icohen(EVA), Extended quasiparallel BS crossing; mweak/moderate currents
-2018-04-02/04:24:03 - 2018-04-02/04:26:23,  70.0, icohen(EVA), Extended quasiparallel BS crossing; weak/moderate currents
-2018-04-02/04:31:03 - 2018-04-02/04:33:13,  70.0, icohen(EVA), Extended quasiparallel BS crossing; weak/moderate currents
-2018-04-02/04:35:33 - 2018-04-02/04:37:53,  70.0, icohen(EVA), Extended quasiparallel BS crossing; weak/moderate currents
-2018-04-03/14:34:43 - 2018-04-03/14:42:03,  75.0, icohen(EVA), Extended quasiparallel BS encounter w/ possible HFAs
-2018-04-03/14:42:03 - 2018-04-03/14:49:23,  75.0, icohen(EVA), Extended quasiparallel BS encounter w/ possible HFAs
-2018-04-03/15:06:23 - 2018-04-03/15:11:13,  75.0, icohen(EVA), Extended quasiparallel BS encounter w/ possible HFAs
-2018-04-03/15:13:43 - 2018-04-03/15:21:03,  75.0, icohen(EVA), Extended quasiparallel BS encounter w/ possible HFAs
 2018-04-04/21:18:23 - 2018-04-04/21:25:33, 125.0, icohen(EVA), Multiple high (>15) Mach number oblique BS crossings with ion foreshock signatures
 2018-04-06/13:57:43 - 2018-04-06/14:00:03, 100.0, icohen(EVA), Quasiparallel BS crossing or HFA
-2018-04-06/14:37:13 - 2018-04-06/14:40:13,  75.0, icohen(EVA), Multiple quasiparallel BS crossings
-2018-04-06/14:45:03 - 2018-04-06/14:51:43,  75.0, icohen(EVA), Multiple quasiparallel BS crossings
-2018-04-06/15:03:33 - 2018-04-06/15:08:23,  75.0, icohen(EVA), Quasiparallel BS crossings
-2018-04-06/15:20:43 - 2018-04-06/15:25:43,  75.0, icohen(EVA), Multiple quasiparallel BS crosssings
-2018-04-06/15:28:43 - 2018-04-06/15:34:33,  75.0, icohen(EVA), Multiple quasiparallel BS crossings
-2018-04-06/15:40:13 - 2018-04-06/15:42:13,  75.0, icohen(EVA), Quasiparallel BS crossing
-2018-04-06/15:44:43 - 2018-04-06/15:46:13,  40.0, icohen(EVA), Quasiparallel BS crossing
 
 
 
@@ -257,6 +235,7 @@
 2018-01-26/08:27:13 - 2018-01-26/08:29:33, 135.0, dturner(EVA), Series of foreshock transients (HFAs, FBs, and/or SLAMS) and quasi-parallel bow shock activity
 2018-02-18/13:19:43 - 2018-02-18/13:23:03,  75.0, seriksson(EVA),  Quasi-para BS and diffB<1.5 fluctuations
 2018-02-20/13:54:23 - 2018-02-20/13:56:13, 130.0, seriksson(EVA),  Quasi-parallel BS with large diffB=2.5 event
+2018-04-02/02:47:23 - 2018-04-02/02:53:23,  95.0, icohen(EVA), Well-developed SLAMS
 
 # copied lines to check
 2017-12-24/01:43:23 - 2017-12-24/01:44:43,  80.0, pgangkai(EVA), periodic |B| increase with decreasing amplitude
@@ -282,3 +261,24 @@
 2018-02-20/14:21:03 - 2018-02-20/14:23:03,  75.0, seriksson(EVA),  Quasi-parallel BS and turbulent MSH CS
 2018-03-15/01:36:13 - 2018-03-15/01:38:13,  60.0, yvernisse(EVA),  Partial schock crossing
 2018-03-15/01:38:13 - 2018-03-15/01:42:23,  60.0, yvernisse(EVA),  Partial schock crossing
+2018-03-27/11:23:43 - 2018-03-27/11:26:33,  70.0, plindqvist(EVA), Bow shock
+2018-03-27/11:27:03 - 2018-03-27/11:29:23,  70.0, plindqvist(EVA), Bow shock
+2018-04-02/03:10:03 - 2018-04-02/03:14:43,  75.0, icohen(EVA), Quasiparallel BS crossing
+2018-04-02/03:24:53 - 2018-04-02/03:29:53,  75.0, icohen(EVA), Extended quasiparallel BS crossings; moderate currents
+2018-04-02/03:29:53 - 2018-04-02/03:34:53,  75.0, icohen(EVA), Extended BS crossings; moderate currents
+2018-04-02/04:11:33 - 2018-04-02/04:14:53,  65.0, icohen(EVA), Extended quasiparallel BS crossing
+2018-04-02/04:17:43 - 2018-04-02/04:20:43,  65.0, icohen(EVA), Extended quasiparallel BS crossing; mweak/moderate currents
+2018-04-02/04:24:03 - 2018-04-02/04:26:23,  70.0, icohen(EVA), Extended quasiparallel BS crossing; weak/moderate currents
+2018-04-02/04:31:03 - 2018-04-02/04:33:13,  70.0, icohen(EVA), Extended quasiparallel BS crossing; weak/moderate currents
+2018-04-02/04:35:33 - 2018-04-02/04:37:53,  70.0, icohen(EVA), Extended quasiparallel BS crossing; weak/moderate currents
+2018-04-03/14:34:43 - 2018-04-03/14:42:03,  75.0, icohen(EVA), Extended quasiparallel BS encounter w/ possible HFAs
+2018-04-03/14:42:03 - 2018-04-03/14:49:23,  75.0, icohen(EVA), Extended quasiparallel BS encounter w/ possible HFAs
+2018-04-03/15:06:23 - 2018-04-03/15:11:13,  75.0, icohen(EVA), Extended quasiparallel BS encounter w/ possible HFAs
+2018-04-03/15:13:43 - 2018-04-03/15:21:03,  75.0, icohen(EVA), Extended quasiparallel BS encounter w/ possible HFAs
+2018-04-06/14:37:13 - 2018-04-06/14:40:13,  75.0, icohen(EVA), Multiple quasiparallel BS crossings
+2018-04-06/14:45:03 - 2018-04-06/14:51:43,  75.0, icohen(EVA), Multiple quasiparallel BS crossings
+2018-04-06/15:03:33 - 2018-04-06/15:08:23,  75.0, icohen(EVA), Quasiparallel BS crossings
+2018-04-06/15:20:43 - 2018-04-06/15:25:43,  75.0, icohen(EVA), Multiple quasiparallel BS crosssings
+2018-04-06/15:28:43 - 2018-04-06/15:34:33,  75.0, icohen(EVA), Multiple quasiparallel BS crossings
+2018-04-06/15:40:13 - 2018-04-06/15:42:13,  75.0, icohen(EVA), Quasiparallel BS crossing
+2018-04-06/15:44:43 - 2018-04-06/15:46:13,  40.0, icohen(EVA), Quasiparallel BS crossing
