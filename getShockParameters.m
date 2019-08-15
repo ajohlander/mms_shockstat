@@ -67,7 +67,8 @@ if ~doLoadData
     thBrV = zeros(N,1); % magnetic field/radial angle
     betaiV = zeros(N,1); % ion plasma beta
     TiV = zeros(N,1); % upstream ion temperature
-    fV = zeros(N,32); % spherical mean of ion psd (only FPI)
+    fdV = zeros(N,32); % spherical mean of ion psd (only FPI)
+    fuV = zeros(N,32); % spherical mean of ion psd (only FPI)
     EV = zeros(N,32);
     dEV = zeros(N,32);
     %fOmniComb = cell(N,1); % spherical mean of ion sph (combined FPI & EIS)
@@ -342,10 +343,11 @@ if ~doLoadData
         VdL = nanmean(Vi.tlim(tintd).data);
         
         
-        %% get psd of downstream ions
+        %% get psd of up- and downstream ions
         
         % downstream distribution
-        iPDistDown = iPDist.tlim(tintd); 
+        iPDistDown = iPDist.tlim(tintd);
+        iPDistUp = iPDist.tlim(tintu);
         
         % FPI energy matrix
         emat = double(iPDistDown.energy); % in eV
@@ -358,10 +360,11 @@ if ~doLoadData
         EfpiMaxV(count) = EFpi(end)+dEFpi(end)/2;
         
         % get the psd from fpi in SI units
-        FfpiMat = double(iPDistDown.convertto('s^3/m^6').omni.data);
-        % just save the average downstream distruibution
-        FpsdFpi = mean(FfpiMat);
-        
+        FfpiMatDown = double(iPDistDown.convertto('s^3/m^6').omni.data);
+        FfpiMatUp = double(iPDistUp.convertto('s^3/m^6').omni.data);
+        % just save the average up- and downstream distruibution
+        FdPsdFpi = mean(FfpiMatDown);
+        FuPsdFpi = mean(FfpiMatUp);
 
         %% set values (fill arrays)
         % single values
@@ -382,7 +385,8 @@ if ~doLoadData
         NdV(count) = NdL;
         betaiV(count) = betai;
         thBrV(count) = thBr;
-        fV(count,:) = FpsdFpi;
+        fdV(count,:) = FdPsdFpi;
+        fuV(count,:) = FuPsdFpi;
         EV(count,:) = EFpi;
         dEV(count,:) = dEFpi;
         % hasEISV(count) = hasEIS;
@@ -442,7 +446,8 @@ NuLV = NuLV(TV~=0,:);
 NdV = NdV(TV~=0,:);
 thBrV = thBrV(TV~=0);
 betaiV = betaiV(TV~=0);
-fV = fV(TV~=0,:);
+fdV = fdV(TV~=0,:);
+fuV = fuV(TV~=0,:);
 EV = EV(TV~=0,:);
 dEV = dEV(TV~=0,:);
 EfpiMaxV = EfpiMaxV(TV~=0,:);
@@ -478,6 +483,6 @@ TV = TV(TV~=0);
 
 if saveParameters
     disp('Saving parameters...')
-    save(fileName,'dTV','TuV','dTuV','TdV','dTdV','MaV','MfV','VuV','VuLV','VdV','BuV','BuLV','BdV','NuV','NuLV','NdV','thBnV','thBrV','thVnV','betaiV','EV','dEV','fV','EfpiMaxV','hasEISV','RV','sigV','TV','N','dstV','kpV','ssnV','s107V','aeV','lineNumV','nvecV','shModel','imfIdV','swIdV')
+    save(fileName,'dTV','TuV','dTuV','TdV','dTdV','MaV','MfV','VuV','VuLV','VdV','BuV','BuLV','BdV','NuV','NuLV','NdV','thBnV','thBrV','thVnV','betaiV','EV','dEV','fdV','fuV','EfpiMaxV','hasEISV','RV','sigV','TV','N','dstV','kpV','ssnV','s107V','aeV','lineNumV','nvecV','shModel','imfIdV','swIdV')
     disp('saved!')
 end
