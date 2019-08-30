@@ -95,11 +95,11 @@ if nargin>0 && isstruct(args{1})
     % number of fields
     Nfield = numel(fnms);
     % lengthen args
-    args = [args,cell(1,2*Nfield)];
+    args = [cell(1,2*Nfield),args];
     
     for ii = 1:Nfield
-        args{nargs+(ii-1)*2+1} = fnms{ii};
-        args{nargs+(ii-1)*2+2} = inpstr.(fnms{ii});
+        args{(ii-1)*2+1} = fnms{ii};
+        args{(ii-1)*2+2} = inpstr.(fnms{ii});
     end
     
     nargs = nargs+Nfield;
@@ -224,7 +224,7 @@ if asympAng+angMin>thBr
     end
     %disp('error')
     % run again to get output structure    
-    outstrct = sh_bowshock_time('debug',0);
+    outstrct = sh_bowshock_time('debug',0,'nt',Nt);
     % special case when Tc is returned
     if outputSurf
         outstrct.X = zeros(Nbs);

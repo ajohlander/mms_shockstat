@@ -28,7 +28,7 @@ function [out] = sh_cmap(varargin)
 [ax,args,nargs] = axescheck(varargin{:});
 
 % check which axis to apply
-if isempty(ax)
+if isempty(ax) && nargout == 0
     axes(gca);
 end
 
@@ -131,8 +131,11 @@ for i = 1:N
     cmap(i,:) = interp1(x,c,i);
 end
 
-for ii = 1:length(ax)
-    colormap(ax(ii),cmap);
+% only apply if no output
+if nargout == 0
+    for ii = 1:length(ax)
+        colormap(ax(ii),cmap);
+    end
 end
 
 if nargout > 0

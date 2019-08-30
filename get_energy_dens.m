@@ -4,6 +4,9 @@ function [U0,U1,U2,U3] = get_energy_dens(EV,dEV,fV,VuV,Elims)
 %   
 %   PSD is in SI, velocity in km/s, energy in eV
 %   Can and should be improved by splitting energy bins
+%   
+%   Function assumes at least a few energy bins above each limit. Is this a
+%   good assumption?
 
 
 
@@ -25,18 +28,32 @@ U3 = zeros(N,1);
 
 for ii = 1:N
     Esw = EswV(ii);
+    
+    % energy table in [J]
     Etemp = EV(ii,:)*u.e;
     dEtemp = dEV(ii,:)*u.e;
+    % psd of event in [s^3/m^6]
     ftemp = fV(ii,:);
+    
     % get total energy density
     U0(ii) = Ufun(Etemp,dEtemp,ftemp);
 
-    % loop over limits
+    % loop over limits to get partial energy densities
     for iL = 1:length(Elims)
-        % should be more sofisticated here
-        Epart = Etemp(Etemp>Elims(iL)*Esw);
-        dEpart = dEtemp(Etemp>Elims(iL)*Esw);
-        fpart = ftemp(Etemp>Elims(iL)*Esw);
+        % find first index with upper limit over energy limit
+        idElast = find(Etemp+dEtemp/2>Elims(iL)*Esw,1,'first');
+        % center energies of all bins partially or fully above limit
+        Epart = Etemp(idElast:end);
+        % energy bin width of all bins partially or fully above limit
+        dEpart = dEtemp(idElast:end);
+        
+        % update first dEpart
+        dEpart(1) = dEpart(1)-(Elims(iL)*Esw-Epart(1)-dEpart(1)/2);
+        % get new energy center (note: linear mean)
+        Epart(1) = Epart(2)-dEpart(2)/2-dEpart(1)/2;
+        
+        % the phase-space density is unaltered
+        fpart = ftemp(idElast:end);
         
         switch iL
             case 1

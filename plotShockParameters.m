@@ -1,97 +1,9 @@
-
-
-instrumentMode = irf_ask('Use EIS or only FPI? (1:FPI, 2:EIS): [%]>','instrumentMode',1);
-
-EmaxFac = irf_ask('Emax must be at least this much greater than Esw: [%]>','EmaxFac',20);
-
-% PLACEHOLDER, SHOULD BE INCLUDED IN SAVED FILE!
-shModel = {'farris','slho','per','fa4o','fan4o','foun'};
-
-fprintf('\n')
-for jj = 1:length(shModel); fprintf([num2str(jj),': ',shModel{jj},'\n']); end
-modelInd = irf_ask('Which shock model: [%]>','modelInd',1);
-
 %% some bin edges
 dthBin = 10;
 thBinEdges = 0:dthBin:90;
 deltathBin = median(diff(thBinEdges))*pi/180;
 
-% mach number
-% dMBin = 4;
-% MBinEdges = 1:dMBin:16;
-
 MBinEdges = [1,6,10,100];
-
-%% approved data indices
-
-% now theres an error in EfpiMaxV (should be corrected when data is rerun)
-dind = find((EfpiMaxV)./(.5*u.mp*(VuV*1e3).^2/u.e)>EmaxFac);
-
-% all
-%dind = 1:N;
-
-% redefine N
-N = numel(find(dind));
-
-%% Clean data arrays
-% single values
-TV = TV(dind);
-dTV = dTV(dind);
-VuV = VuV(dind);
-BuV = BuV(dind,:);
-NuV = NuV(dind,:);
-thBrV = thBrV(dind);
-betaiV = betaiV(dind);
-accEffV = accEffV(dind);
-accEffAltV = accEffAltV(dind);
-accEffFpiV = accEffFpiV(dind);
-EmaxV = EmaxV(dind);
-EfpiMaxV = EfpiMaxV(dind);
-RV = RV(dind,:);
-hasEISV = hasEISV(dind);
-% convert to boolean
-hasEISV = (hasEISV==1);
-dstV = dstV(dind);
-kpV = kpV(dind);
-ssnV = ssnV(dind);
-s107V = s107V(dind);
-aeV = aeV(dind);
-lineNumV = lineNumV(dind);
-swIdV = swIdV(dind);
-imfIdV = imfIdV(dind);
-
-for jj = 1:length(shModel)
-    nvecV.(shModel{jj}) = nvecV.(shModel{jj})(dind,:);
-    MaV.(shModel{jj}) = MaV.(shModel{jj})(dind);
-    MfV.(shModel{jj}) = MfV.(shModel{jj})(dind);
-    thBnV.(shModel{jj}) = thBnV.(shModel{jj})(dind);
-    thVnV.(shModel{jj}) = thVnV.(shModel{jj})(dind);
-    sigV.(shModel{jj}) = sigV.(shModel{jj})(dind);
-end
-
-Nevents = numel(find(dind));
-
-% angle between earth-sun line and sc position in xy plane
-[alphaV,~] = cart2pol(RV(:,1),RV(:,2),RV(:,3));
-alphaV = alphaV*180/pi; % degrees
-
-% angle between earth-sun line and sc position
-[phiV,~] = cart2pol(RV(:,1),sqrt(RV(:,2).^2+RV(:,3).^2));
-phiV = phiV*180/pi; % degrees
-
-%% Which acceleration efficiency to be used?
-
-accEffV1 = accEffFpiV;
-
-%% Which shock model to be used?
-
-thBnV1 = thBnV.(shModel{modelInd});
-thVnV1 = thVnV.(shModel{modelInd});
-MaV1 = MaV.(shModel{modelInd});
-MfV1 = MfV.(shModel{modelInd});
-nvecV1 = nvecV.(shModel{modelInd});
-sigV1 = sigV.(shModel{modelInd});
-
 
 %% Plot simple position
 plotShockPos
@@ -132,7 +44,7 @@ hold(hca,'on')
 %scatter(hca,thBnV1(hasEISV),accEffV1(hasEISV)*100,60,MaV1(hasEISV),'o','MarkerFaceColor','flat')
 %scatter(hca,thBnV1(~hasEISV),accEffV1(~hasEISV)*100,60,MaV1(~hasEISV),'x','linewidth',3);
 
-scatter(hca,thBnV1,accEffV1*100,60,MaV1,'o','MarkerFaceColor','flat')
+scatter(hca,thBnV1,accEffV1*100,100,MaV1,'o','MarkerFaceColor','flat')
 
 
 hca.XLim = [0,90];
@@ -152,16 +64,16 @@ hca.CLim = [5,20];
 
 hca.Box = 'on';
 
-ylabel(hca,'Acceleration efficiency [$\%$]','Fontsize',15,'interpreter','latex')
-xlabel(hca,'$\theta_{Bn}$ [$^{\circ}$]','Fontsize',15,'interpreter','latex')
-ylabel(hcb,'$M_A$','Fontsize',15,'interpreter','latex')
+ylabel(hca,'Acceleration efficiency [$\%$]','interpreter','latex')
+xlabel(hca,'$\theta_{Bn}$ [$^{\circ}$]','interpreter','latex')
+ylabel(hcb,'$M_A$','Fontsize',17,'interpreter','latex')
 
 %title(hca,'Energy flux of ions with $E>10E_{sw}$ measured by MMS-FPI','Fontsize',15,'interpreter','latex','color',textcol)
-hleg = irf_legend(hca,['$N = ',num2str(Nevents),'$'],[0.98,0.98],'Fontsize',15,'interpreter','latex','color',textcol);
+hleg = irf_legend(hca,['$N = ',num2str(Nevents),'$'],[0.98,0.98],'Fontsize',17,'interpreter','latex','color',textcol);
 hleg.BackgroundColor = hca.Color;
 
 hca.LineWidth = 1.2;
-hca.FontSize = 14;
+hca.FontSize = 17;
 hcb.LineWidth = 1.2;
 fig.InvertHardcopy = 'off';
 
@@ -319,6 +231,20 @@ hca.XAxis.Color = textcol;
 hca.YAxis.Color = textcol;
 fig.InvertHardcopy = 'off';
 
+
+% shock connection time
+fig = figure;
+hca = axes(fig);
+hold(hca,'on')
+% do the plot
+plot_acceff_dep(hca,thBnV1(idTc),thBinEdges2,accEffV1(idTc),TcV1(idTc),[0,100,300,2e6],colmat,'T_c','$\omega_{cp}^{-1}$','line')
+% fix stuff
+hca.Color = axcol;
+fig.Color = figcol;
+hca.XAxis.Color = textcol;
+hca.YAxis.Color = textcol;
+fig.InvertHardcopy = 'off';
+
 %%
 
 % lower resolution of thBn
@@ -439,7 +365,7 @@ ylabel(hca,'Acceleration efficiency [$\%$]','Fontsize',15,'interpreter','latex')
 xlabel(hca,'$\alpha$ [$^{\circ}$]','Fontsize',15,'interpreter','latex')
 ylabel(hcb,'$\theta_{Bn}$','Fontsize',15,'interpreter','latex')
 
-title(hca,'Energy flux of ions with $E>10E_{sw}$ measured by MMS-FPI','Fontsize',15,'interpreter','latex','color',textcol)
+title(hca,'Energy density of ions with $E>10E_{sw}$ measured by MMS-FPI','Fontsize',15,'interpreter','latex','color',textcol)
 hleg = irf_legend(hca,['$N = ',num2str(Nevents),'$'],[0.98,0.98],'Fontsize',15,'interpreter','latex','color',textcol);
 hleg.BackgroundColor = hca.Color;
 
@@ -536,5 +462,66 @@ hca.LineWidth = 1.3;
 hca.FontSize = 15;
 fig.InvertHardcopy = 'off';
 hca.Position = [.1,.1,.85,.85];
+
+%% Plot all distribution functions
+
+[hca,fig] = sh_figure(1,[14,9]);
+%hca = axes(fig);
+
+% sort according to thBn
+[thBnV1sort,idSort] = sort(thBnV1);
+idSort = flipud(idSort);
+thBnV1sort = flipud(thBnV1sort);
+EVsort = EV(idSort,:);
+fdVsort = fdV(idSort,:);
+EswVsort = EswV(idSort);
+NdVsort = NdV(idSort,:);
+
+cmapdata = sh_cmap('jet');
+% interpolate colors
+cmapdata = interp1(linspace(0,90,64),cmapdata,thBnV1sort);
+
+for ii = 1:N
+    plot(hca,EVsort(ii,:)/EswVsort(ii,:),fdVsort(ii,:),'color',cmapdata(ii,:),'linewidth',2.5)
+    if ii == 1; hold(hca,'on'); end
+end
+
+hca.YScale = 'log'; hca.XScale = 'log';
+
+xlabel(hca,'$E/E_{sw}$','interpreter','latex')
+ylabel(hca,'$f$ [s$^3$/m$^6$]','interpreter','latex')
+
+hcb = sh_cbar(hca);
+colormap(hca,'jet')
+hca.CLim = [0,90];
+ylabel(hcb,'$\theta_{Bn}$ [$^\circ$]','Fontsize',17,'interpreter','latex')
+
+hca.Box = 'on';
+hca.Layer = 'top';
+hca.LineWidth = 1.8;
+hca.FontSize = 17;
+hca.XLim = [5e-3,50];
+hca.YLim = [1e-18,8e-9];
+fig.InvertHardcopy = 'off';
+hca.Position = [.12,.12,.75,.85];
+hcb.Position = [.88,.12,.03,.85];
+
+
+% % uncomment to add lines and save
+hl1 = plot(hca,[1,1]*3,hca.YLim,'--','color',col1,'linewidth',3.5);
+%print(fig,'alldists1','-dpng','-r300');
+
+hl1.LineWidth = 1.5;
+hl2 = plot(hca,[1,1]*5,hca.YLim,'--','color',col3,'linewidth',3.5);
+%print(fig,'alldists2','-dpng','-r300');
+
+hl2.LineWidth = 1.5;
+hl3 = plot(hca,[1,1]*10,hca.YLim,'--','color',col2,'linewidth',3.5);
+%print(fig,'alldists3','-dpng','-r300');
+
+
+
+
+
 
 
