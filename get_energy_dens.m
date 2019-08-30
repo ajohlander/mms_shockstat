@@ -3,10 +3,7 @@ function [U0,U1,U2,U3] = get_energy_dens(EV,dEV,fV,VuV,Elims)
 %
 %   
 %   PSD is in SI, velocity in km/s, energy in eV
-%   Can and should be improved by splitting energy bins
 %   
-%   Function assumes at least a few energy bins above each limit. Is this a
-%   good assumption?
 
 
 
@@ -42,6 +39,13 @@ for ii = 1:N
     for iL = 1:length(Elims)
         % find first index with upper limit over energy limit
         idElast = find(Etemp+dEtemp/2>Elims(iL)*Esw,1,'first');
+        
+        % check if there are at least 2 energy bins over limit
+        % return 0 if not
+        if idElast >= length(Etemp)-1
+            continue;
+        end
+        
         % center energies of all bins partially or fully above limit
         Epart = Etemp(idElast:end);
         % energy bin width of all bins partially or fully above limit

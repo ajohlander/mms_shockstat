@@ -14,7 +14,6 @@ function [hl] = plot_acceff_dep(ax,thBnV,thBinEdges,accEffV,XV,Xedges,colmat,var
 %
 %   hl = PLOT_ACCEFF_DEP(...) returns handle to legend in plot
 %
-% TODO: A lot
 
 confval = 0.9;
 
@@ -74,7 +73,6 @@ switch lower(plotType)
             if jj == 1
                 legStr{jj} = ['$',varstr,'{<}',num2str(Xedges(jj+1)),'$\,',unitstr,', \hspace{.5cm} $N = ',num2str(numel(find(idX==jj))),'$'];
             elseif jj == size(accEffAvg2D,2)
-                %unitstr = unitstrtemp;
                 legStr{jj} = ['$',varstr,'{>}',num2str(Xedges(jj)),'$\,',unitstr,', \hspace{.5cm} $N = ',num2str(numel(find(idX==jj))),'$'];
             else
                 % hack

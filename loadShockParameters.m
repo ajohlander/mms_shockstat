@@ -7,6 +7,7 @@ if isempty(dataFileArr)
     
 else
     preSelectedFile = 1;
+    fprintf('Data files:\n')
     for ii = 1:length(dataFileArr)
         fprintf([num2str(ii),':     ',dataFileArr(ii).name,'\n'])
         % make shockParams default file
@@ -15,57 +16,30 @@ else
         end
     end
     fprintf('\n')
-    dataFileInd = irf_ask('Select file: [%]>','listFileName',preSelectedFile);
-    
+    dataFileInd = irf_ask('Select data file: [%]>','listFileName',preSelectedFile);
     load(dataFileArr(dataFileInd).name)
+    fprintf(['Loaded data from file: ',dataFileArr(dataFileInd).name,' \n\n'])
 end
 
 
 
-%% colors for plots
-colorMode = irf_ask('Color mode (1:Fancy, 2:Boring): [%]>','colorMode',2);
-
-switch colorMode
-    case 1 % darker, cooler
-        cmap = 'strangeways';
-        axcol = [1,1,1]*.4;
-        figcol = [1,1,1]*.2;
-        textcol = [1,1,1]*.95;
-        daycol = [1,1,1]*.95;
-        col1 = [253,232,159]/255;
-        col2 = [211,64,82]/255;
-        col3 = [53,151,103]/255;
-        bincol = [157,214,166]/255;
-        daysidecol = textcol;
-    case 2 % lighter, boring
-        cmap = 'strangeways';
-        axcol = [1,1,1];
-        figcol = [1,1,1];
-        textcol = [1,1,1]*.05;
-        daycol = [1,1,1];
-        col1 = [1,1,1]*.5;
-        col2 = [211,64,82]/255;
-        col3 = [53,151,103]/255;
-        % bincol = [157,214,166]/255;
-        bincol = [100,100,100]/255;
-        daysidecol = [1,1,1];
-end
-
-colmat = [col1;col2;col3];
-
-
+%% Select which data
 %instrumentMode = irf_ask('Use EIS or only FPI? (1:FPI, 2:EIS): [%]>','instrumentMode',1);
-
-EmaxFac = irf_ask('Emax must be at least this much greater than Esw: [%]>','EmaxFac',20);
+fprintf('Put a limit on the relative energy range of the resolution: \n')
+EmaxFac = irf_ask('Emax must be at least this multiple greater than Esw: [%]>','EmaxFac',20);
 
 % select which shock model to use (all are saved)
 shModel = {'farris','slho','per','fa4o','fan4o','foun'};
 
 fprintf('\n')
+fprintf('Select which bow shock model to use (only "farris" works properly)\n')
 for jj = 1:length(shModel); fprintf([num2str(jj),': ',shModel{jj},'\n']); end
 modelInd = irf_ask('Which shock model: [%]>','modelInd',1);
 
 %% approved data indices
+
+% print progress
+fprintf('\n Setting parameters and limiting selection...\n')
 
 % Solar wind energy array in [eV]
 EswV = .5*u.mp*(sum((VuV*1e3).^2,2)/u.e);
@@ -78,6 +52,8 @@ dind = find((EfpiMaxV)./EswV>EmaxFac);
 
 % redefine N
 N = numel(find(dind));
+
+fprintf(['Number of crossings within parameters: ',num2str(N),' out of ',num2str(length(TV)),'\n'])
 
 %% Clean data arrays
 % single values
@@ -137,14 +113,27 @@ alphaV = alphaV*180/pi; % degrees
 phiV = phiV*180/pi; % degrees
 
 
+%% Select shock model
+
+fprintf(['Using bow shock model: ',shModel{modelInd},'\n'])
+thBnV1 = thBnV.(shModel{modelInd});
+thVnV1 = thVnV.(shModel{modelInd});
+MaV1 = MaV.(shModel{modelInd});
+MfV1 = MfV.(shModel{modelInd});
+nvecV1 = nvecV.(shModel{modelInd});
+sigV1 = sigV.(shModel{modelInd});
+
+
 %% Ask if user wishes to calculate shock connenction time
-calcTconn = irf_ask('Calculate shock age from model (slow)? (0:no 1:yes): [%]>','calcTconn',1);
-
-if calcTconn
-    TcLim = irf_ask('Set upper limit of shock age in [s]: [%]>','TcLim',600);
-    getShockAges;
+fprintf('...done \n\n')
+if optNum ~= 7 && optNum ~= 12
+    calcTconn = irf_ask('Calculate shock age from model (slow)? (0:no 1:yes): [%]>','calcTconn',1);
+    
+    if calcTconn
+        TcLim = irf_ask('Set upper limit of shock age in [s]: [%]>','TcLim',600);
+        getShockAges;
+    end
 end
-
 %% Calculate energy densities and define accelaration efficiency
 [Ud0,Ud1,Ud2,Ud3] = get_energy_dens(EV,dEV,fdV,VuV,[3,5,10]);
 [Uu0,Uu1,Uu2,Uu3] = get_energy_dens(EV,dEV,fuV,VuV,[3,5,10]);
@@ -155,10 +144,3 @@ accEffV1 = Ud3./Ud0;
 specSlope = get_spectral_slope(EV,fdV,VuV,[5,15]);
 
 
-%% Select shock model
-thBnV1 = thBnV.(shModel{modelInd});
-thVnV1 = thVnV.(shModel{modelInd});
-MaV1 = MaV.(shModel{modelInd});
-MfV1 = MfV.(shModel{modelInd});
-nvecV1 = nvecV.(shModel{modelInd});
-sigV1 = sigV.(shModel{modelInd});

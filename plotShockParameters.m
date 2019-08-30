@@ -1,3 +1,34 @@
+%% ask for and set colors for plots
+fprintf('Plotting various shock parameters related to acceleration efficiency.\n')
+
+switch colorMode
+    case 1 % darker, cooler
+        cmap = 'strangeways';
+        axcol = [1,1,1]*.4;
+        figcol = [1,1,1]*.2;
+        textcol = [1,1,1]*.95;
+        daycol = [1,1,1]*.95;
+        col1 = [253,232,159]/255;
+        col2 = [211,64,82]/255;
+        col3 = [53,151,103]/255;
+        bincol = [157,214,166]/255;
+        daysidecol = textcol;
+    case 2 % lighter, boring
+        cmap = 'strangeways';
+        axcol = [1,1,1];
+        figcol = [1,1,1];
+        textcol = [1,1,1]*.05;
+        daycol = [1,1,1];
+        col1 = [1,1,1]*.5;
+        col2 = [211,64,82]/255;
+        col3 = [53,151,103]/255;
+        % bincol = [157,214,166]/255;
+        bincol = [100,100,100]/255;
+        daysidecol = [1,1,1];
+end
+
+colmat = [col1;col2;col3];
+
 %% some bin edges
 dthBin = 10;
 thBinEdges = 0:dthBin:90;
@@ -183,7 +214,7 @@ fig = figure;
 hca = axes(fig);
 hold(hca,'on')
 % do the plot
-plot_acceff_dep(hca,thBnV1,thBinEdges2,accEffV1,MaV1,MaBinEdges2,colmat,'M_A','','line')
+plot_acceff_dep(hca,thBnV1,thBinEdges2,accEffV1,MaV1,MaBinEdges2,colmat,'M_A','','line');
 % fix stuff
 hca.Color = axcol;
 fig.Color = figcol;
@@ -196,7 +227,7 @@ fig = figure;
 hca = axes(fig);
 hold(hca,'on')
 % do the plot
-plot_acceff_dep(hca,thBnV1,thBinEdges2,accEffV1,MfV1,MfBinEdges2,colmat,'M_f','','line')
+plot_acceff_dep(hca,thBnV1,thBinEdges2,accEffV1,MfV1,MfBinEdges2,colmat,'M_f','','line');
 % fix stuff
 hca.Color = axcol;
 fig.Color = figcol;
@@ -209,7 +240,7 @@ fig = figure;
 hca = axes(fig);
 hold(hca,'on')
 % do the plot
-plot_acceff_dep(hca,thBnV1,thBinEdges2,accEffV1,phiV,[0,60,110],colmat,'\phi','$^{\circ}$','line')
+plot_acceff_dep(hca,thBnV1,thBinEdges2,accEffV1,phiV,[0,60,110],colmat,'\phi','$^{\circ}$','line');
 % fix stuff
 hca.Color = axcol;
 fig.Color = figcol;
@@ -223,7 +254,7 @@ fig = figure;
 hca = axes(fig);
 hold(hca,'on')
 % do the plot
-plot_acceff_dep(hca,thBnV1,thBinEdges2,accEffV1,thBrV,[0,45,90],colmat,'\theta_{Br}','$^{\circ}$','line')
+plot_acceff_dep(hca,thBnV1,thBinEdges2,accEffV1,thBrV,[0,45,90],colmat,'\theta_{Br}','$^{\circ}$','line');
 % fix stuff
 hca.Color = axcol;
 fig.Color = figcol;
@@ -237,7 +268,7 @@ fig = figure;
 hca = axes(fig);
 hold(hca,'on')
 % do the plot
-plot_acceff_dep(hca,thBnV1(idTc),thBinEdges2,accEffV1(idTc),TcV1(idTc),[0,100,300,2e6],colmat,'T_c','$\omega_{cp}^{-1}$','line')
+plot_acceff_dep(hca,thBnV1(idTc),thBinEdges2,accEffV1(idTc),TcV1(idTc),[0,100,300,2e6],colmat,'T_c','$\omega_{cp}^{-1}$','line');
 % fix stuff
 hca.Color = axcol;
 fig.Color = figcol;

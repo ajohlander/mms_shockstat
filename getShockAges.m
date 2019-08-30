@@ -1,7 +1,4 @@
 
-
-
-
 % initialize structure
 TcV = [];
 nt = 2e2;
@@ -15,7 +12,7 @@ end
 % ion cyclotron frequency
 wcpV = zeros(N,1);
 
-disp('Calculating shock connection time')
+disp('Calculating shock connection time...')
 fprintf('id = %4.0f/%4.0f\n',0,N) % display progress
 for id = 1:N
     % display progress
