@@ -9,7 +9,7 @@ guessFilePrefix = ['sh_',plotType,'_'];
 %% read time intervals
 
 rePlotAll = irf_ask('Redo all plots? (0:no, 1:yes) [%]>','rePlotAll',0);
-
+fprintf('\nMake sure path already exist! \n')
 filePath = irf_ask('Choose path for plots [%]>','filePath',guessFilePath);
 
 filePrefix = irf_ask('Prefix of file name [%]>','filePrefix',guessFilePrefix);
@@ -21,6 +21,34 @@ end
 if strcmp(plotType,'ioncomp')
     hpcaMode = irf_ask('HPCA mode (auto/srvy/brst) [%]>','hpcaMode','auto');
 end
+
+% ask if to plot tints for up and downstream
+fprintf('\nMake sure a csv list of tints already exists when plotting tints! \n')
+plotTints = irf_ask('Mark up and downstream time intervals? (0:no, 1:yes) [%]>','plotTints',0);
+% read table of tints immediately
+if plotTints
+    % Select data file to read
+    tintFileArr = dir('*.csv');
+    
+    if isempty(tintFileArr)
+        irf.log('c','No data files')
+        
+    else
+        preSelectedFile = 1;
+        for ii = 1:length(tintFileArr)
+            fprintf([num2str(ii),':     ',tintFileArr(ii).name,'\n'])
+        end
+        fprintf('\n')
+        tintFileInd = irf_ask('Select tint file: [%]>','dataFileInd',preSelectedFile);
+        tintFileName = tintFileArr(tintFileInd).name;
+    end
+    tintTab = readtable([pwd,'/',tintFileName]);
+    
+    % define tint colors
+    ucol = [0.7,0.7,0];
+    dcol = [0,0.7,0.7];
+end
+
 
 % normal bs model to use (cannot be slho)
 shModel = 'farris';
@@ -361,6 +389,20 @@ while tline ~= -1
     
     % add stamp for time created
     irf_legend(h(end),['Created: ',datestr(now,29)],[0.98,-0.3],'Fontsize',11,'interpreter','latex','horizontalalignment','left')
+    
+    %% get and mark up- and downstream intervals
+    if plotTints
+        % read tints
+        tintu = irf_time(tintTab.Var1(lineNum)+[tintTab.Var2(lineNum);tintTab.Var3(lineNum)],'epoch>epochTT');
+        tintd = irf_time(tintTab.Var1(lineNum)+[tintTab.Var4(lineNum);tintTab.Var5(lineNum)],'epoch>epochTT');
+        % plot tints
+        for ii = 1:length(h)
+            irf_pl_mark(h(ii),tintu,ucol)
+            irf_pl_mark(h(ii),tintu(1),'k');irf_pl_mark(h(ii),tintu(2),'k')
+            irf_pl_mark(h(ii),tintd,dcol)
+            irf_pl_mark(h(ii),tintd(1),'k');irf_pl_mark(h(ii),tintd(2),'k')
+        end
+    end
     
     %% save figure
     % give it the time stamp of the start time

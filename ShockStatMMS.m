@@ -107,7 +107,7 @@ end
 
 %% If not writeshockparameters, select list file, sc number, start/stop line
 
-if ~doLoadData && optNum ~= 12
+if ~doLoadData
     
     listFileArr = dir('*.txt');
     preSelectedFile = 1;
@@ -122,7 +122,8 @@ if ~doLoadData && optNum ~= 12
     listFileInd = irf_ask('Select file: [%]>','listFileInd',preSelectedFile);
     listFileName = listFileArr(listFileInd).name;
     
-    if optNum ~= 6 && optNum ~= 7 && optNum ~= 9
+    % probably no need to select spacecraft when checking stable OMNI
+    if optNum ~= 4
         % sc number
         fprintf('\n')
         ic = irf_ask('Select spacecraft: [%]>','ic',2);
@@ -138,7 +139,7 @@ end
 
 
 %% Select mat file to load if requested
-
+% colors are not implemented everywhere
 if doLoadData && optNum ~= 5
     if optNum == 6
         colorMode = irf_ask('Select color scheme for plots(1:Dark, 2:Light): [%]>','colorMode',2);

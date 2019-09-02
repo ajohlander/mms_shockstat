@@ -26,19 +26,19 @@ N = 1000;
 %% read and get up and downstream times table
 
 % Select data file to read
-dataFileArr = dir('*.csv');
+tintFileArr = dir('*.csv');
 
-if isempty(dataFileArr)
+if isempty(tintFileArr)
     irf.log('c','No data files')
     
 else
     preSelectedFile = 1;
-    for ii = 1:length(dataFileArr)
-        fprintf([num2str(ii),':     ',dataFileArr(ii).name,'\n'])
+    for ii = 1:length(tintFileArr)
+        fprintf([num2str(ii),':     ',tintFileArr(ii).name,'\n'])
     end
     fprintf('\n')
-    dataFileInd = irf_ask('Select file: [%]>','dataFileInd',preSelectedFile);
-    tintFileName = dataFileArr(dataFileInd).name;
+    tintFileInd = irf_ask('Select tint file: [%]>','dataFileInd',preSelectedFile);
+    tintFileName = tintFileArr(tintFileInd).name;
 end
 
 tintTab = readtable([pwd,'/',tintFileName]);
