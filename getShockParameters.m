@@ -64,6 +64,12 @@ if ~doLoadData
     NuV = zeros(N,1); % upstream number density
     NuLV = zeros(N,1); % local upstream number density
     NdV = zeros(N,1); % downstream number density
+    TiuV = zeros(N,1); % upstream ion temperature
+    TiuLV = zeros(N,1); % local upstream ion temperature
+    TidV = zeros(N,1); % downstream number ion temperature
+    % no measure of electron temperature in OMNI
+    TeuLV = zeros(N,1); % local upstream electron temperature
+    TedV = zeros(N,1); % downstream number electron temperature
     thBrV = zeros(N,1); % magnetic field/radial angle
     betaiV = zeros(N,1); % ion plasma beta
     TiV = zeros(N,1); % upstream ion temperature
@@ -223,7 +229,12 @@ if ~doLoadData
         Vi = mms.get_data('Vi_gse_fpi_brst_l2',tint,ic);
         Ni = mms.get_data('Ni_fpi_brst_l2',tint,ic);
         B = mms.get_data('B_gse_fgm_brst_l2',tint,1);
-         
+        % tensor
+        Tit = mms.get_data('Ti_gse_fpi_brst_l2',tint,ic);
+        Tet = mms.get_data('Te_gse_fpi_brst_l2',tint,ic);
+        % scalar
+        Ti = Tit.trace/3;
+        Te = Tet.trace/3;
         
         %% try to read omni data
                 
@@ -243,7 +254,7 @@ if ~doLoadData
             Vu = nanmean(ff(:,6:8),1); % velocity [km/s]
             if isnan(Vu); Vu = nan(1,3); end
             Nu = nanmean(ff(:,9)); % density [/cc]
-            Tu = nanmean(ff(:,10))/u.e*u.kB; % temperature [eV]
+            Tiu = nanmean(ff(:,10))/u.e*u.kB; % temperature [eV]
             imfId = nanmean(ff(:,11)); % not integers mean that sc switches
             swId = nanmean(ff(:,12)); 
             
@@ -285,12 +296,12 @@ if ~doLoadData
             end
             
             % ion beta
-            betai = Nu*1e6*Tu*u.e/(norm(Bu*1e-9)^2/(2*u.mu0));
+            betai = Nu*1e6*Tiu*u.e/(norm(Bu*1e-9)^2/(2*u.mu0));
             
             % calculate fast Mach number
             vA = norm(Vu)/Ma*1e3; % Alfven speed [m/s]
             % assume ion and electron temperatures are equal
-            cs = sqrt(4*Tu*u.e/u.mp); % sound speed [m/s]
+            cs = sqrt(4*Tiu*u.e/u.mp); % sound speed [m/s]
             % magnetosonic speed perp to B
             cms = sqrt(cs^2+vA^2);
             
@@ -312,13 +323,13 @@ if ~doLoadData
             ae = nanmean(ff2(:,6));
             
         else
-            disp('failed to read omni data, moving on with plot...')
+            disp('failed to read omni data, moving on ...')
             thBn = nan;
             Ma = nan;
             Bu = nan(1,3);
             Nu = nan;
             Vu = nan(1,3);
-            Tu = nan;
+            Tiu = nan;
             imfId = nan;
             swId = nan;
                         
@@ -342,6 +353,11 @@ if ~doLoadData
         VuL = nanmean(Vi.tlim(tintu).data);
         VdL = nanmean(Vi.tlim(tintd).data);
         
+        TiuL = nanmean(Ti.tlim(tintu).data);
+        TidL = nanmean(Ti.tlim(tintd).data);
+        
+        TeuL = nanmean(Te.tlim(tintu).data);
+        TedL = nanmean(Te.tlim(tintd).data);
         
         %% get psd of up- and downstream ions
         
@@ -383,6 +399,11 @@ if ~doLoadData
         NuV(count) = Nu;
         NuLV(count) = NuL;
         NdV(count) = NdL;
+        TiuV(count) = Tiu;
+        TiuLV(count) = TiuL;
+        TidV(count) = TidL;
+        TeuLV(count) = TeuL;
+        TedV(count) = TedL;
         betaiV(count) = betai;
         thBrV(count) = thBr;
         fdV(count,:) = FdPsdFpi;
@@ -444,6 +465,11 @@ BdV = BdV(TV~=0,:);
 NuV = NuV(TV~=0,:);
 NuLV = NuLV(TV~=0,:);
 NdV = NdV(TV~=0,:);
+TiuV = TiuV(TV~=0,:);
+TiuLV = TiuLV(TV~=0,:);
+TidV = TidV(TV~=0,:);
+TeuLV = TeuLV(TV~=0,:);
+TedV = TedV(TV~=0,:);
 thBrV = thBrV(TV~=0);
 betaiV = betaiV(TV~=0);
 fdV = fdV(TV~=0,:);
@@ -483,6 +509,6 @@ TV = TV(TV~=0);
 
 if saveParameters
     disp('Saving parameters...')
-    save(fileName,'dTV','TuV','dTuV','TdV','dTdV','MaV','MfV','VuV','VuLV','VdV','BuV','BuLV','BdV','NuV','NuLV','NdV','thBnV','thBrV','thVnV','betaiV','EV','dEV','fdV','fuV','EfpiMaxV','hasEISV','RV','sigV','TV','N','dstV','kpV','ssnV','s107V','aeV','lineNumV','nvecV','shModel','imfIdV','swIdV')
+    save(fileName,'dTV','TuV','dTuV','TdV','dTdV','MaV','MfV','VuV','VuLV','VdV','BuV','BuLV','BdV','NuV','NuLV','NdV','TiuV','TiuLV','TidV','TeuLV','TedV','thBnV','thBrV','thVnV','betaiV','EV','dEV','fdV','fuV','EfpiMaxV','hasEISV','RV','sigV','TV','N','dstV','kpV','ssnV','s107V','aeV','lineNumV','nvecV','shModel','imfIdV','swIdV')
     disp('saved!')
 end
