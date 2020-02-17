@@ -25,23 +25,33 @@ N = 1000;
 
 %% read and get up and downstream times table
 
-% Select data file to read
-tintFileArr = dir('*.csv');
+% should tint data be read
+readTintData = irf_ask('Read time interval data? (0=no, 1=yes): [%]>','readTintData',1);
 
-if isempty(tintFileArr)
-    irf.log('c','No data files')
+
+if readTintData
+    % Select data file to read
+    tintFileArr = dir('*.csv');
     
-else
-    preSelectedFile = 1;
-    for ii = 1:length(tintFileArr)
-        fprintf([num2str(ii),':     ',tintFileArr(ii).name,'\n'])
+    
+    
+    if isempty(tintFileArr)
+        irf.log('c','No data files')
+        
+    else
+        fprintf('\n')
+        preSelectedFile = 1;
+        for ii = 1:length(tintFileArr)
+            fprintf([num2str(ii),':     ',tintFileArr(ii).name,'\n'])
+        end
+        fprintf('\n')
+        tintFileInd = irf_ask('Select tint file: [%]>','dataFileInd',preSelectedFile);
+        tintFileName = tintFileArr(tintFileInd).name;
     end
-    fprintf('\n')
-    tintFileInd = irf_ask('Select tint file: [%]>','dataFileInd',preSelectedFile);
-    tintFileName = tintFileArr(tintFileInd).name;
+    
+    tintTab = readtable([pwd,'/',tintFileName]);
+    
 end
-
-tintTab = readtable([pwd,'/',tintFileName]);
 
 %% initiate arrays
 % only read data if data is not loaded
@@ -142,8 +152,13 @@ if ~doLoadData
         tstr([5,8,14,17]) = '';
         tstr = tstr(1:15);
         
-        tintu = irf_time(tintTab.Var1(lineNum)+[tintTab.Var2(lineNum);tintTab.Var3(lineNum)],'epoch>epochTT');
-        tintd = irf_time(tintTab.Var1(lineNum)+[tintTab.Var4(lineNum);tintTab.Var5(lineNum)],'epoch>epochTT');
+        if readTintData
+            tintu = irf_time(tintTab.Var1(lineNum)+[tintTab.Var2(lineNum);tintTab.Var3(lineNum)],'epoch>epochTT');
+            tintd = irf_time(tintTab.Var1(lineNum)+[tintTab.Var4(lineNum);tintTab.Var5(lineNum)],'epoch>epochTT');
+        else % just set them to tint to aviod crashes
+            tintu = tint;
+            tintd = tint;
+        end
         
         %% read data
         
