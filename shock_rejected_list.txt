@@ -8,23 +8,13 @@
 2017-10-18/05:43:53 - 2017-10-18/05:47:33, 126.0, svines(EVA), Quasi=|| bow shock, foreshock interval with SLAMS
 2017-10-21/14:14:13 - 2017-10-21/14:15:53, 100.0, svines(EVA), Quasi-perp shock and downstream sheath, lower mach, steady upstream SW 
 2017-10-21/22:44:33 - 2017-10-21/22:46:53,  98.0, svines(EVA), Quasi-perp bow shock with foreshock particles
-2017-10-30/04:44:33 - 2017-10-30/04:46:33,  90.0, lavanov(EVA), Q-perp bow shock 
 2017-11-02/08:28:43 - 2017-11-02/08:31:03,  90.0, lavanov(EVA), Interesting Qpar bow shock with strong turbulence prior to the shock and high frequency oscilations in the MSH adjacent to BS.
-2017-11-08/01:26:23 - 2017-11-08/01:30:23, 110.0, seriksson(EVA),  Bow shock
-2017-11-16/12:26:53 - 2017-11-16/12:29:23, 119.0, rtorbert(EVA),  BS Xing; 
 2017-11-16/13:58:03 - 2017-11-16/14:00:13, 107.1, rtorbert(EVA),  Bs Xing
-2017-12-03/11:17:23 - 2017-12-03/11:22:13,  90.0, hbreuillard(EVA),  Low-shear full Qperp shock crossing with possible jet
 2017-12-03/11:25:33 - 2017-12-03/11:30:23,  90.0, hbreuillard(EVA),  Low-shear full Qperp shock crossing with field-aligned ion beams
 2017-12-14/21:58:13 - 2017-12-14/22:02:53, 125.0, aretino(EVA),  Quasi-perp shock with reflected/heated ions and strong E/B fluctuations
-2017-12-15/16:14:13 - 2017-12-15/16:15:13, 110.0, lavanov(EVA), Bow shock related CS Bz reversal
-2017-12-29/00:17:53 - 2017-12-29/00:20:53,  80.0, pgangkai(EVA), quasi-parallel shock with overshoot
 2018-01-01/13:08:43 - 2018-01-01/13:14:13,  94.0, svines(EVA), Quasi-perp bow shock with distinct secondary/reflected ion beam 
-2018-01-06/13:55:43 - 2018-01-06/13:57:03, 101.0, svines(EVA), Oblique shock, higher Ma (>10 at the shock)
-2018-01-06/14:02:43 - 2018-01-06/14:04:23,  93.0, svines(EVA), Oblique/quasi-perp bow shock 
 2018-01-07/05:19:43 - 2018-01-07/05:21:53,  90.0, lavanov(EVA), Qpar bow shock 
-2018-01-12/03:21:13 - 2018-01-12/03:24:33, 110.0, lavanov(EVA),  Strong Qperp bow shock
 2018-02-15/14:40:13 - 2018-02-15/14:42:33,  90.0, ajohlander(EVA),  BS with large diff in B between sc, whistler precursors
-2018-02-18/12:19:03 - 2018-02-18/12:21:03, 100.0, seriksson(EVA),  Quasi-parallel BS w/ Vy>0 flow
 2018-02-18/12:21:03 - 2018-02-18/12:22:43, 125.0, seriksson(EVA),  Quasi-parallel BS and downstream turbulence with large diffB=2uA/m2
 2018-03-26/06:43:53 - 2018-03-26/06:45:53, 110.0, plindqvist(EVA), Qperp bow shock
 2017-10-18/07:36:13 - 2017-10-18/07:39:03, 135.0, svines(EVA), Quasi-perp bow shock with interesting higher-energy ion beam
@@ -49,6 +39,16 @@
 
 % fine to reject
 
+2017-10-30/04:44:33 - 2017-10-30/04:46:33,  90.0, lavanov(EVA), Q-perp bow shock 
+2017-11-08/01:26:23 - 2017-11-08/01:30:23, 110.0, seriksson(EVA),  Bow shock
+2017-11-16/12:26:53 - 2017-11-16/12:29:23, 119.0, rtorbert(EVA),  BS Xing; 
+2017-12-03/11:17:23 - 2017-12-03/11:22:13,  90.0, hbreuillard(EVA),  Low-shear full Qperp shock crossing with possible jet
+2017-12-29/00:17:53 - 2017-12-29/00:20:53,  80.0, pgangkai(EVA), quasi-parallel shock with overshoot
+2018-01-06/13:55:43 - 2018-01-06/13:57:03, 101.0, svines(EVA), Oblique shock, higher Ma (>10 at the shock)
+2018-01-06/14:02:43 - 2018-01-06/14:04:23,  93.0, svines(EVA), Oblique/quasi-perp bow shock 
+2018-01-12/03:21:13 - 2018-01-12/03:24:33, 110.0, lavanov(EVA),  Strong Qperp bow shock
+2018-02-18/12:19:03 - 2018-02-18/12:21:03, 100.0, seriksson(EVA),  Quasi-parallel BS w/ Vy>0 flow
+
 % not a shock 
 2017-10-06/21:08:53 - 2017-10-06/21:11:33, 125.0, seriksson(EVA), Bow shock and foreshock
 2017-10-07/02:21:53 - 2017-10-07/02:23:13, 125.0, seriksson(EVA),  Bow shock associated very strong diffB
@@ -63,6 +63,8 @@
 2018-02-18/12:22:43 - 2018-02-18/12:24:13, 110.0, seriksson(EVA),  Quasi-parallel BS and downstream turbulence with large diffB=2uA/m2
 2018-03-13/04:46:43 - 2018-03-13/04:48:53, 140.0, yvernisse(EVA),  Main Bow shock crossing with downstream waves
 2018-03-15/02:48:13 - 2018-03-15/02:53:23,  90.0, yvernisse(EVA),  Quasi-parallel shocks with foreshock and SLAMMS
+2017-12-15/16:14:13 - 2017-12-15/16:15:13, 110.0, lavanov(EVA), Bow shock related CS Bz reversal
+
 
 % no burst
 2017-12-07/06:25:53 - 2017-12-07/06:29:13,  80.0, margall(EVA), Bowshock
