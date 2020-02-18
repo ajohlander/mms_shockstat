@@ -85,7 +85,7 @@
 2018-01-10/00:54:33 - 2018-01-10/00:57:23, 110.0, lavanov(EVA),  Qpar bow shock crossing
 2018-01-12/19:58:13 - 2018-01-12/20:09:33,  90.0, lavanov(EVA), Long Qpar bow shock crossing with turbulent magnetoshetah downstream 
 2018-01-18/11:49:43 - 2018-01-18/11:52:03, 102.0, jburch(EVA), Bow shock with whistlers
-0
+2018-01-29/03:35:13 - 2018-01-29/03:40:23,  90.0, nahmadi(EVA), Bow Shock crossing w/HFAs
 2018-02-04/09:05:13 - 2018-02-04/09:10:13,  90.0, kgoodrich(EVA),  Turbulent BS crossing
 2018-02-04/09:15:53 - 2018-02-04/09:18:23,  80.0, kgoodrich(EVA),  Multiple short shock crossings
 2018-02-04/09:32:53 - 2018-02-04/09:34:23,  80.0, kgoodrich(EVA),  Multiple BS crossings
