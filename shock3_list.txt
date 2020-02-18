@@ -85,7 +85,7 @@
 2018-01-10/00:54:33 - 2018-01-10/00:57:23, 110.0, lavanov(EVA),  Qpar bow shock crossing
 2018-01-12/19:58:13 - 2018-01-12/20:09:33,  90.0, lavanov(EVA), Long Qpar bow shock crossing with turbulent magnetoshetah downstream 
 2018-01-18/11:49:43 - 2018-01-18/11:52:03, 102.0, jburch(EVA), Bow shock with whistlers
-2018-01-29/03:35:13 - 2018-01-29/03:40:23,  90.0, nahmadi(EVA), Bow Shock crossing w/HFAs
+0
 2018-02-04/09:05:13 - 2018-02-04/09:10:13,  90.0, kgoodrich(EVA),  Turbulent BS crossing
 2018-02-04/09:15:53 - 2018-02-04/09:18:23,  80.0, kgoodrich(EVA),  Multiple short shock crossings
 2018-02-04/09:32:53 - 2018-02-04/09:34:23,  80.0, kgoodrich(EVA),  Multiple BS crossings
@@ -156,7 +156,28 @@
 2018-04-02/02:29:23 - 2018-04-02/02:32:03,  80.0, icohen(EVA), Quasiparallel BS crossing; weak/moderate currents
 2018-04-04/21:18:23 - 2018-04-04/21:25:33, 125.0, icohen(EVA), Multiple high (>15) Mach number oblique BS crossings with ion foreshock signatures
 2018-04-06/13:57:43 - 2018-04-06/14:00:03, 100.0, icohen(EVA), Quasiparallel BS crossing or HFA
-
+2017-10-04/02:55:03 - 2017-10-04/02:58:23, 125.0, seriksson(EVA),  Bow shock (SoP)
+2017-10-06/21:11:33 - 2017-10-06/21:14:03, 145.0, seriksson(EVA), Marginally quasi-para bow shock and foreshock region 
+2017-10-06/22:28:13 - 2017-10-06/22:30:03, 115.0, seriksson(EVA),  Bow shock associated turbulence
+2017-10-12/13:22:03 - 2017-10-12/13:24:43,  91.8, jburch(EVA), bow shock 
+2017-10-15/03:23:53 - 2017-10-15/03:26:53, 110.0, svines(EVA), Series of 4 bow shocks, context, quasi-perp bow shock
+2017-10-15/04:56:23 - 2017-10-15/05:00:43,  80.0, svines(EVA), Partial bow shock crossings
+2017-10-18/05:27:43 - 2017-10-18/05:29:53, 130.0, svines(EVA), Series of bow shock crossings, energetic particles 
+2017-10-18/07:36:13 - 2017-10-18/07:39:03, 135.0, svines(EVA), Quasi-perp bow shock with interesting higher-energy ion beam
+2017-10-21/14:14:13 - 2017-10-21/14:15:53, 100.0, svines(EVA), Quasi-perp shock and downstream sheath, lower mach, steady upstream SW 
+2017-10-21/21:03:43 - 2017-10-21/21:07:33,  96.0, svines(EVA), Series of bow shock/partial bow shocks, quasi-perp mainly, lower Mach (~5) 
+2017-10-21/21:26:13 - 2017-10-21/21:29:03, 110.0, svines(EVA), Quasi-|| shock and foreshock, lower mach (~8)
+2017-10-21/22:44:33 - 2017-10-21/22:46:53,  98.0, svines(EVA), Quasi-perp bow shock with foreshock particles
+2017-11-02/08:28:43 - 2017-11-02/08:31:03,  90.0, lavanov(EVA), Interesting Qpar bow shock with strong turbulence prior to the shock and high frequency oscilations in the MSH adjacent to BS.
+2017-11-16/13:58:03 - 2017-11-16/14:00:13, 107.1, rtorbert(EVA),  Bs Xing
+2017-12-03/11:25:33 - 2017-12-03/11:30:23,  90.0, hbreuillard(EVA),  Low-shear full Qperp shock crossing with field-aligned ion beams
+2017-12-14/21:58:13 - 2017-12-14/22:02:53, 125.0, aretino(EVA),  Quasi-perp shock with reflected/heated ions and strong E/B fluctuations
+2017-12-14/23:20:03 - 2017-12-14/23:30:33, 125.0, aretino(EVA),  Turbulent quasi-par shock, turbulent current sheets
+2018-01-01/13:08:43 - 2018-01-01/13:14:13,  94.0, svines(EVA), Quasi-perp bow shock with distinct secondary/reflected ion beam 
+2018-01-07/05:19:43 - 2018-01-07/05:21:53,  90.0, lavanov(EVA), Qpar bow shock 
+2018-02-15/14:40:13 - 2018-02-15/14:42:33,  90.0, ajohlander(EVA),  BS with large diff in B between sc, whistler precursors
+2018-02-18/12:21:03 - 2018-02-18/12:22:43, 125.0, seriksson(EVA),  Quasi-parallel BS and downstream turbulence with large diffB=2uA/m2
+2018-03-26/06:43:53 - 2018-03-26/06:45:53, 110.0, plindqvist(EVA), Qperp bow shock
 
 
 
