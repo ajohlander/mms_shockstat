@@ -59,7 +59,8 @@ switch lower(plotType)
         
         
         for jj = 1:size(accEffAvg2D,2)
-            scatter(ax,thBnV(idX==jj),accEffV(idX==jj)*100,40,colmat(jj,:),'o','MarkerFaceColor','flat');
+            %scatter(ax,thBnV(idX==jj),accEffV(idX==jj)*100,40,colmat(jj,:),'o','MarkerFaceColor','flat');
+            scatter(ax,thBnV(idX==jj),accEffV(idX==jj)*100,200,colmat(jj,:),'o','MarkerFaceColor','flat','MarkerEdgeColor',[1,1,1]*.4)
         end
         
         

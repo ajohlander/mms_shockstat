@@ -1,4 +1,4 @@
-function varargout = sh_figure(subNum,figSize)
+function varargout = sh_figure(subNum,figSize,varargin)
 % SH_FIGURE Quick way to call irf_plot.
 %
 %   SH_FIGURE(subNum) initiates figure with number of panels subNum.
@@ -21,11 +21,36 @@ elseif(nargin == 0)
     subNum = 1;
 end
 
+
+%% Check for flags
+
+% Set default values
+regularPlot = 0;
+
+if nargin == 3 && strcmpi(varargin{1},'noirf')
+    regularPlot = 1;
+end
+    
+
 %% Initiate figures
 % Initiate figure
 irf.log('w','Initiating new figure')
-h = irf_plot(subNum,'newfigure');
-f = h.Parent;
+
+if regularPlot
+    f = figure;
+    f.Color = 'w';
+    h = gobjects(1,subNum);
+    for ii = 1:subNum
+        h(ii) = subplot(subNum,1,ii);
+        h(ii).Box = 'on';
+    end
+    linkaxes(h,'x')
+    sh_panel_span(h,[.1,.95])
+    f.UserData.subplot_handles = h;
+else
+    h = irf_plot(subNum,'newfigure');
+    f = h.Parent;
+end
 
 % Set parameters
 f.PaperUnits = 'centimeters';
