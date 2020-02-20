@@ -80,7 +80,8 @@ scatter(hca,thBnV1,accEffV1*100,100,MaV1,'o','MarkerFaceColor','flat')
 
 hca.XLim = [0,90];
 hca.YLim(1) = 0;
-plot(hca,45*[1,1],hca.YLim,'--','color',textcol,'linewidth',1.2)
+%plot(hca,45*[1,1],hca.YLim,'--','color',textcol,'linewidth',1.2)
+area([0,45],hca.YLim(2)*[1,1],'FaceColor',[1,1,1]*.5,'EdgeColor','none','facealpha',.1)
 
 sh_cmap(hca,cmap)
 hca.Color = axcol;
@@ -95,13 +96,14 @@ hca.CLim = [5,20];
 
 hca.Box = 'on';
 
-ylabel(hca,'Acceleration efficiency [$\%$]','interpreter','latex')
+%ylabel(hca,'Acceleration efficiency [$\%$]','interpreter','latex')
+ylabel(hca,'$\varepsilon(E>10E_{sw})$ [$\%$]','interpreter','latex')
 xlabel(hca,'$\theta_{Bn}$ [$^{\circ}$]','interpreter','latex')
 ylabel(hcb,'$M_A$','Fontsize',17,'interpreter','latex')
 
 %title(hca,'Energy flux of ions with $E>10E_{sw}$ measured by MMS-FPI','Fontsize',15,'interpreter','latex','color',textcol)
-hleg = irf_legend(hca,['$N = ',num2str(Nevents),'$'],[0.98,0.98],'Fontsize',17,'interpreter','latex','color',textcol);
-hleg.BackgroundColor = hca.Color;
+%hleg = irf_legend(hca,['$N = ',num2str(Nevents),'$'],[0.98,0.98],'Fontsize',17,'interpreter','latex','color',textcol);
+%hleg.BackgroundColor = hca.Color;
 
 hca.LineWidth = 1.2;
 hca.FontSize = 17;
@@ -187,12 +189,12 @@ hca.LineWidth = 1.2;
 hca.FontSize = 14;
 fig.InvertHardcopy = 'off';
 
-%% Mach number dependence between 20 and 40 deg
+%% Mach number dependence between 20 and 60 deg
 
 fig = figure;
 hca = axes(fig);
 hold(hca,'on')
-hsc = scatter(hca,MaV1(thBnV1>20 & thBnV1<40),accEffV1(thBnV1>20 & thBnV1<40)*100,200,col2,'.');
+hsc = scatter(hca,MaV1(thBnV1>20 & thBnV1<60),accEffV1(thBnV1>20 & thBnV1<60)*100,200,col2,'.');
 fig.InvertHardcopy = 'off';
 
 
@@ -445,7 +447,7 @@ thhist = histogram(hca,thBnV1,thBinEdges,'FaceColor',bincol,'edgecolor',textcol,
 than = linspace(0,90,1e3);
 hold(hca,'on')
 %plot(than,sind(than)*N*deltathBin,'linewidth',2,'color',col2)
-plot(sort([thBinEdges,thBinEdges(1:end-1)]),[0,sind(sort([thBinEdges,thBinEdges(1:end-2)]+deltathBin*180/pi/2))]*N*deltathBin,'linewidth',2,'color',col2)
+%plot(sort([thBinEdges,thBinEdges(1:end-1)]),[0,sind(sort([thBinEdges,thBinEdges(1:end-2)]+deltathBin*180/pi/2))]*N*deltathBin,'linewidth',2,'color',col2)
 
 hca.XLim = [0,90];
 hca.YLim = [0,1.1*max(thhist.Values)];
@@ -459,7 +461,7 @@ hca.XAxis.Color = textcol;
 hca.YAxis.Color = textcol;
 
 hca.LineWidth = 1.2;
-hca.FontSize = 14;
+hca.FontSize = 17;
 fig.InvertHardcopy = 'off';
 
 %% Histogram of Ma & Mf
@@ -487,12 +489,12 @@ hca.YAxis.Color = textcol;
 
 hleg = legend(hca,'Alfv\''en Mach','Magnetosonic Mach');
 hleg.Interpreter = 'latex';
-hleg.FontSize = 15;
+hleg.FontSize = 17;
 
 hca.LineWidth = 1.3;
-hca.FontSize = 15;
+hca.FontSize = 17;
 fig.InvertHardcopy = 'off';
-hca.Position = [.1,.1,.85,.85];
+hca.Position = [.1,.12,.85,.83];
 
 %% Plot all distribution functions
 
@@ -536,20 +538,20 @@ hca.YLim = [1e-18,8e-9];
 fig.InvertHardcopy = 'off';
 hca.Position = [.12,.12,.75,.85];
 hcb.Position = [.88,.12,.03,.85];
-
-
-% % uncomment to add lines and save
-hl1 = plot(hca,[1,1]*3,hca.YLim,'--','color',col1,'linewidth',3.5);
-%print(fig,'alldists1','-dpng','-r300');
-
-hl1.LineWidth = 1.5;
-hl2 = plot(hca,[1,1]*5,hca.YLim,'--','color',col3,'linewidth',3.5);
-%print(fig,'alldists2','-dpng','-r300');
-
-hl2.LineWidth = 1.5;
-hl3 = plot(hca,[1,1]*10,hca.YLim,'--','color',col2,'linewidth',3.5);
-%print(fig,'alldists3','-dpng','-r300');
-
+% 
+% 
+% % % uncomment to add lines and save
+% hl1 = plot(hca,[1,1]*3,hca.YLim,'--','color',col1,'linewidth',3.5);
+% %print(fig,'alldists1','-dpng','-r300');
+% 
+% hl1.LineWidth = 1.5;
+% hl2 = plot(hca,[1,1]*5,hca.YLim,'--','color',col3,'linewidth',3.5);
+% %print(fig,'alldists2','-dpng','-r300');
+% 
+% hl2.LineWidth = 1.5;
+% hl3 = plot(hca,[1,1]*10,hca.YLim,'--','color',col2,'linewidth',3.5);
+% %print(fig,'alldists3','-dpng','-r300');
+% 
 
 
 

@@ -45,13 +45,17 @@ fprintf('\n Setting parameters and limiting selection...\n')
 EswV = .5*u.mp*(sum((VuV*1e3).^2,2)/u.e);
 
 % accepted intervals
-dind = find((EfpiMaxV)./EswV>EmaxFac);
+accBool = (EfpiMaxV)./EswV>EmaxFac;
 
 % all
 %dind = 1:N;
 
+% sort intervals
+[~,idSort] = sort(TV);
+dind = idSort(accBool);
+
 % redefine N
-N = numel(find(dind));
+N = numel(dind);
 
 fprintf(['Number of crossings within parameters: ',num2str(N),' out of ',num2str(length(TV)),'\n'])
 
@@ -73,6 +77,11 @@ BdV = BdV(dind,:);
 NuV = NuV(dind);
 NuLV = NuLV(dind);
 NdV = NdV(dind);
+TiuV = TiuV(dind);
+TiuLV = TiuLV(dind);
+TidV = TidV(dind);
+TeuLV = TeuLV(dind);
+TedV = TedV(dind);
 thBrV = thBrV(dind);
 betaiV = betaiV(dind);
 EV = EV(dind,:);
@@ -132,12 +141,18 @@ if optNum ~= 7 && optNum ~= 12
     if calcTconn
         TcLim = irf_ask('Set upper limit of shock age in [s]: [%]>','TcLim',600);
         getShockAges;
+    else
+        % set all values to 0
+        TcV1 = zeros(1,N);
+        idTc = [];
     end
 end
 %% Calculate energy densities and define accelaration efficiency
-[Ud0,Ud1,Ud2,Ud3] = get_energy_dens(EV,dEV,fdV,VuV,[3,5,10]);
-[Uu0,Uu1,Uu2,Uu3] = get_energy_dens(EV,dEV,fuV,VuV,[3,5,10]);
-accEffV1 = Ud3./Ud0;
+UdLims = get_energy_dens(EV,dEV,fdV,VuV,[3,5,10]);
+UuLims = get_energy_dens(EV,dEV,fuV,VuV,[3,5,10]);
+accEffV1 = UdLims(:,4)./UdLims(:,1);
+% extra array with 5 times sw energy
+accEffV2 = UdLims(:,3)./UdLims(:,1);
 
 
 %% calculate spectral slope of distribtion functions (limits are somewhat arbitrary)

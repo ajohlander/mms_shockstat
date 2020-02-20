@@ -1,7 +1,5 @@
-
-
 %% Set filename
-fprintf('Writing new cvs file with shock times and some paramters \n')
+fprintf('Writing new cvs file with shock times and some parameters \n')
 csvFileName = irf_ask('Name of new csv file: [%]','csvFileName','mms_shock_burst');
 
 if ~strcmp(csvFileName(end-3:end),'.csv')
@@ -13,14 +11,8 @@ if isfile(csvFileName)
     if ~overwriteCSV; disp('exiting...'); return; end
 end
 
-%% Prepare parameters
-% thBnV1 = thBnV.(shModel{modelInd});
-% thVnV1 = thVnV.(shModel{modelInd});
-% MaV1 = MaV.(shModel{modelInd});
-% MfV1 = MfV.(shModel{modelInd});
-% nvecV1 = nvecV.(shModel{modelInd});
-% sigV1 = sigV.(shModel{modelInd});
 
+%% Prepare parameters
 
 N = length(TV);
 
@@ -43,6 +35,7 @@ for ii = 1:N
     minV(ii) = tt(5);
     secV(ii) = tt(6);
 end
+
 
 %%
 
