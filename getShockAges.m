@@ -30,6 +30,7 @@ for id = 1:N
          bstemp = sh_bowshock_time(scd,'Nbs',500,'debug',0,'thMax',140,'shmodel',shModel{im},'nt',nt);
          bstemp.thBn(bstemp.thBn>90) = 180-bstemp.thBn(bstemp.thBn>90);
          TcV.(shModel{im})(id) = bstemp.t(end);
+         TcValt.(shModel{im})(id) = bstemp.tend;
          % save all thBn vectors for debug reasons
          thBnHistoryV.(shModel{im})(id,:) = bstemp.thBn';
     end
@@ -55,6 +56,11 @@ TcV1 = TcV.(shModel{modelInd});
 % some special treatment
 % only consider times below some value
 idTc = find(TcV1<TcLim); % also gets rid of nans
+
+
+
+
+
 
 % %% scatter plot
 % 

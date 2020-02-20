@@ -336,15 +336,59 @@ distToFieldPlane = field_travel_direction(1)*Xsh+field_travel_direction(2)*Ysh+.
 
 
 %% get total connection time (time evolution later)
+% THIS IS PROBABLY WRONG!
 
 startPointX = mean(Xsh(id90bool&idFootBool));
 startPointY = mean(Ysh(id90bool&idFootBool));
 startPointZ = mean(Zsh(id90bool&idFootBool));
 rStart = [startPointX,startPointY,startPointZ];
 
-tend = dot(rsc-rStart',field_travel_direction)*u.RE/dot(Vu*1e3,field_travel_direction);
+% tend = dot(rsc-rStart',field_travel_direction)*u.RE/dot(Vu*1e3,field_travel_direction);
 
-% hack
+% or find distance to tangent line along Vu
+disp('do not want!')
+
+
+%% less lazy way
+% vector pointing upstream along bu 
+dhat = sign(dot(bu,vu))*bu;
+% vector pointing upstream along vu 
+bhat = -vu;
+% field line function connecting to starting position
+fieldLinePosFun = @(d)rStart+dhat*d;
+% flow line function connecting to the spacecraft position
+flowLinePosFun = @(b)rsc'+bhat*b;
+
+field2flowLineDistFun = @(dbArr)norm(flowLinePosFun(dbArr(2))-fieldLinePosFun(dbArr(1)));
+
+[dbval,~] = fminsearch(field2flowLineDistFun,[1,1]);
+
+tend = dbval(2)*u.RE/norm(Vu*1e3);
+
+
+% %% lazy way (scales with n^2)
+% nn = 1e3;
+% % distance along bu
+% darr = linspace(0,10,nn);
+% % distance along vu
+% barr = linspace(0,5,nn);
+% % field line points
+% fieldlinepos = repmat(rStart,nn,1)'+repmat(darr,3,1).*repmat(bu,nn,1)';
+% % flow line points
+% flowlinepos = repmat(rsc',nn,1)'-repmat(barr,3,1).*repmat(vu,nn,1)';
+% 
+% minDistArr = zeros(1,nn);
+% field2flowDistArr = zeros(nn,nn);
+% for ii = 1:nn % b
+%     field2flowDistArr(:,ii) = sqrt(sum((flowlinepos(:,ii)-fieldlinepos).^2));
+%     minDistArr(ii) = min(field2flowDistArr(:,ii));
+% end
+% %     for ii = 1:nn % b
+% %     
+% %         
+% %     end
+% 
+% % hack
 if tend<0; tend = 0; end
 
 
