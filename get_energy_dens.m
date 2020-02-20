@@ -1,26 +1,29 @@
-function [U0,U1,U2,U3] = get_energy_dens(EV,dEV,fV,VuV,Elims)
+function U = get_energy_dens(EV,dEV,fV,VuV,Elims)
 % GET_ENERGY_DENS Get energy density of whole and parts of distribution
-%
 %   
-%   PSD is in SI, velocity in km/s, energy in eV
+%   Output: energy density is in [J/m^3]
+%   
+%   Input:
+%   PSD is in SI, velocity in km/s, energy in eV, Elims in units of Esw
 %   
 
 
+% irf_units is really slow
+u = [];
+u.e = 1.6022e-19;
+u.mp = 1.6726e-27;
 
-u = irf_units;
+
+% initiate matrix
 N = size(EV,1);
+Nlim = length(Elims);
+U = zeros(N,Nlim+1);
 
-Ufun = @(E,dE,f)4*pi*sqrt(2/u.mp^3)*sum(dE.*sqrt(E.^3).*f);
+%Ufun = @(E,dE,f)4*pi*sqrt(2/u.mp^3)*sum(dE.*sqrt(E.^3).*f);
 
 
 % solar wind energy in [J]
 EswV = .5*u.mp*sum(VuV.^2*1e6,2);
-
-% loop over events
-U0 = zeros(N,1);
-U1 = zeros(N,1);
-U2 = zeros(N,1);
-U3 = zeros(N,1);
 
 
 for ii = 1:N
@@ -33,10 +36,10 @@ for ii = 1:N
     ftemp = fV(ii,:);
     
     % get total energy density
-    U0(ii) = Ufun(Etemp,dEtemp,ftemp);
+    U(ii,1) = 4*pi*sqrt(2/u.mp^3)*sum(dEtemp.*sqrt(Etemp.^3).*ftemp);
 
     % loop over limits to get partial energy densities
-    for iL = 1:length(Elims)
+    for iL = 1:Nlim
         % find first index with upper limit over energy limit
         idElast = find(Etemp+dEtemp/2>Elims(iL)*Esw,1,'first');
         
@@ -52,25 +55,17 @@ for ii = 1:N
         dEpart = dEtemp(idElast:end);
         
         % update first dEpart
-        dEpart(1) = dEpart(1)-(Elims(iL)*Esw-Epart(1)-dEpart(1)/2);
+        dEpart(1) = dEpart(1)-(Elims(iL)*Esw-Epart(1)+dEpart(1)/2);
         % get new energy center (note: linear mean)
         Epart(1) = Epart(2)-dEpart(2)/2-dEpart(1)/2;
         
         % the phase-space density is unaltered
         fpart = ftemp(idElast:end);
         
-        switch iL
-            case 1
-                U1(ii) = Ufun(Epart,dEpart,fpart);
-            case 2
-                U2(ii) = Ufun(Epart,dEpart,fpart);
-            case 3
-                U3(ii) = Ufun(Epart,dEpart,fpart);
-        end
+        % get energy density
+        U(ii,iL+1) = 4*pi*sqrt(2/u.mp^3)*sum(dEpart.*sqrt(Epart.^3).*fpart);
     end
 end
-
-
 
 end
 
