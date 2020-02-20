@@ -31,7 +31,9 @@
 % 
 %  ----- Other ------
 %       - Write shock parameters to CSV file: takes a mat file and writes
-%       certain parameters to a csv file
+%       certain parameters to a csv file.
+%       - Write shock parameters to a LaTeX table: takes a mat file and writes
+%       certain parameters to a table that can be put in a LaTeX document.
 %
 %
 %   ----------------- FILES -----------------
@@ -69,7 +71,8 @@ optStr = sprintf(['\nPlease select an option: \n',...
     '9: Ion burst overview plots \n',...
     '10: Electron burst overview plots\n',...
     '11: Ion composition burst overview plots (experimental) \n',...
-    '12: Write shock parameters to CSV file']);
+    '12: Write shock parameters to CSV file \n',...
+    '13. Write shock parameters to a LaTeX table']);
 
 fprintf([optStr,'\n'])
 
@@ -84,7 +87,8 @@ scriptFileNameArr = {'',...
     'plotShockOverview',...
     'plotShockOverview',...
     'plotShockOverview',...
-    'writeShockParametersToFile'};
+    'writeShockParametersToFile',...
+    'writeShockParametersLatexTable'};
 
 
 optNum = irf_ask('Select option: [%]>','optNum',1);
@@ -98,7 +102,8 @@ end
 
 %% Ask if data should be loaded
 % load data for plotShockParameters, loadShockParameters, constructBS,...
-if optNum == 5 || optNum == 6 || optNum == 7 || optNum == 12 % must be loaded
+if optNum == 5 || optNum == 6 || optNum == 7 ||...
+        optNum == 12 || optNum == 13 % must be loaded
     doLoadData = 1;
 else
     doLoadData = 0;
