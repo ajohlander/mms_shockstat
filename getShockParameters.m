@@ -85,6 +85,10 @@ if ~doLoadData
     TiV = zeros(N,1); % upstream ion temperature
     fdV = zeros(N,32); % spherical mean of ion psd (only FPI)
     fuV = zeros(N,32); % spherical mean of ion psd (only FPI)
+    fdPfV = zeros(N,32); % Plasma frame spherical mean of ion psd (only FPI)
+    fuPfV = zeros(N,32); % Plasma frame spherical mean of ion psd (only FPI)
+    fdDfV = zeros(N,32); % Downstream frame spherical mean of ion psd (only FPI)
+    fuDfV = zeros(N,32); % Downstream frame spherical mean of ion psd (only FPI)
     EV = zeros(N,32);
     dEV = zeros(N,32);
     %fOmniComb = cell(N,1); % spherical mean of ion sph (combined FPI & EIS)
@@ -376,12 +380,12 @@ if ~doLoadData
         
         %% get psd of up- and downstream ions
         
-        % downstream distribution
-        iPDistDown = iPDist.tlim(tintd);
-        iPDistUp = iPDist.tlim(tintu);
+        % downstream distribution in SI units
+        iPDistDown = iPDist.tlim(tintd).convertto('s^3/m^6');
+        iPDistUp = iPDist.tlim(tintu).convertto('s^3/m^6');
         
         % FPI energy matrix
-        emat = double(iPDistDown.energy); % in eV
+        emat = double(iPDistDown.depend{1}); % in eV
         % energy in [eV] (assumes all energy tables are the same as the first one)
         EFpi = emat(1,:);
         % delta energy of FPI [eV]
@@ -390,12 +394,32 @@ if ~doLoadData
         % record FPI max energy [eV]
         EfpiMaxV(count) = EFpi(end)+dEFpi(end)/2;
         
-        % get the psd from fpi in SI units
-        FfpiMatDown = double(iPDistDown.convertto('s^3/m^6').omni.data);
-        FfpiMatUp = double(iPDistUp.convertto('s^3/m^6').omni.data);
+        % get the psd from fpi 
+        FfpiMatDown = double(iPDistDown.omni.data);
+        FfpiMatUp = double(iPDistUp.omni.data);
+        
+        % get the psd from fpi in SI units in the local plasma frame
+        fMeanDownPF = sh_get_omni_dist(iPDistDown,Vi.tlim(tintd));
+        fMeanUpPF = sh_get_omni_dist(iPDistUp,Vi.tlim(tintu));
+        FfpiPfMatDown = double(fMeanDownPF.data);
+        FfpiPfMatUp = double(fMeanUpPF.data);
+        
+        % get the psd from fpi in SI units in the average downstream frame
+        fMeanDownDF = sh_get_omni_dist(iPDistDown,VdL);
+        fMeanUpDF = sh_get_omni_dist(iPDistUp,VdL);
+        FfpiDfMatDown = double(fMeanDownDF.data);
+        FfpiDfMatUp = double(fMeanUpDF.data);
+        
         % just save the average up- and downstream distruibution
+        % spacecraft frame
         FdPsdFpi = mean(FfpiMatDown);
         FuPsdFpi = mean(FfpiMatUp);
+        % plasma frame
+        FdPsdPfFpi = mean(FfpiPfMatDown);
+        FuPsdPfFpi = mean(FfpiPfMatUp);
+        % average downstream frame
+        FdPsdDfFpi = mean(FfpiDfMatDown);
+        FuPsdDfFpi = mean(FfpiDfMatUp);
 
         %% set values (fill arrays)
         % single values
@@ -423,6 +447,10 @@ if ~doLoadData
         thBrV(count) = thBr;
         fdV(count,:) = FdPsdFpi;
         fuV(count,:) = FuPsdFpi;
+        fdPfV(count,:) = FdPsdPfFpi;
+        fuPfV(count,:) = FuPsdPfFpi;
+        fdDfV(count,:) = FdPsdDfFpi;
+        fuDfV(count,:) = FuPsdDfFpi;
         EV(count,:) = EFpi;
         dEV(count,:) = dEFpi;
         % hasEISV(count) = hasEIS;
@@ -489,6 +517,10 @@ thBrV = thBrV(TV~=0);
 betaiV = betaiV(TV~=0);
 fdV = fdV(TV~=0,:);
 fuV = fuV(TV~=0,:);
+fdPfV = fdPfV(TV~=0,:);
+fuPfV = fuPfV(TV~=0,:);
+fdDfV = fdDfV(TV~=0,:);
+fuDfV = fuDfV(TV~=0,:);
 EV = EV(TV~=0,:);
 dEV = dEV(TV~=0,:);
 EfpiMaxV = EfpiMaxV(TV~=0,:);
@@ -524,6 +556,6 @@ TV = TV(TV~=0);
 
 if saveParameters
     disp('Saving parameters...')
-    save(fileName,'dTV','TuV','dTuV','TdV','dTdV','MaV','MfV','VuV','VuLV','VdV','BuV','BuLV','BdV','NuV','NuLV','NdV','TiuV','TiuLV','TidV','TeuLV','TedV','thBnV','thBrV','thVnV','betaiV','EV','dEV','fdV','fuV','EfpiMaxV','hasEISV','RV','sigV','TV','N','dstV','kpV','ssnV','s107V','aeV','lineNumV','nvecV','shModel','imfIdV','swIdV')
+    save(fileName,'dTV','TuV','dTuV','TdV','dTdV','MaV','MfV','VuV','VuLV','VdV','BuV','BuLV','BdV','NuV','NuLV','NdV','TiuV','TiuLV','TidV','TeuLV','TedV','thBnV','thBrV','thVnV','betaiV','EV','dEV','fdV','fuV','fdPfV','fuPfV','fdDfV','fuDfV','EfpiMaxV','hasEISV','RV','sigV','TV','N','dstV','kpV','ssnV','s107V','aeV','lineNumV','nvecV','shModel','imfIdV','swIdV')
     disp('saved!')
 end
